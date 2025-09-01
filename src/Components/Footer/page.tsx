@@ -4,13 +4,13 @@ import {
   Typography,
   TextField,
   Button,
-  colors,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
+import { SelectChangeEvent } from "@mui/material/Select";
 
 const Footer = () => {
   const [selectedState, setSelectedState] = useState("");
@@ -101,7 +101,7 @@ const Footer = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleStateChange = (event: any) => {
+  const handleStateChange = (event: SelectChangeEvent) => {
     const state = event.target.value;
     setSelectedState(state);
     if (state) {
@@ -140,13 +140,13 @@ const Footer = () => {
               fontFamily: "TTRamillas",
             }}
           >
-            We're Just a Message Away
+            {`We're Just a Message Away`}
           </Typography>
           <Typography
             sx={{ color: "#ffff", fontSize: "16px", fontWeight: "400" }}
           >
-            Whether you have questions or need legal help, we're here to connect
-            you with the right support quickly and confidentially.
+            {` Whether you have questions or need legal help, we're here to connect
+            you with the right support quickly and confidentially.`}
           </Typography>
         </Box>
 
