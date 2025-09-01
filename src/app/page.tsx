@@ -151,7 +151,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px" }}>
+              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Corporate & Business Law
                 </Typography>
@@ -190,7 +190,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px" }}>
+              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Family & Divorce Law
                 </Typography>
@@ -231,7 +231,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px" }}>
+              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Estate Planning & Wills
                 </Typography>
@@ -270,7 +270,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px" }}>
+              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Immigration Law
                 </Typography>
@@ -313,7 +313,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px" }}>
+              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Criminal Defense
                 </Typography>
@@ -352,7 +352,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px" }}>
+              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Real Estate Law
                 </Typography>
@@ -393,7 +393,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px" }}>
+              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Personal Injury Law
                 </Typography>
@@ -432,7 +432,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px" }}>
+              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Employment & Labor Law
                 </Typography>
