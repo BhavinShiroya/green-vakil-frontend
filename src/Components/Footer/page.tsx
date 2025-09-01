@@ -4,19 +4,28 @@ import {
   Typography,
   TextField,
   Button,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
+  Autocomplete,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { SelectChangeEvent } from "@mui/material/Select";
 
 const Footer = () => {
   const [selectedState, setSelectedState] = useState("");
   const [cities, setCities] = useState<string[]>([]);
-  const [stateDropdownOpen, setStateDropdownOpen] = useState(false);
-  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
+  const [selectedLegalService, setSelectedLegalService] = useState<
+    string | null
+  >(null);
+
+  // Legal services options
+  const legalServices = [
+    "Immigration Law",
+    "Real Estate Law",
+    "Corporate & Business Law",
+    "Family & Divorce Law",
+    "Estate Planning & Wills",
+    "Criminal Defense",
+    "Personal Injury Law",
+    "Employment & Labor Law",
+  ];
 
   // Cities data for each state
   const stateCities: { [key: string]: string[] } = {
@@ -90,26 +99,30 @@ const Footer = () => {
     WY: ["Cheyenne", "Casper", "Laramie", "Gillette", "Rock Springs"],
   };
 
-  // Close dropdowns when scrolling
+  // Listen for service selection from main page
   useEffect(() => {
-    const handleScroll = () => {
-      setStateDropdownOpen(false);
-      setCityDropdownOpen(false);
+    const handleServiceSelected = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      const serviceName = customEvent.detail;
+      setSelectedLegalService(serviceName);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Check localStorage for pre-selected service
+    const storedService = localStorage.getItem("selectedLegalService");
+    if (storedService) {
+      setSelectedLegalService(storedService);
+      localStorage.removeItem("selectedLegalService"); // Clear after use
+    }
+
+    // Listen for custom event
+    window.addEventListener("serviceSelected", handleServiceSelected);
+
+    return () => {
+      window.removeEventListener("serviceSelected", handleServiceSelected);
+    };
   }, []);
 
-  const handleStateChange = (event: SelectChangeEvent) => {
-    const state = event.target.value;
-    setSelectedState(state);
-    if (state) {
-      setCities(stateCities[state] || []);
-    } else {
-      setCities([]);
-    }
-  };
+  // Removed handleStateChange
 
   return (
     <Box
@@ -177,6 +190,64 @@ const Footer = () => {
                   color: "white",
                   "&.Mui-focused": {
                     color: "white",
+                  },
+                },
+              }}
+            />
+
+            {/* Legal Service Autocomplete */}
+            <Autocomplete
+              options={legalServices}
+              value={selectedLegalService}
+              onChange={(event, newValue) => setSelectedLegalService(newValue)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Legal Service Needed"
+                  variant="outlined"
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      color: "white",
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      borderRadius: "12px",
+                      "& fieldset": {
+                        borderColor: "rgba(255, 255, 255, 0.3)",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "rgba(255, 255, 255, 0.5)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "white",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "white",
+                      "&.Mui-focused": {
+                        color: "white",
+                      },
+                    },
+                  }}
+                />
+              )}
+              sx={{
+                "& .MuiAutocomplete-popupIndicator": {
+                  color: "white",
+                },
+                "& .MuiAutocomplete-clearIndicator": {
+                  color: "white",
+                },
+              }}
+              ListboxProps={{
+                sx: {
+                  backgroundColor: "#1D2331",
+                  color: "white",
+                  "& .MuiAutocomplete-option": {
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    },
+                    "&.Mui-focused": {
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    },
                   },
                 },
               }}
@@ -273,193 +344,186 @@ const Footer = () => {
 
             {/* State and City in same line */}
             <Box sx={{ display: "flex", gap: "20px" }}>
-              {/* State Dropdown */}
-              <FormControl sx={{ width: "50%" }}>
-                <InputLabel
-                  sx={{
-                    color: "white",
-                    "&.Mui-focused": {
-                      color: "white",
-                    },
-                  }}
-                >
-                  State
-                </InputLabel>
-                <Select
-                  value={selectedState}
-                  onChange={handleStateChange}
-                  open={stateDropdownOpen}
-                  onOpen={() => setStateDropdownOpen(true)}
-                  onClose={() => setStateDropdownOpen(false)}
-                  label="State"
-                  MenuProps={{
-                    PaperProps: {
-                      sx: {
-                        backgroundColor: "#1D2331",
+              {/* State Autocomplete */}
+              <Autocomplete
+                options={Object.keys(stateCities)}
+                value={selectedState}
+                onChange={(event, newValue) => {
+                  setSelectedState(newValue || "");
+                  if (newValue) {
+                    setCities(stateCities[newValue] || []);
+                  } else {
+                    setCities([]);
+                  }
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="State"
+                    variant="outlined"
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
                         color: "white",
-                        maxHeight: "200px",
-                        "& .MuiMenuItem-root": {
-                          "&:hover": {
-                            backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          },
-                          "&.Mui-selected": {
-                            backgroundColor: "rgba(255, 255, 255, 0.2)",
-                          },
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        borderRadius: "12px",
+                        "& fieldset": {
+                          borderColor: "rgba(255, 255, 255, 0.3)",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "rgba(255, 255, 255, 0.5)",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "white",
                         },
                       },
-                    },
-                    anchorOrigin: {
-                      vertical: "bottom",
-                      horizontal: "left",
-                    },
-                    transformOrigin: {
-                      vertical: "top",
-                      horizontal: "left",
-                    },
-                    disableScrollLock: true,
-                  }}
-                  sx={{
+                      "& .MuiInputLabel-root": {
+                        color: "white",
+                        "&.Mui-focused": {
+                          color: "white",
+                        },
+                      },
+                    }}
+                  />
+                )}
+                sx={{
+                  width: "50%",
+                  "& .MuiAutocomplete-popupIndicator": {
                     color: "white",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    borderRadius: "12px",
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "rgba(255, 255, 255, 0.3)",
+                  },
+                  "& .MuiAutocomplete-clearIndicator": {
+                    color: "white",
+                  },
+                }}
+                ListboxProps={{
+                  sx: {
+                    backgroundColor: "#1D2331",
+                    color: "white",
+                    maxHeight: "200px",
+                    "& .MuiAutocomplete-option": {
+                      "&:hover": {
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      },
+                      "&.Mui-focused": {
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      },
                     },
-                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "rgba(255, 255, 255, 0.5)",
-                    },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "white",
-                    },
-                    "& .MuiSelect-icon": {
-                      color: "white",
-                    },
-                  }}
-                >
-                  <MenuItem value="">Select State</MenuItem>
-                  <MenuItem value="AL">Alabama</MenuItem>
-                  <MenuItem value="AK">Alaska</MenuItem>
-                  <MenuItem value="AZ">Arizona</MenuItem>
-                  <MenuItem value="AR">Arkansas</MenuItem>
-                  <MenuItem value="CA">California</MenuItem>
-                  <MenuItem value="CO">Colorado</MenuItem>
-                  <MenuItem value="CT">Connecticut</MenuItem>
-                  <MenuItem value="DE">Delaware</MenuItem>
-                  <MenuItem value="FL">Florida</MenuItem>
-                  <MenuItem value="GA">Georgia</MenuItem>
-                  <MenuItem value="HI">Hawaii</MenuItem>
-                  <MenuItem value="ID">Idaho</MenuItem>
-                  <MenuItem value="IL">Illinois</MenuItem>
-                  <MenuItem value="IN">Indiana</MenuItem>
-                  <MenuItem value="IA">Iowa</MenuItem>
-                  <MenuItem value="KS">Kansas</MenuItem>
-                  <MenuItem value="KY">Kentucky</MenuItem>
-                  <MenuItem value="LA">Louisiana</MenuItem>
-                  <MenuItem value="ME">Maine</MenuItem>
-                  <MenuItem value="MD">Maryland</MenuItem>
-                  <MenuItem value="MA">Massachusetts</MenuItem>
-                  <MenuItem value="MI">Michigan</MenuItem>
-                  <MenuItem value="MN">Minnesota</MenuItem>
-                  <MenuItem value="MS">Mississippi</MenuItem>
-                  <MenuItem value="MO">Missouri</MenuItem>
-                  <MenuItem value="MT">Montana</MenuItem>
-                  <MenuItem value="NE">Nebraska</MenuItem>
-                  <MenuItem value="NV">Nevada</MenuItem>
-                  <MenuItem value="NH">New Hampshire</MenuItem>
-                  <MenuItem value="NJ">New Jersey</MenuItem>
-                  <MenuItem value="NM">New Mexico</MenuItem>
-                  <MenuItem value="NY">New York</MenuItem>
-                  <MenuItem value="NC">North Carolina</MenuItem>
-                  <MenuItem value="ND">North Dakota</MenuItem>
-                  <MenuItem value="OH">Ohio</MenuItem>
-                  <MenuItem value="OK">Oklahoma</MenuItem>
-                  <MenuItem value="OR">Oregon</MenuItem>
-                  <MenuItem value="PA">Pennsylvania</MenuItem>
-                  <MenuItem value="RI">Rhode Island</MenuItem>
-                  <MenuItem value="SC">South Carolina</MenuItem>
-                  <MenuItem value="SD">South Dakota</MenuItem>
-                  <MenuItem value="TN">Tennessee</MenuItem>
-                  <MenuItem value="TX">Texas</MenuItem>
-                  <MenuItem value="UT">Utah</MenuItem>
-                  <MenuItem value="VT">Vermont</MenuItem>
-                  <MenuItem value="VA">Virginia</MenuItem>
-                  <MenuItem value="WA">Washington</MenuItem>
-                  <MenuItem value="WV">West Virginia</MenuItem>
-                  <MenuItem value="WI">Wisconsin</MenuItem>
-                  <MenuItem value="WY">Wyoming</MenuItem>
-                </Select>
-              </FormControl>
+                  },
+                }}
+                getOptionLabel={(option) => {
+                  const stateNames: { [key: string]: string } = {
+                    AL: "Alabama",
+                    AK: "Alaska",
+                    AZ: "Arizona",
+                    AR: "Arkansas",
+                    CA: "California",
+                    CO: "Colorado",
+                    CT: "Connecticut",
+                    DE: "Delaware",
+                    FL: "Florida",
+                    GA: "Georgia",
+                    HI: "Hawaii",
+                    ID: "Idaho",
+                    IL: "Illinois",
+                    IN: "Indiana",
+                    IA: "Iowa",
+                    KS: "Kansas",
+                    KY: "Kentucky",
+                    LA: "Louisiana",
+                    ME: "Maine",
+                    MD: "Maryland",
+                    MA: "Massachusetts",
+                    MI: "Michigan",
+                    MN: "Minnesota",
+                    MS: "Mississippi",
+                    MO: "Missouri",
+                    MT: "Montana",
+                    NE: "Nebraska",
+                    NV: "Nevada",
+                    NH: "New Hampshire",
+                    NJ: "New Jersey",
+                    NM: "New Mexico",
+                    NY: "New York",
+                    NC: "North Carolina",
+                    ND: "North Dakota",
+                    OH: "Ohio",
+                    OK: "Oklahoma",
+                    OR: "Oregon",
+                    PA: "Pennsylvania",
+                    RI: "Rhode Island",
+                    SC: "South Carolina",
+                    SD: "South Dakota",
+                    TN: "Tennessee",
+                    TX: "Texas",
+                    UT: "Utah",
+                    VT: "Vermont",
+                    VA: "Virginia",
+                    WA: "Washington",
+                    WV: "West Virginia",
+                    WI: "Wisconsin",
+                    WY: "Wyoming",
+                  };
+                  return stateNames[option] || option;
+                }}
+              />
 
-              {/* City Dropdown */}
-              <FormControl sx={{ width: "50%" }}>
-                <InputLabel
-                  sx={{
-                    color: "white",
-                    "&.Mui-focused": {
-                      color: "white",
-                    },
-                  }}
-                >
-                  City
-                </InputLabel>
-                <Select
-                  disabled={!selectedState}
-                  open={cityDropdownOpen}
-                  onOpen={() => setCityDropdownOpen(true)}
-                  onClose={() => setCityDropdownOpen(false)}
-                  label="City"
-                  MenuProps={{
-                    PaperProps: {
-                      sx: {
-                        backgroundColor: "#1D2331",
+              {/* City Autocomplete */}
+              <Autocomplete
+                options={cities}
+                disabled={!selectedState}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="City"
+                    variant="outlined"
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
                         color: "white",
-                        maxHeight: "200px",
-                        "& .MuiMenuItem-root": {
-                          "&:hover": {
-                            backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          },
-                          "&.Mui-selected": {
-                            backgroundColor: "rgba(255, 255, 255, 0.2)",
-                          },
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        borderRadius: "12px",
+                        "& fieldset": {
+                          borderColor: "rgba(255, 255, 255, 0.3)",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "rgba(255, 255, 255, 0.5)",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "white",
                         },
                       },
-                    },
-                    anchorOrigin: {
-                      vertical: "bottom",
-                      horizontal: "left",
-                    },
-                    transformOrigin: {
-                      vertical: "top",
-                      horizontal: "left",
-                    },
-                    disableScrollLock: true,
-                  }}
-                  sx={{
+                      "& .MuiInputLabel-root": {
+                        color: "white",
+                        "&.Mui-focused": {
+                          color: "white",
+                        },
+                      },
+                    }}
+                  />
+                )}
+                sx={{
+                  width: "50%",
+                  "& .MuiAutocomplete-popupIndicator": {
                     color: "white",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    borderRadius: "12px",
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "rgba(255, 255, 255, 0.3)",
+                  },
+                  "& .MuiAutocomplete-clearIndicator": {
+                    color: "white",
+                  },
+                }}
+                ListboxProps={{
+                  sx: {
+                    backgroundColor: "#1D2331",
+                    color: "white",
+                    maxHeight: "200px",
+                    "& .MuiAutocomplete-option": {
+                      "&:hover": {
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      },
+                      "&.Mui-focused": {
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      },
                     },
-                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "rgba(255, 255, 255, 0.5)",
-                    },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "white",
-                    },
-                    "& .MuiSelect-icon": {
-                      color: "white",
-                    },
-                  }}
-                >
-                  <MenuItem value="">Select City</MenuItem>
-                  {cities.map((city) => (
-                    <MenuItem key={city} value={city}>
-                      {city}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                  },
+                }}
+              />
             </Box>
 
             {/* Field */}

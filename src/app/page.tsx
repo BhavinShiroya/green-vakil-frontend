@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Box, Button, Typography } from "@mui/material";
 import Navbar from "@/Components/Navbar/page";
@@ -14,6 +15,28 @@ import AttorneyImage from "../../public/femaleJudge.svg";
 import Footer from "@/Components/Footer/page";
 
 export default function Home() {
+  const handleServiceClick = (serviceName: string) => {
+    // Scroll to footer - target the beginning of the footer section
+    const footerElement = document.getElementById("footer");
+    if (footerElement) {
+      // Scroll to the top of the footer section with some offset for better visibility
+      const footerTop = footerElement.offsetTop;
+      const offset = 60; // Add some space above the footer
+      window.scrollTo({
+        top: footerTop - offset,
+        behavior: "smooth",
+      });
+    }
+
+    // Store the selected service in localStorage to pass to footer
+    localStorage.setItem("selectedLegalService", serviceName);
+
+    // Trigger a custom event to notify footer component
+    window.dispatchEvent(
+      new CustomEvent("serviceSelected", { detail: serviceName })
+    );
+  };
+
   return (
     <Box sx={{ marginTop: "100px", backgroundColor: "#f5f5f5" }}>
       <Navbar />
@@ -123,6 +146,7 @@ export default function Home() {
         >
           <Box sx={{ marginTop: "30px", display: "flex", gap: "30px" }}>
             <Box
+              onClick={() => handleServiceClick("Corporate & Business Law")}
               sx={{
                 width: "625px",
                 height: "150px",
@@ -131,6 +155,13 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                cursor: "pointer",
+                transition:
+                  "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
+                },
               }}
             >
               <Box
@@ -151,7 +182,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
+              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Corporate & Business Law
                 </Typography>
@@ -162,6 +193,7 @@ export default function Home() {
               </Box>
             </Box>
             <Box
+              onClick={() => handleServiceClick("Family & Divorce Law")}
               sx={{
                 width: "625px",
                 height: "150px",
@@ -170,6 +202,13 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                cursor: "pointer",
+                transition:
+                  "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
+                },
               }}
             >
               <Box
@@ -190,7 +229,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
+              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Family & Divorce Law
                 </Typography>
@@ -203,6 +242,7 @@ export default function Home() {
           </Box>
           <Box sx={{ marginTop: "30px", display: "flex", gap: "30px" }}>
             <Box
+              onClick={() => handleServiceClick("Estate Planning & Wills")}
               sx={{
                 width: "625px",
                 height: "150px",
@@ -211,6 +251,13 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                cursor: "pointer",
+                transition:
+                  "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
+                },
               }}
             >
               <Box
@@ -231,7 +278,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
+              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Estate Planning & Wills
                 </Typography>
@@ -242,6 +289,7 @@ export default function Home() {
               </Box>
             </Box>
             <Box
+              onClick={() => handleServiceClick("Immigration Law")}
               sx={{
                 width: "625px",
                 height: "150px",
@@ -250,6 +298,13 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                cursor: "pointer",
+                transition:
+                  "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(0, 0.1)",
+                },
               }}
             >
               <Box
@@ -270,7 +325,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
+              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Immigration Law
                 </Typography>
@@ -285,6 +340,7 @@ export default function Home() {
           </Box>
           <Box sx={{ marginTop: "30px", display: "flex", gap: "30px" }}>
             <Box
+              onClick={() => handleServiceClick("Criminal Defense")}
               sx={{
                 width: "625px",
                 height: "150px",
@@ -293,6 +349,13 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                cursor: "pointer",
+                transition:
+                  "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
+                },
               }}
             >
               <Box
@@ -313,7 +376,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
+              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Criminal Defense
                 </Typography>
@@ -324,6 +387,7 @@ export default function Home() {
               </Box>
             </Box>
             <Box
+              onClick={() => handleServiceClick("Real Estate Law")}
               sx={{
                 width: "625px",
                 height: "150px",
@@ -332,6 +396,13 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                cursor: "pointer",
+                transition:
+                  "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
+                },
               }}
             >
               <Box
@@ -352,7 +423,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
+              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Real Estate Law
                 </Typography>
@@ -365,6 +436,7 @@ export default function Home() {
           </Box>
           <Box sx={{ marginTop: "30px", display: "flex", gap: "30px" }}>
             <Box
+              onClick={() => handleServiceClick("Personal Injury Law")}
               sx={{
                 width: "625px",
                 height: "150px",
@@ -373,6 +445,13 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                cursor: "pointer",
+                transition:
+                  "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
+                },
               }}
             >
               <Box
@@ -393,7 +472,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
+              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Personal Injury Law
                 </Typography>
@@ -404,6 +483,7 @@ export default function Home() {
               </Box>
             </Box>
             <Box
+              onClick={() => handleServiceClick("Employment & Labor Law")}
               sx={{
                 width: "625px",
                 height: "150px",
@@ -412,6 +492,13 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                cursor: "pointer",
+                transition:
+                  "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
+                },
               }}
             >
               <Box
@@ -432,7 +519,7 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px",textAlign: "left"  }}>
+              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
                   Employment & Labor Law
                 </Typography>
@@ -552,7 +639,7 @@ export default function Home() {
           </Typography>
         </Box>
       </Box>
-      <Box sx={{ marginTop: "120px" }}>
+      <Box id="footer" sx={{ marginTop: "120px" }}>
         <Footer />
       </Box>
       {/* Footer Section */}
