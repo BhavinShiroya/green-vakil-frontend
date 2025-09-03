@@ -152,20 +152,20 @@ export default function Home() {
         id="services"
         sx={{
           // minHeight: "100vh",
-          paddingInline: "80px",
+          paddingInline: { xs: "20px", md: "80px" },
           textAlign: "center",
           backgroundColor: "#f5f5f5",
           display: "flex",
-          paddingTop: "120px",
+          paddingTop: { xs: "80px", md: "120px" },
           flexDirection: "column",
         }}
       >
         <Typography
           variant="h2"
           sx={{
-            fontSize: "60px",
+            fontSize: { xs: "35px", md: "60px" },
             fontWeight: "800",
-            width: "717px",
+            width: { xs: "353px", md: "717px" },
             textAlign: "start",
             fontFamily: "TTRamillas",
             marginLeft: { xs: "0px", xl: "230px" },
@@ -181,12 +181,19 @@ export default function Home() {
             alignItems: "center",
           }}
         >
-          <Box sx={{ marginTop: "30px", display: "flex", gap: "30px" }}>
+          <Box
+            sx={{
+              marginTop: "30px",
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              gap: "30px",
+            }}
+          >
             <Box
               onClick={() => handleServiceClick("Corporate & Business Law")}
               sx={{
                 width: { xs: "353px", md: "625px" },
-                height: { xs: "241px", md: "150px" },
+                height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -217,12 +224,15 @@ export default function Home() {
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
-                  width: "90px",
-                  height: "90px",
+                  width: { xs: "60px", md: "90px" },
+                  height: { xs: "60px", md: "90px" },
                   borderRadius: "16px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  position: { xs: "absolute", md: "static" },
+                  top: { xs: "20px", md: "auto" },
+                  left: { xs: "20px", md: "auto" },
                 }}
               >
                 <Image
@@ -232,11 +242,28 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
-                <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
+              <Box
+                sx={{
+                  marginLeft: { md: "30px" },
+                  textAlign: "left",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: "19px", md: "21px" },
+                    fontWeight: "500",
+                    marginTop: { xs: "80px", md: "unset" },
+                  }}
+                >
                   Corporate & Business Law
                 </Typography>
-                <Typography sx={{ width: "445px", mt: "8px" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "14px", md: "16px" },
+                    width: { xs: "313px", md: "445px" },
+                    mt: "8px",
+                  }}
+                >
                   Smart legal guidance for startups, entrepreneurs, and
                   enterprises protecting your business at every stage.
                 </Typography>
@@ -246,7 +273,7 @@ export default function Home() {
               onClick={() => handleServiceClick("Family & Divorce Law")}
               sx={{
                 width: { xs: "353px", md: "625px" },
-                height: { xs: "241px", md: "150px" },
+                height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -277,12 +304,15 @@ export default function Home() {
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
-                  width: "90px",
-                  height: "90px",
+                  width: { xs: "60px", md: "90px" },
+                  height: { xs: "60px", md: "90px" },
                   borderRadius: "16px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  position: { xs: "absolute", md: "static" },
+                  top: { xs: "20px", md: "auto" },
+                  left: { xs: "20px", md: "auto" },
                 }}
               >
                 <Image
@@ -292,23 +322,47 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
-                <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
+              <Box
+                sx={{
+                  marginLeft: { md: "30px" },
+                  textAlign: "left",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: "19px", md: "21px" },
+                    fontWeight: "500",
+                    marginTop: { xs: "80px", md: "unset" },
+                  }}
+                >
                   Family & Divorce Law
                 </Typography>
-                <Typography sx={{ width: "445px", mt: "8px" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "14px", md: "16px" },
+                    width: { xs: "313px", md: "445px" },
+                    mt: "8px",
+                  }}
+                >
                   Navigating life’s most personal transitions with care,
                   clarity, and compassion from trusted legal experts.
                 </Typography>
               </Box>
             </Box>
           </Box>
-          <Box sx={{ marginTop: "30px", display: "flex", gap: "30px" }}>
+          <Box
+            sx={{
+              marginTop: "30px",
+              display: "flex",
+              gap: "30px",
+              flexDirection: { xs: "column", md: "row" },
+            }}
+          >
             <Box
               onClick={() => handleServiceClick("Estate Planning & Wills")}
               sx={{
                 width: { xs: "353px", md: "625px" },
-                height: { xs: "241px", md: "150px" },
+                height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -339,12 +393,15 @@ export default function Home() {
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
-                  width: "90px",
-                  height: "90px",
+                  width: { xs: "60px", md: "90px" },
+                  height: { xs: "60px", md: "90px" },
                   borderRadius: "16px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  position: { xs: "absolute", md: "static" },
+                  top: { xs: "20px", md: "auto" },
+                  left: { xs: "20px", md: "auto" },
                 }}
               >
                 <Image
@@ -354,11 +411,28 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
-                <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
+              <Box
+                sx={{
+                  marginLeft: { md: "30px" },
+                  textAlign: "left",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: "19px", md: "21px" },
+                    fontWeight: "500",
+                    marginTop: { xs: "80px", md: "unset" },
+                  }}
+                >
                   Estate Planning & Wills
                 </Typography>
-                <Typography sx={{ width: "445px", mt: "8px" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "14px", md: "16px" },
+                    width: { xs: "313px", md: "445px" },
+                    mt: "8px",
+                  }}
+                >
                   Secure your future and protect your loved ones plan with
                   confidence through skilled legal support.
                 </Typography>
@@ -368,7 +442,7 @@ export default function Home() {
               onClick={() => handleServiceClick("Immigration Law")}
               sx={{
                 width: { xs: "353px", md: "625px" },
-                height: { xs: "241px", md: "150px" },
+                height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -399,12 +473,15 @@ export default function Home() {
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
-                  width: "90px",
-                  height: "90px",
+                  width: { xs: "60px", md: "90px" },
+                  height: { xs: "60px", md: "90px" },
                   borderRadius: "16px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  position: { xs: "absolute", md: "static" },
+                  top: { xs: "20px", md: "auto" },
+                  left: { xs: "20px", md: "auto" },
                 }}
               >
                 <Image
@@ -414,11 +491,28 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
-                <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
+              <Box
+                sx={{
+                  marginLeft: { md: "30px" },
+                  textAlign: "left",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: "19px", md: "21px" },
+                    fontWeight: "500",
+                    marginTop: { xs: "80px", md: "unset" },
+                  }}
+                >
                   Immigration Law
                 </Typography>
-                <Typography sx={{ width: "445px", mt: "8px" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "14px", md: "16px" },
+                    width: { xs: "313px", md: "445px" },
+                    mt: "8px",
+                  }}
+                >
                   Smart legal guidance for startups, clear, reliable help
                   through complex immigration matters whether it’s visas, green
                   cards, or citizenship. entrepreneurs, and enterprises
@@ -427,12 +521,19 @@ export default function Home() {
               </Box>
             </Box>
           </Box>
-          <Box sx={{ marginTop: "30px", display: "flex", gap: "30px" }}>
+          <Box
+            sx={{
+              marginTop: "30px",
+              display: "flex",
+              gap: "30px",
+              flexDirection: { xs: "column", md: "row" },
+            }}
+          >
             <Box
               onClick={() => handleServiceClick("Criminal Defense")}
               sx={{
                 width: { xs: "353px", md: "625px" },
-                height: { xs: "241px", md: "150px" },
+                height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -463,12 +564,15 @@ export default function Home() {
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
-                  width: "90px",
-                  height: "90px",
+                  width: { xs: "60px", md: "90px" },
+                  height: { xs: "60px", md: "90px" },
                   borderRadius: "16px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  position: { xs: "absolute", md: "static" },
+                  top: { xs: "20px", md: "auto" },
+                  left: { xs: "20px", md: "auto" },
                 }}
               >
                 <Image
@@ -478,11 +582,28 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
-                <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
+              <Box
+                sx={{
+                  marginLeft: { md: "30px" },
+                  textAlign: "left",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: "19px", md: "21px" },
+                    fontWeight: "500",
+                    marginTop: { xs: "80px", md: "unset" },
+                  }}
+                >
                   Criminal Defense
                 </Typography>
-                <Typography sx={{ width: "445px", mt: "8px" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "14px", md: "16px" },
+                    width: { xs: "313px", md: "445px" },
+                    mt: "8px",
+                  }}
+                >
                   Strong, strategic defense when it matters most—your rights
                   protected by experienced professionals.
                 </Typography>
@@ -492,7 +613,7 @@ export default function Home() {
               onClick={() => handleServiceClick("Real Estate Law")}
               sx={{
                 width: { xs: "353px", md: "625px" },
-                height: { xs: "241px", md: "150px" },
+                height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -523,12 +644,15 @@ export default function Home() {
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
-                  width: "90px",
-                  height: "90px",
+                  width: { xs: "60px", md: "90px" },
+                  height: { xs: "60px", md: "90px" },
                   borderRadius: "16px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  position: { xs: "absolute", md: "static" },
+                  top: { xs: "20px", md: "auto" },
+                  left: { xs: "20px", md: "auto" },
                 }}
               >
                 <Image
@@ -538,23 +662,47 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
-                <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
+              <Box
+                sx={{
+                  marginLeft: { md: "30px" },
+                  textAlign: "left",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: "19px", md: "21px" },
+                    fontWeight: "500",
+                    marginTop: { xs: "80px", md: "unset" },
+                  }}
+                >
                   Real Estate Law
                 </Typography>
-                <Typography sx={{ width: "445px", mt: "8px" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "14px", md: "16px" },
+                    width: { xs: "313px", md: "445px" },
+                    mt: "8px",
+                  }}
+                >
                   From buying a home to resolving disputes, get dependable legal
                   help for all your property matters.
                 </Typography>
               </Box>
             </Box>
           </Box>
-          <Box sx={{ marginTop: "30px", display: "flex", gap: "30px" }}>
+          <Box
+            sx={{
+              marginTop: "30px",
+              display: "flex",
+              gap: "30px",
+              flexDirection: { xs: "column", md: "row" },
+            }}
+          >
             <Box
               onClick={() => handleServiceClick("Personal Injury Law")}
               sx={{
                 width: { xs: "353px", md: "625px" },
-                height: { xs: "241px", md: "150px" },
+                height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -585,12 +733,15 @@ export default function Home() {
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
-                  width: "90px",
-                  height: "90px",
+                  width: { xs: "60px", md: "90px" },
+                  height: { xs: "60px", md: "90px" },
                   borderRadius: "16px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  position: { xs: "absolute", md: "static" },
+                  top: { xs: "20px", md: "auto" },
+                  left: { xs: "20px", md: "auto" },
                 }}
               >
                 <Image
@@ -600,11 +751,28 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
-                <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
+              <Box
+                sx={{
+                  marginLeft: { md: "30px" },
+                  textAlign: "left",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: "19px", md: "21px" },
+                    fontWeight: "500",
+                    marginTop: { xs: "80px", md: "unset" },
+                  }}
+                >
                   Personal Injury Law
                 </Typography>
-                <Typography sx={{ width: "445px", mt: "8px" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "14px", md: "16px" },
+                    width: { xs: "313px", md: "445px" },
+                    mt: "8px",
+                  }}
+                >
                   If you’ve been hurt, we connect you with attorneys who fight
                   for your compensation and peace of mind.
                 </Typography>
@@ -614,7 +782,7 @@ export default function Home() {
               onClick={() => handleServiceClick("Employment & Labor Law")}
               sx={{
                 width: { xs: "353px", md: "625px" },
-                height: { xs: "241px", md: "150px" },
+                height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -645,12 +813,15 @@ export default function Home() {
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
-                  width: "90px",
-                  height: "90px",
+                  width: { xs: "60px", md: "90px" },
+                  height: { xs: "60px", md: "90px" },
                   borderRadius: "16px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  position: { xs: "absolute", md: "static" },
+                  top: { xs: "20px", md: "auto" },
+                  left: { xs: "20px", md: "auto" },
                 }}
               >
                 <Image
@@ -660,11 +831,28 @@ export default function Home() {
                   height={43}
                 />
               </Box>
-              <Box sx={{ marginLeft: "30px", textAlign: "left" }}>
-                <Typography sx={{ fontSize: "21px", fontWeight: "500" }}>
+              <Box
+                sx={{
+                  marginLeft: { md: "30px" },
+                  textAlign: "left",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: "19px", md: "21px" },
+                    fontWeight: "500",
+                    marginTop: { xs: "80px", md: "unset" },
+                  }}
+                >
                   Employment & Labor Law
                 </Typography>
-                <Typography sx={{ width: "445px", mt: "8px" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "14px", md: "16px" },
+                    width: { xs: "313px", md: "445px" },
+                    mt: "8px",
+                  }}
+                >
                   {`Know your rights at work whether you're an employee or
                   employer, get expert legal insight on workplace matters.`}
                 </Typography>
