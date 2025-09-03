@@ -963,15 +963,15 @@ export default function Home() {
         id="about-us"
         sx={{
           // minHeight: "100vh",
-          marginTop: "120px",
-          paddingInline: "80px",
+          marginTop: { xs: "80px", md: "120px" },
+          paddingInline: { xs: "20px", md: "80px" },
           // backgroundColor: "#f5f5f5",
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between",flexDirection:{xs:"column",md:"row"} }}>
           <Typography
             sx={{
-              fontSize: "60px",
+              fontSize: { xs: "35px", md: "60px" },
               fontWeight: "800",
               color: "#000000",
               fontFamily: "TTRamillas",
@@ -981,10 +981,11 @@ export default function Home() {
           </Typography>
           <Typography
             sx={{
-              fontSize: "17px",
+              fontSize: { xs: "15px", md: "17px" },
               fontWeight: "400",
               color: "#000000",
-              width: "50%",
+              width: { xs: "100%", md: "50%" },
+              lineHeight: { xs: "155%" },
             }}
           >
             {` Greenway Lawyer is a legal services platform by Festlyn LLC,
