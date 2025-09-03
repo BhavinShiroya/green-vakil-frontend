@@ -127,27 +127,28 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        height: "702px",
+        height: { xs: "952px", md: "702px" },
         backgroundColor: "#1D2331",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingInline: "80px",
+        paddingInline: { xs: "20px", md: "80px" },
       }}
     >
       <Box
         sx={{
           display: "flex",
+          flexDirection: { xs: "column", md: "row" },
           width: "100%",
           justifyContent: "center",
-          gap: "120px",
+          gap: { xs: "40px", md: "120px" },
         }}
       >
-        <Box sx={{ width: "500px" }}>
+        <Box sx={{ width: { xs: "353px", md: "500px" } }}>
           <Typography
             sx={{
               color: "#ffff",
-              fontSize: "60px",
+              fontSize: { xs: "35px", md: "60px" },
               fontWeight: "800",
               lineHeight: "130%",
               fontFamily: "TTRamillas",
@@ -156,7 +157,11 @@ const Footer = () => {
             {`We're Just a Message Away`}
           </Typography>
           <Typography
-            sx={{ color: "#ffff", fontSize: "16px", fontWeight: "400" }}
+            sx={{
+              color: "#ffff",
+              fontSize: { xs: "15px", md: "16px" },
+              fontWeight: "400",
+            }}
           >
             {` Whether you have questions or need legal help, we're here to connect
             you with the right support quickly and confidentially.`}
@@ -164,9 +169,8 @@ const Footer = () => {
         </Box>
 
         {/* Contact Form */}
-        <Box sx={{ width: "50%", padding: "0px" }}>
+        <Box sx={{ width: { xs: "100%", md: "50%" }, padding: "0px" }}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-            {/* Full Name */}
             <TextField
               label="Full Name"
               variant="outlined"
@@ -195,7 +199,6 @@ const Footer = () => {
               }}
             />
 
-            {/* Legal Service Autocomplete */}
             <Autocomplete
               options={legalServices}
               value={selectedLegalService}
@@ -253,15 +256,13 @@ const Footer = () => {
               }}
             />
 
-            {/* Email and Phone in same line */}
-            <Box sx={{ display: "flex", gap: "20px" }}>
-              {/* Email */}
+            <Box sx={{ display: "flex", gap: "20px",flexDirection: { xs: "column", md: "row" } }}>
               <TextField
                 label="Email Address"
                 type="email"
                 variant="outlined"
                 sx={{
-                  width: "50%",
+                  width: { xs: "100%", md: "50%" },
                   "& .MuiOutlinedInput-root": {
                     color: "white",
                     backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -285,9 +286,13 @@ const Footer = () => {
                 }}
               />
 
-              {/* Phone Number with Country Code */}
-              <Box sx={{ width: "50%", display: "flex", gap: "8px" }}>
-                {/* Country Code Dropdown */}
+              <Box
+                sx={{
+                  width: { xs: "100%", md: "50%" },
+                  display: "flex",
+                  gap: "8px",
+                }}
+              >
                 <Box
                   sx={{
                     width: "80px",
@@ -311,7 +316,6 @@ const Footer = () => {
                   </Typography>
                 </Box>
 
-                {/* Phone Number Input */}
                 <TextField
                   label="Phone Number"
                   variant="outlined"
@@ -342,9 +346,7 @@ const Footer = () => {
               </Box>
             </Box>
 
-            {/* State and City in same line */}
             <Box sx={{ display: "flex", gap: "20px" }}>
-              {/* State Autocomplete */}
               <Autocomplete
                 options={Object.keys(stateCities)}
                 value={selectedState}
@@ -466,7 +468,6 @@ const Footer = () => {
                 }}
               />
 
-              {/* City Autocomplete */}
               <Autocomplete
                 options={cities}
                 disabled={!selectedState}
@@ -526,7 +527,6 @@ const Footer = () => {
               />
             </Box>
 
-            {/* Field */}
             <TextField
               label="Field of Law"
               variant="outlined"
@@ -555,7 +555,6 @@ const Footer = () => {
               }}
             />
 
-            {/* Message Textarea */}
             <TextField
               label="Message"
               variant="outlined"
@@ -586,7 +585,6 @@ const Footer = () => {
               }}
             />
 
-            {/* Submit Button */}
             <Button
               variant="contained"
               sx={{
