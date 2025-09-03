@@ -38,17 +38,17 @@ export default function Home() {
   };
 
   return (
-    <Box sx={{ marginTop: "100px", backgroundColor: "#f5f5f5" }}>
+    <Box sx={{ marginTop: { md: "100px" }, backgroundColor: "#f5f5f5" }}>
       <Navbar />
       {/* Home Section */}
       <Box
-        id="home"
         sx={{
-          // minHeight: "100vh",
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: "center",
           paddingInline: "80px",
           justifyContent: "center",
           backgroundColor: "#f5f5f5",
-          display: "flex",
           paddingTop: "80px",
           gap: "47px",
         }}
@@ -59,27 +59,31 @@ export default function Home() {
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "start",
+            width: { xs: "353px", sm: "unset" },
           }}
         >
           <Typography
             variant="body1"
             sx={{
-              textAlign: "start",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "60px",
+              textAlign: { xs: "center", md: "start" },
+              fontSize: { xs: "40px", md: "60px" },
               fontWeight: "800",
-              width: "655px",
+              width: { xs: "353px", sm: "655px" },
               letterSpacing: "0px",
               lineHeight: "120%",
               fontFamily: "TTRamillas",
+              marginTop: { xs: "100px", md: "0px" },
             }}
           >
             Find Your Legal Ally with Greenway Lawyer
           </Typography>
           <Typography
-            sx={{ width: "655px", fontSize: "16px", fontWeight: "400" }}
+            sx={{
+              width: { xs: "353px", sm: "655px" },
+              fontSize: { xs: "14px", md: "16px" },
+              fontWeight: "400",
+              textAlign: { xs: "center", md: "start" },
+            }}
           >
             we’re your trusted gateway to the best legal support. We bridge the
             gap between you and the right attorney, simplifying your search so
@@ -89,7 +93,7 @@ export default function Home() {
             sx={{
               backgroundColor: "#3D74FF",
               color: "#fff",
-              fontSize: "19px",
+              fontSize: { xs: "16px", md: "19px" },
               fontWeight: "500",
               height: "55px",
               width: "178px",
@@ -99,14 +103,27 @@ export default function Home() {
               justifyContent: "center",
               cursor: "pointer",
               mt: "50px",
-              // textAlign:"start"
+              mx: { xs: "auto", md: 0 }, // Center horizontally only on mobile
             }}
           >
             Contact Us
           </Button>
         </Box>
-        <Box>
-          <Image src={HomeImage} alt="home" width={578} height={578} />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            src={HomeImage}
+            alt="home"
+            style={{
+              width: window.innerWidth < 600 ? "353px" : "578px",
+              height: window.innerWidth < 600 ? "357px" : "578px",
+            }}
+          />
         </Box>
       </Box>
 
