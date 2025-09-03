@@ -13,6 +13,7 @@ import PersonalInjuryIcon from "../../public/PersonalIcon.svg";
 import EmploymentIcon from "../../public/EmploymentIcon.svg";
 import AttorneyImage from "../../public/femaleJudge.svg";
 import Footer from "@/Components/Footer/page";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const handleServiceClick = (serviceName: string) => {
@@ -36,6 +37,24 @@ export default function Home() {
       new CustomEvent("serviceSelected", { detail: serviceName })
     );
   };
+
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const updateDimensions = () => {
+        setDimensions({
+          width: window.innerWidth < 600 ? 353 : 578,
+          height: window.innerWidth < 600 ? 357 : 578,
+        });
+      };
+
+      updateDimensions(); // Set initial dimensions
+      window.addEventListener("resize", updateDimensions);
+
+      return () => window.removeEventListener("resize", updateDimensions);
+    }
+  }, []);
 
   return (
     <Box sx={{ marginTop: { md: "100px" }, backgroundColor: "#f5f5f5" }}>
@@ -120,8 +139,8 @@ export default function Home() {
             src={HomeImage}
             alt="home"
             style={{
-              width: window.innerWidth < 600 ? "353px" : "578px",
-              height: window.innerWidth < 600 ? "357px" : "578px",
+              width: `${dimensions.width}px`,
+              height: `${dimensions.height}px`,
             }}
           />
         </Box>
