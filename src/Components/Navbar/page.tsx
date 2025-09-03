@@ -1,12 +1,22 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Typography,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+} from "@mui/material";
 import Image from "next/image";
 import Logo from "../../../public/Greenway.logo.svg";
 import { useEffect, useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,111 +50,217 @@ export default function Navbar() {
         behavior: "smooth",
       });
     }
+    setMobileOpen(false);
   };
 
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "services", label: "Services" },
+    { id: "attorney", label: "Attorney" },
+    { id: "articles", label: "Articles" },
+    { id: "about-us", label: "About Us" },
+  ];
+
   return (
-    <Box
-      sx={{
-        backgroundColor: "white",
-        height: "100px",
-        justifyContent: "space-between",
-        alignItems: "center",
-        alignContent: "center",
-        display: "flex",
-        paddingInline: "80px",
-        position: "fixed",
-        width: "100%",
-        top: 0,
-        zIndex: 9999,
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-      }}
-    >
+    <>
       <Box
         sx={{
-          display: "flex",
-          gap: "25px",
+          backgroundColor: "white",
+          height: { xs: "70px", md: "100px" },
+          justifyContent: "space-between",
           alignItems: "center",
-          justifyContent: "center",
+          alignContent: "center",
+          display: "flex",
+          paddingInline: { xs: "20px", md: "80px" },
+          position: "fixed",
+          width: "100%",
+          top: 0,
+          zIndex: 9999,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         }}
       >
-        <Typography
+        {/* Desktop Navigation */}
+        <Box
           sx={{
-            fontSize: "16px",
-            fontWeight: "600",
-            color: activeSection === "home" ? "#000000" : "#808080",
-            cursor: "pointer",
-          }}
-          onClick={() => scrollToSection("home")}
-        >
-          Home
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: "16px",
-            fontWeight: "600",
-            color: activeSection === "services" ? "#000000" : "#808080",
-            cursor: "pointer",
-          }}
-          onClick={() => scrollToSection("services")}
-        >
-          Services
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: "16px",
-            fontWeight: "600",
-            color: activeSection === "attorney" ? "#000000" : "#808080",
-            cursor: "pointer",
-          }}
-          onClick={() => scrollToSection("attorney")}
-        >
-          Attorney
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: "16px",
-            fontWeight: "600",
-            color: activeSection === "articles" ? "#000000" : "#808080",
-            cursor: "pointer",
-          }}
-          onClick={() => scrollToSection("articles")}
-        >
-          Articles
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: "16px",
-            fontWeight: "600",
-            color: activeSection === "about-us" ? "#000000" : "#808080",
-            cursor: "pointer",
-          }}
-          onClick={() => scrollToSection("about-us")}
-        >
-          About Us
-        </Typography>
-      </Box>
-      <Box sx={{ marginRight: "15%" }}>
-        <Image src={Logo} alt="logo" width={240} height={60} />
-      </Box>
-      <Box>
-        <Typography
-          sx={{
-            backgroundColor: "#3D74FF",
-            color: "#fff",
-            fontSize: "17px",
-            fontWeight: "500",
-            height: "46px",
-            width: "137px",
-            borderRadius: "12px",
-            display: "flex",
+            display: { xs: "none", md: "flex" },
+            gap: "25px",
             alignItems: "center",
             justifyContent: "center",
-            cursor: "pointer",
           }}
         >
-          Contact Us
-        </Typography>
+          {navItems.map((item) => (
+            <Typography
+              key={item.id}
+              sx={{
+                fontSize: "16px",
+                fontWeight: "600",
+                color: activeSection === item.id ? "#000000" : "#808080",
+                cursor: "pointer",
+              }}
+              onClick={() => scrollToSection(item.id)}
+            >
+              {item.label}
+            </Typography>
+          ))}
+        </Box>
+
+        {/* Mobile Hamburger Menu */}
+        <Box
+          sx={{
+            display: { xs: "flex", md: "none" },
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <Image
+            src={Logo}
+            alt="logo"
+            width={240}
+            height={60}
+            style={{
+              width: "auto",
+              height: "auto",
+              maxWidth: "240px",
+              maxHeight: "60px",
+            }}
+          />
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="end"
+            onClick={handleDrawerToggle}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Box>
+
+        {/* Logo */}
+        <Box
+          sx={{
+            marginRight: { xs: 0, md: "15%" },
+            display: { xs: "none", md: "flex" },
+            justifyContent: "center",
+            flex: 1,
+          }}
+        >
+          <Image
+            src={Logo}
+            alt="logo"
+            width={240}
+            height={60}
+            style={{
+              width: "auto",
+              height: "auto",
+              maxWidth: "240px",
+              maxHeight: "60px",
+            }}
+          />
+        </Box>
+
+        {/* Desktop Contact Button */}
+        <Box sx={{ display: { xs: "none", md: "block" } }}>
+          <Typography
+            sx={{
+              backgroundColor: "#3D74FF",
+              color: "#fff",
+              fontSize: "17px",
+              fontWeight: "500",
+              height: "46px",
+              width: "137px",
+              borderRadius: "12px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+            }}
+          >
+            Contact Us
+          </Typography>
+        </Box>
       </Box>
-    </Box>
+
+      {/* Mobile Drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: "100%",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "white",
+            padding: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "40px",
+            }}
+          >
+            <IconButton onClick={handleDrawerToggle}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <List>
+            {navItems.map((item) => (
+              <ListItem key={item.id} sx={{ padding: "12px 0" }}>
+                <Typography
+                  sx={{
+                    fontSize: "18px",
+                    fontWeight: "600",
+                    color: activeSection === item.id ? "#000000" : "#808080",
+                    cursor: "pointer",
+                    width: "100%",
+                    padding: "12px 0",
+                    borderBottom: "1px solid #f0f0f0",
+                  }}
+                  onClick={() => scrollToSection(item.id)}
+                >
+                  {item.label}
+                </Typography>
+              </ListItem>
+            ))}
+            <ListItem sx={{ padding: "20px 0" }}>
+              <Typography
+                sx={{
+                  backgroundColor: "#3D74FF",
+                  color: "#fff",
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  height: "46px",
+                  width: "100%",
+                  borderRadius: "12px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
+              >
+                Contact Us
+              </Typography>
+            </ListItem>
+          </List>
+        </Box>
+      </Drawer>
+    </>
   );
 }
