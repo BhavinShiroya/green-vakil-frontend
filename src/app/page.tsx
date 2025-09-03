@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 import Navbar from "@/Components/Navbar/page";
 import HomeImage from "../../public/Lawyer.png";
 import CorporateIcon from "../../public/CorporateIcon.svg";
+import Arrow from "../../public/arrow.svg";
 import FamilyIcon from "../../public/FamilyIcon.svg";
 import EstateIcon from "../../public/EstateIcon.svg";
 import ImmigrationIcon from "../../public/ImmigrationIcon.svg";
@@ -184,8 +185,8 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Corporate & Business Law")}
               sx={{
-                width: "625px",
-                height: "150px",
+                width: { xs: "353px", md: "625px" },
+                height: { xs: "241px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -198,8 +199,21 @@ export default function Home() {
                   transform: "translateY(-2px)",
                   boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
                 },
+                mx: "auto", // Center horizontally
+                position: "relative", // Enable absolute positioning for children
               }}
             >
+              <Image
+                src={Arrow}
+                alt="ArrowIcon"
+                width={16}
+                height={16}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                }}
+              />
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
@@ -231,8 +245,8 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Family & Divorce Law")}
               sx={{
-                width: "625px",
-                height: "150px",
+                width: { xs: "353px", md: "625px" },
+                height: { xs: "241px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -245,8 +259,21 @@ export default function Home() {
                   transform: "translateY(-2px)",
                   boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
                 },
+                mx: "auto", // Center horizontally
+                position: "relative", // Enable absolute positioning for children
               }}
             >
+              <Image
+                src={Arrow}
+                alt="ArrowIcon"
+                width={16}
+                height={16}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                }}
+              />
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
@@ -280,8 +307,8 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Estate Planning & Wills")}
               sx={{
-                width: "625px",
-                height: "150px",
+                width: { xs: "353px", md: "625px" },
+                height: { xs: "241px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -294,8 +321,21 @@ export default function Home() {
                   transform: "translateY(-2px)",
                   boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
                 },
+                mx: "auto", // Center horizontally
+                position: "relative", // Enable absolute positioning for children
               }}
             >
+              <Image
+                src={Arrow}
+                alt="ArrowIcon"
+                width={16}
+                height={16}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                }}
+              />
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
@@ -327,8 +367,8 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Immigration Law")}
               sx={{
-                width: "625px",
-                height: "150px",
+                width: { xs: "353px", md: "625px" },
+                height: { xs: "241px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -341,8 +381,21 @@ export default function Home() {
                   transform: "translateY(-2px)",
                   boxShadow: "0 8px 25px rgba(0, 0.1)",
                 },
+                mx: "auto", // Center horizontally
+                position: "relative", // Enable absolute positioning for children
               }}
             >
+              <Image
+                src={Arrow}
+                alt="ArrowIcon"
+                width={16}
+                height={16}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                }}
+              />
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
@@ -378,8 +431,8 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Criminal Defense")}
               sx={{
-                width: "625px",
-                height: "150px",
+                width: { xs: "353px", md: "625px" },
+                height: { xs: "241px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -392,8 +445,21 @@ export default function Home() {
                   transform: "translateY(-2px)",
                   boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
                 },
+                mx: "auto", // Center horizontally
+                position: "relative", // Enable absolute positioning for children
               }}
             >
+              <Image
+                src={Arrow}
+                alt="ArrowIcon"
+                width={16}
+                height={16}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                }}
+              />
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
@@ -425,8 +491,8 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Real Estate Law")}
               sx={{
-                width: "625px",
-                height: "150px",
+                width: { xs: "353px", md: "625px" },
+                height: { xs: "241px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -439,8 +505,21 @@ export default function Home() {
                   transform: "translateY(-2px)",
                   boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
                 },
+                mx: "auto", // Center horizontally
+                position: "relative", // Enable absolute positioning for children
               }}
             >
+              <Image
+                src={Arrow}
+                alt="ArrowIcon"
+                width={16}
+                height={16}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                }}
+              />
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
@@ -474,8 +553,8 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Personal Injury Law")}
               sx={{
-                width: "625px",
-                height: "150px",
+                width: { xs: "353px", md: "625px" },
+                height: { xs: "241px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -488,8 +567,21 @@ export default function Home() {
                   transform: "translateY(-2px)",
                   boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
                 },
+                mx: "auto", // Center horizontally
+                position: "relative", // Enable absolute positioning for children
               }}
             >
+              <Image
+                src={Arrow}
+                alt="ArrowIcon"
+                width={16}
+                height={16}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                }}
+              />
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
@@ -521,8 +613,8 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Employment & Labor Law")}
               sx={{
-                width: "625px",
-                height: "150px",
+                width: { xs: "353px", md: "625px" },
+                height: { xs: "241px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
                 display: "flex",
@@ -535,8 +627,21 @@ export default function Home() {
                   transform: "translateY(-2px)",
                   boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
                 },
+                mx: "auto", // Center horizontally
+                position: "relative", // Enable absolute positioning for children
               }}
             >
+              <Image
+                src={Arrow}
+                alt="ArrowIcon"
+                width={16}
+                height={16}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                }}
+              />
               <Box
                 sx={{
                   backgroundColor: "#F1F5FF",
