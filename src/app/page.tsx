@@ -39,21 +39,37 @@ export default function Home() {
     );
   };
 
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [homeDimensions, setHomeDimensions] = useState({ width: 0, height: 0 });
+  const [attorneyDimensions, setAttorneyDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const updateDimensions = () => {
-        setDimensions({
+      const updateHomeDimensions = () => {
+        setHomeDimensions({
           width: window.innerWidth < 600 ? 353 : 578,
           height: window.innerWidth < 600 ? 357 : 578,
         });
       };
 
-      updateDimensions(); // Set initial dimensions
-      window.addEventListener("resize", updateDimensions);
+      const updateAttorneyDimensions = () => {
+        setAttorneyDimensions({
+          width: window.innerWidth < 600 ? 274 : 486,
+          height: window.innerWidth < 600 ? 411 : 500,
+        });
+      };
 
-      return () => window.removeEventListener("resize", updateDimensions);
+      updateHomeDimensions(); // Set initial dimensions for HomeImage
+      updateAttorneyDimensions(); // Set initial dimensions for AttorneyImage
+      window.addEventListener("resize", updateHomeDimensions);
+      window.addEventListener("resize", updateAttorneyDimensions);
+
+      return () => {
+        window.removeEventListener("resize", updateHomeDimensions);
+        window.removeEventListener("resize", updateAttorneyDimensions);
+      };
     }
   }, []);
 
@@ -140,8 +156,8 @@ export default function Home() {
             src={HomeImage}
             alt="home"
             style={{
-              width: `${dimensions.width}px`,
-              height: `${dimensions.height}px`,
+              width: `${homeDimensions.width}px`,
+              height: `${homeDimensions.height}px`,
             }}
           />
         </Box>
@@ -866,12 +882,14 @@ export default function Home() {
       <Box
         id="attorney"
         sx={{
-          height: "500px",
+          height: { xs: "715px",sm:"760px", md: "500px" },
           marginTop: "120px",
           backgroundColor: "#3D74FF",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: { xs: "start", md: "center" },
+          justifyContent: "center", // Ensure image is at the end
+          paddingInline: { xs: "20px", md: "unset" },
         }}
       >
         <Box
@@ -879,32 +897,45 @@ export default function Home() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            marginBottom: { xs: "0px", md: "0" },
+            order: { xs: 1, md: 0 }, // Move to top in mobile view
           }}
         >
           <Image
             src={AttorneyImage}
             alt="AttorneyImage"
-            width={486}
-            height={500}
+            style={{
+              width: `${attorneyDimensions.width}px`,
+              height: `${attorneyDimensions.height}px`,
+            }}
           />
         </Box>
         <Box
           sx={{
-            width: "745px",
+            width: { xs: "100%", md: "745px" },
+            textAlign: { xs: "start", md: "left" },
           }}
         >
           <Typography
             sx={{
-              fontSize: "60px",
+              fontSize: { xs: "35px", md: "60px" },
               fontWeight: "800",
               color: "#fff",
               fontFamily: "TTRamillas",
+              marginBottom: { xs: "10px", md: "0" },
+              marginTop: { xs: "50px", md: "unset" },
             }}
           >
             Are You an Attorney?
           </Typography>
           <Typography
-            sx={{ fontSize: "17px", fontWeight: "400", color: "#fff" }}
+            sx={{
+              fontSize: { xs: "15px", md: "17px" },
+              fontWeight: "400",
+              color: "#fff",
+              marginBottom: { xs: "20px", md: "0" },
+              textAlign: { xs: "start", md: "unset" },
+            }}
           >
             We’re building a trusted network of legal professionals across the
             U.S. If you’re an attorney and want to be listed on our platform,
@@ -915,7 +946,7 @@ export default function Home() {
               backgroundColor: "#fff",
               color: "#000000",
               borderRadius: "12px",
-              mt: "50px",
+              mt: { xs: "20px", md: "50px" },
               height: "57px",
               width: "210px",
               fontSize: "18px",
