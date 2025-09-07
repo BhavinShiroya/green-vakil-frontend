@@ -78,6 +78,7 @@ export default function Home() {
       <Navbar />
       {/* Home Section */}
       <Box
+        id="home"
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
@@ -882,7 +883,7 @@ export default function Home() {
       <Box
         id="attorney"
         sx={{
-          height: { xs: "715px",sm:"760px", md: "500px" },
+          height: { xs: "715px", sm: "760px", md: "500px" },
           marginTop: "120px",
           backgroundColor: "#3D74FF",
           display: "flex",
@@ -968,7 +969,13 @@ export default function Home() {
           // backgroundColor: "#f5f5f5",
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between",flexDirection:{xs:"column",md:"row"} }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: { xs: "column", md: "row" },
+          }}
+        >
           <Typography
             sx={{
               fontSize: { xs: "35px", md: "60px" },
