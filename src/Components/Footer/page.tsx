@@ -7,10 +7,21 @@ import {
   Autocomplete,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Country, State, City } from "country-state-city";
+import { State, City } from "country-state-city";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
+// Define TypeScript interface for form data
+interface FormData {
+  fullName: string;
+  email: string;
+  phoneNumber?: string;
+  message?: string;
+  legalService: string | null;
+  state: string;
+  city: string | null;
+}
 
 // Define Yup validation schema
 const schema = yup.object().shape({
@@ -37,7 +48,7 @@ const Footer = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormData) => {
     console.log(data);
   };
 
@@ -67,78 +78,6 @@ const Footer = () => {
     "Personal Injury Law",
     "Employment & Labor Law",
   ];
-
-  // Cities data for each state
-  const stateCities: { [key: string]: string[] } = {
-    AL: ["Birmingham", "Montgomery", "Huntsville", "Mobile", "Tuscaloosa"],
-    AK: ["Anchorage", "Fairbanks", "Juneau", "Sitka", "Ketchikan"],
-    AZ: ["Phoenix", "Tucson", "Mesa", "Chandler", "Scottsdale"],
-    AR: [
-      "Little Rock",
-      "Fort Smith",
-      "Fayetteville",
-      "Springdale",
-      "Jonesboro",
-    ],
-    CA: ["Los Angeles", "San Diego", "San Jose", "San Francisco", "Fresno"],
-    CO: ["Denver", "Colorado Springs", "Aurora", "Fort Collins", "Lakewood"],
-    CT: ["Bridgeport", "New Haven", "Stamford", "Hartford", "Waterbury"],
-    DE: ["Wilmington", "Dover", "Newark", "Middletown", "Smyrna"],
-    FL: ["Jacksonville", "Miami", "Tampa", "Orlando", "St. Petersburg"],
-    GA: ["Atlanta", "Augusta", "Columbus", "Macon", "Savannah"],
-    HI: ["Honolulu", "Hilo", "Kailua", "Kapolei", "Kaneohe"],
-    ID: ["Boise", "Meridian", "Nampa", "Idaho Falls", "Pocatello"],
-    IL: ["Chicago", "Aurora", "Rockford", "Joliet", "Naperville"],
-    IN: ["Indianapolis", "Fort Wayne", "Evansville", "South Bend", "Carmel"],
-    IA: ["Des Moines", "Cedar Rapids", "Davenport", "Sioux City", "Iowa City"],
-    KS: ["Wichita", "Overland Park", "Kansas City", "Topeka", "Olathe"],
-    KY: ["Louisville", "Lexington", "Bowling Green", "Owensboro", "Covington"],
-    LA: [
-      "New Orleans",
-      "Baton Rouge",
-      "Shreveport",
-      "Lafayette",
-      "Lake Charles",
-    ],
-    ME: ["Portland", "Lewiston", "Bangor", "Auburn", "Biddeford"],
-    MD: ["Baltimore", "Frederick", "Rockville", "Gaithersburg", "Bowie"],
-    MA: ["Boston", "Worcester", "Springfield", "Lowell", "Cambridge"],
-    MI: ["Detroit", "Grand Rapids", "Warren", "Sterling Heights", "Lansing"],
-    MN: ["Minneapolis", "St. Paul", "Rochester", "Duluth", "Bloomington"],
-    MS: ["Jackson", "Gulfport", "Southaven", "Hattiesburg", "Biloxi"],
-    MO: ["Kansas City", "St. Louis", "Springfield", "Columbia", "Independence"],
-    MT: ["Billings", "Missoula", "Great Falls", "Bozeman", "Butte"],
-    NE: ["Omaha", "Lincoln", "Bellevue", "Grand Island", "Kearney"],
-    NV: ["Las Vegas", "Henderson", "Reno", "North Las Vegas", "Carson City"],
-    NH: ["Manchester", "Nashua", "Concord", "Dover", "Rochester"],
-    NJ: ["Newark", "Jersey City", "Paterson", "Elizabeth", "Edison"],
-    NM: ["Albuquerque", "Las Cruces", "Rio Rancho", "Santa Fe", "Roswell"],
-    NY: ["New York City", "Buffalo", "Rochester", "Yonkers", "Syracuse"],
-    NC: ["Charlotte", "Raleigh", "Greensboro", "Durham", "Winston-Salem"],
-    ND: ["Fargo", "Bismarck", "Grand Forks", "Minot", "West Fargo"],
-    OH: ["Columbus", "Cleveland", "Cincinnati", "Toledo", "Akron"],
-    OK: ["Oklahoma City", "Tulsa", "Norman", "Broken Arrow", "Lawton"],
-    OR: ["Portland", "Salem", "Eugene", "Gresham", "Hillsboro"],
-    PA: ["Philadelphia", "Pittsburgh", "Allentown", "Erie", "Reading"],
-    RI: ["Providence", "Warwick", "Cranston", "Pawtucket", "East Providence"],
-    SC: [
-      "Columbia",
-      "Charleston",
-      "North Charleston",
-      "Mount Pleasant",
-      "Rock Hill",
-    ],
-    SD: ["Sioux Falls", "Rapid City", "Aberdeen", "Brookings", "Watertown"],
-    TN: ["Nashville", "Memphis", "Knoxville", "Chattanooga", "Clarksville"],
-    TX: ["Houston", "San Antonio", "Dallas", "Austin", "Fort Worth"],
-    UT: ["Salt Lake City", "West Valley City", "Provo", "West Jordan", "Orem"],
-    VT: ["Burlington", "South Burlington", "Rutland", "Barre", "Montpelier"],
-    VA: ["Virginia Beach", "Norfolk", "Richmond", "Arlington", "Newport News"],
-    WA: ["Seattle", "Spokane", "Tacoma", "Vancouver", "Bellevue"],
-    WV: ["Charleston", "Huntington", "Morgantown", "Parkersburg", "Wheeling"],
-    WI: ["Milwaukee", "Madison", "Green Bay", "Kenosha", "Racine"],
-    WY: ["Cheyenne", "Casper", "Laramie", "Gillette", "Rock Springs"],
-  };
 
   // Listen for service selection from main page
   useEffect(() => {
