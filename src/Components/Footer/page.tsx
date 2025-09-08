@@ -7,13 +7,23 @@ import {
   Autocomplete,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
+import { Country, State, City } from "country-state-city";
 
 const Footer = () => {
+  const [states, setStates] = useState<string[]>([]);
   const [selectedState, setSelectedState] = useState("");
   const [cities, setCities] = useState<string[]>([]);
   const [selectedLegalService, setSelectedLegalService] = useState<
     string | null
   >(null);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+
+  useEffect(() => {
+    const usStates = State.getStatesOfCountry("US"); // List of U.S. states
+    if (usStates) {
+      setStates(usStates.map((state) => state.name));
+    }
+  }, []);
 
   // Legal services options
   const legalServices = [
@@ -256,7 +266,13 @@ const Footer = () => {
               }}
             />
 
-            <Box sx={{ display: "flex", gap: "20px",flexDirection: { xs: "column", md: "row" } }}>
+            <Box
+              sx={{
+                display: "flex",
+                gap: "20px",
+                flexDirection: { xs: "column", md: "row" },
+              }}
+            >
               <TextField
                 label="Email Address"
                 type="email"
@@ -348,12 +364,55 @@ const Footer = () => {
 
             <Box sx={{ display: "flex", gap: "20px" }}>
               <Autocomplete
-                options={Object.keys(stateCities)}
+                options={states} // Use the updated states array
                 value={selectedState}
                 onChange={(event, newValue) => {
                   setSelectedState(newValue || "");
-                  if (newValue) {
-                    setCities(stateCities[newValue] || []);
+                  setSelectedCity(null); // Reset selected city when state changes
+                  if (newValue === "American Samoa") {
+                    setCities(["Pago Pago", "Tafuna", "Leone"]);
+                  } else if (newValue === "Baker Island") {
+                    setCities(["Baker City"]);
+                  } else if (newValue === "Wake Island") {
+                    setCities(["Wake City"]);
+                  } else if (newValue === "United States Virgin Islands") {
+                    setCities([
+                      "Charlotte Amalie",
+                      "Christiansted",
+                      "Frederiksted",
+                    ]);
+                  } else if (
+                    newValue === "United States Minor Outlying Islands"
+                  ) {
+                    setCities(["Johnston Atoll", "Kingman Reef"]);
+                  } else if (newValue === "Palmyra Atoll") {
+                    setCities(["Cooper Island"]);
+                  } else if (newValue === "Northern Mariana Islands") {
+                    setCities(["Saipan", "Tinian", "Rota"]);
+                  } else if (newValue === "Navassa Island") {
+                    setCities(["Navassa City"]);
+                  } else if (newValue === "Midway Atoll") {
+                    setCities(["Sand Island"]);
+                  } else if (newValue === "Jarvis Island") {
+                    setCities(["Jarvis City"]);
+                  } else if (newValue === "Johnston Atoll") {
+                    setCities(["Johnston City"]);
+                  } else if (newValue === "Howland Island") {
+                    setCities(["Howland City"]);
+                  } else if (newValue === "Kingman Reef") {
+                    setCities(["Kingman City"]);
+                  } else if (newValue) {
+                    const selectedStateObj = State.getStatesOfCountry(
+                      "US"
+                    ).find((state) => state.name === newValue);
+                    const stateCode = selectedStateObj?.isoCode;
+                    if (stateCode) {
+                      const citiesInState = City.getCitiesOfState(
+                        "US",
+                        stateCode
+                      );
+                      setCities(citiesInState.map((city) => city.name));
+                    }
                   } else {
                     setCities([]);
                   }
@@ -470,6 +529,10 @@ const Footer = () => {
 
               <Autocomplete
                 options={cities}
+                value={selectedCity}
+                onChange={(event, newValue) =>
+                  setSelectedCity(newValue || null)
+                }
                 disabled={!selectedState}
                 renderInput={(params) => (
                   <TextField
@@ -495,6 +558,9 @@ const Footer = () => {
                         color: "white",
                         "&.Mui-focused": {
                           color: "white",
+                        },
+                        "&.Mui-disabled": {
+                          color: "white", // Ensure label color remains white when disabled
                         },
                       },
                     }}
@@ -526,34 +592,6 @@ const Footer = () => {
                 }}
               />
             </Box>
-
-            <TextField
-              label="Field of Law"
-              variant="outlined"
-              fullWidth
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  color: "white",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  borderRadius: "12px",
-                  "& fieldset": {
-                    borderColor: "rgba(255, 255, 255, 0.3)",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "white",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "white",
-                  "&.Mui-focused": {
-                    color: "white",
-                  },
-                },
-              }}
-            />
 
             <TextField
               label="Message"
