@@ -8,8 +8,39 @@ import {
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Country, State, City } from "country-state-city";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+// Define Yup validation schema
+const schema = yup.object().shape({
+  fullName: yup.string().required("Full Name is required"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  phoneNumber: yup.string(),
+  message: yup.string(),
+  legalService: yup.string().nullable().required("Legal Service is required"),
+  state: yup.string().required("State is required"),
+  city: yup.string().nullable().required("City is required"),
+});
 
 const Footer = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+    setValue,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
   const [states, setStates] = useState<string[]>([]);
   const [selectedState, setSelectedState] = useState("");
   const [cities, setCities] = useState<string[]>([]);
@@ -114,13 +145,18 @@ const Footer = () => {
     const handleServiceSelected = (event: Event) => {
       const customEvent = event as CustomEvent;
       const serviceName = customEvent.detail;
+
       setSelectedLegalService(serviceName);
+      setValue("legalService", serviceName); // Update the form field value
+      trigger("legalService"); // Revalidate the field
     };
 
     // Check localStorage for pre-selected service
     const storedService = localStorage.getItem("selectedLegalService");
     if (storedService) {
       setSelectedLegalService(storedService);
+      setValue("legalService", storedService); // Update the form field value
+      trigger("legalService"); // Revalidate the field
       localStorage.removeItem("selectedLegalService"); // Clear after use
     }
 
@@ -130,9 +166,7 @@ const Footer = () => {
     return () => {
       window.removeEventListener("serviceSelected", handleServiceSelected);
     };
-  }, []);
-
-  // Removed handleStateChange
+  }, [trigger, setValue]);
 
   return (
     <Box
@@ -180,248 +214,500 @@ const Footer = () => {
 
         {/* Contact Form */}
         <Box sx={{ width: { xs: "100%", md: "50%" }, padding: "0px" }}>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-            <TextField
-              label="Full Name"
-              variant="outlined"
-              fullWidth
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  color: "white",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  borderRadius: "12px",
-                  "& fieldset": {
-                    borderColor: "rgba(255, 255, 255, 0.3)",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "white",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "white",
-                  "&.Mui-focused": {
-                    color: "white",
-                  },
-                },
-              }}
-            />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <Controller
+                name="fullName"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Full Name"
+                    variant="outlined"
+                    fullWidth
+                    error={!!errors.fullName}
+                    helperText={errors.fullName ? errors.fullName.message : ""}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        color: "white",
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        borderRadius: "12px",
+                        "& fieldset": {
+                          borderColor: "rgba(255, 255, 255, 0.3)",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "rgba(255, 255, 255, 0.5)",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "white",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "white",
+                        "&.Mui-focused": {
+                          color: "white",
+                        },
+                      },
+                    }}
+                  />
+                )}
+              />
 
-            <Autocomplete
-              options={legalServices}
-              value={selectedLegalService}
-              onChange={(event, newValue) => setSelectedLegalService(newValue)}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Legal Service Needed"
-                  variant="outlined"
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      color: "white",
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
-                      borderRadius: "12px",
-                      "& fieldset": {
-                        borderColor: "rgba(255, 255, 255, 0.3)",
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "rgba(255, 255, 255, 0.5)",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "white",
-                      },
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "white",
-                      "&.Mui-focused": {
+              <Controller
+                name="legalService"
+                control={control}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    options={legalServices}
+                    value={selectedLegalService}
+                    onChange={(event, newValue) => {
+                      console.log("Service selected in dropdown:", newValue);
+                      field.onChange(newValue || null);
+                      setSelectedLegalService(newValue);
+                      trigger("legalService"); // Revalidate the field
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Legal Service Needed"
+                        variant="outlined"
+                        error={!!errors.legalService}
+                        helperText={
+                          errors.legalService ? errors.legalService.message : ""
+                        }
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            color: "white",
+                            backgroundColor: "rgba(255, 255, 255, 0.1)",
+                            borderRadius: "12px",
+                            "& fieldset": {
+                              borderColor: "rgba(255, 255, 255, 0.3)",
+                            },
+                            "&:hover fieldset": {
+                              borderColor: "rgba(255, 255, 255, 0.5)",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "white",
+                            },
+                          },
+                          "& .MuiInputLabel-root": {
+                            color: "white",
+                            "&.Mui-focused": {
+                              color: "white",
+                            },
+                          },
+                        }}
+                      />
+                    )}
+                    sx={{
+                      "& .MuiAutocomplete-popupIndicator": {
                         color: "white",
                       },
-                    },
-                  }}
-                />
-              )}
-              sx={{
-                "& .MuiAutocomplete-popupIndicator": {
-                  color: "white",
-                },
-                "& .MuiAutocomplete-clearIndicator": {
-                  color: "white",
-                },
-              }}
-              ListboxProps={{
-                sx: {
-                  backgroundColor: "#1D2331",
-                  color: "white",
-                  "& .MuiAutocomplete-option": {
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    },
-                    "&.Mui-focused": {
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    },
-                  },
-                },
-              }}
-            />
-
-            <Box
-              sx={{
-                display: "flex",
-                gap: "20px",
-                flexDirection: { xs: "column", md: "row" },
-              }}
-            >
-              <TextField
-                label="Email Address"
-                type="email"
-                variant="outlined"
-                sx={{
-                  width: { xs: "100%", md: "50%" },
-                  "& .MuiOutlinedInput-root": {
-                    color: "white",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    borderRadius: "12px",
-                    "& fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.3)",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.5)",
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "white",
-                    },
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: "white",
-                    "&.Mui-focused": {
-                      color: "white",
-                    },
-                  },
-                }}
+                      "& .MuiAutocomplete-clearIndicator": {
+                        color: "white",
+                      },
+                    }}
+                    ListboxProps={{
+                      sx: {
+                        backgroundColor: "#1D2331",
+                        color: "white",
+                        "& .MuiAutocomplete-option": {
+                          "&:hover": {
+                            backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          },
+                          "&.Mui-focused": {
+                            backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          },
+                        },
+                      },
+                    }}
+                  />
+                )}
               />
 
               <Box
                 sx={{
-                  width: { xs: "100%", md: "50%" },
                   display: "flex",
-                  gap: "8px",
+                  gap: "20px",
+                  flexDirection: { xs: "column", md: "row" },
                 }}
               >
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Email Address"
+                      type="email"
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.email}
+                      helperText={errors.email ? errors.email.message : ""}
+                      sx={{
+                        width: { xs: "100%", md: "50%" },
+                        "& .MuiOutlinedInput-root": {
+                          color: "white",
+                          backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          borderRadius: "12px",
+                          "& fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.3)",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.5)",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "white",
+                          "&.Mui-focused": {
+                            color: "white",
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                />
+
                 <Box
                   sx={{
-                    width: "80px",
-                    height: "56px",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    borderRadius: "12px",
-                    border: "1px solid rgba(255, 255, 255, 0.3)",
+                    width: { xs: "100%", md: "50%" },
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    "&:hover": {
-                      borderColor: "rgba(255, 255, 255, 0.5)",
-                    },
+                    gap: "8px",
                   }}
                 >
-                  <Typography
-                    sx={{ color: "white", fontSize: "14px", fontWeight: "500" }}
-                  >
-                    +1
-                  </Typography>
-                </Box>
-
-                <TextField
-                  label="Phone Number"
-                  variant="outlined"
-                  sx={{
-                    flex: 1,
-                    "& .MuiOutlinedInput-root": {
-                      color: "white",
+                  <Box
+                    sx={{
+                      width: "80px",
+                      height: "56px",
                       backgroundColor: "rgba(255, 255, 255, 0.1)",
                       borderRadius: "12px",
-                      "& fieldset": {
-                        borderColor: "rgba(255, 255, 255, 0.3)",
-                      },
-                      "&:hover fieldset": {
+                      border: "1px solid rgba(255, 255, 255, 0.3)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      "&:hover": {
                         borderColor: "rgba(255, 255, 255, 0.5)",
                       },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "white",
-                      },
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "white",
-                      "&.Mui-focused": {
+                    }}
+                  >
+                    <Typography
+                      sx={{
                         color: "white",
-                      },
-                    },
-                  }}
+                        fontSize: "14px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      +1
+                    </Typography>
+                  </Box>
+
+                  <Controller
+                    name="phoneNumber"
+                    control={control}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Phone Number"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.phoneNumber}
+                        helperText={
+                          errors.phoneNumber ? errors.phoneNumber.message : ""
+                        }
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            color: "white",
+                            backgroundColor: "rgba(255, 255, 255, 0.1)",
+                            borderRadius: "12px",
+                            "& fieldset": {
+                              borderColor: "rgba(255, 255, 255, 0.3)",
+                            },
+                            "&:hover fieldset": {
+                              borderColor: "rgba(255, 255, 255, 0.5)",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "white",
+                            },
+                          },
+                          "& .MuiInputLabel-root": {
+                            color: "white",
+                            "&.Mui-focused": {
+                              color: "white",
+                            },
+                          },
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
+              </Box>
+
+              <Box sx={{ display: "flex", gap: "20px" }}>
+                <Controller
+                  name="state"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      {...field}
+                      options={states}
+                      onChange={(event, newValue) => {
+                        field.onChange(newValue || "");
+                        setSelectedState(newValue || "");
+                        setSelectedCity(null); // Reset selected city when state changes
+                        if (newValue === "American Samoa") {
+                          setCities(["Pago Pago", "Tafuna", "Leone"]);
+                        } else if (newValue === "Baker Island") {
+                          setCities(["Baker City"]);
+                        } else if (newValue === "Wake Island") {
+                          setCities(["Wake City"]);
+                        } else if (
+                          newValue === "United States Virgin Islands"
+                        ) {
+                          setCities([
+                            "Charlotte Amalie",
+                            "Christiansted",
+                            "Frederiksted",
+                          ]);
+                        } else if (
+                          newValue === "United States Minor Outlying Islands"
+                        ) {
+                          setCities(["Johnston Atoll", "Kingman Reef"]);
+                        } else if (newValue === "Palmyra Atoll") {
+                          setCities(["Cooper Island"]);
+                        } else if (newValue === "Northern Mariana Islands") {
+                          setCities(["Saipan", "Tinian", "Rota"]);
+                        } else if (newValue === "Navassa Island") {
+                          setCities(["Navassa City"]);
+                        } else if (newValue === "Midway Atoll") {
+                          setCities(["Sand Island"]);
+                        } else if (newValue === "Jarvis Island") {
+                          setCities(["Jarvis City"]);
+                        } else if (newValue === "Johnston Atoll") {
+                          setCities(["Johnston City"]);
+                        } else if (newValue === "Howland Island") {
+                          setCities(["Howland City"]);
+                        } else if (newValue === "Kingman Reef") {
+                          setCities(["Kingman City"]);
+                        } else if (newValue) {
+                          const selectedStateObj = State.getStatesOfCountry(
+                            "US"
+                          ).find((state) => state.name === newValue);
+                          const stateCode = selectedStateObj?.isoCode;
+                          if (stateCode) {
+                            const citiesInState = City.getCitiesOfState(
+                              "US",
+                              stateCode
+                            );
+                            setCities(citiesInState.map((city) => city.name));
+                          }
+                        } else {
+                          setCities([]);
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="State"
+                          variant="outlined"
+                          error={!!errors.state}
+                          helperText={errors.state ? errors.state.message : ""}
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              color: "white",
+                              backgroundColor: "rgba(255, 255, 255, 0.1)",
+                              borderRadius: "12px",
+                              "& fieldset": {
+                                borderColor: "rgba(255, 255, 255, 0.3)",
+                              },
+                              "&:hover fieldset": {
+                                borderColor: "rgba(255, 255, 255, 0.5)",
+                              },
+                              "&.Mui-focused fieldset": {
+                                borderColor: "white",
+                              },
+                            },
+                            "& .MuiInputLabel-root": {
+                              color: "white",
+                              "&.Mui-focused": {
+                                color: "white",
+                              },
+                            },
+                          }}
+                        />
+                      )}
+                      sx={{
+                        width: "50%",
+                        "& .MuiAutocomplete-popupIndicator": {
+                          color: "white",
+                        },
+                        "& .MuiAutocomplete-clearIndicator": {
+                          color: "white",
+                        },
+                      }}
+                      ListboxProps={{
+                        sx: {
+                          backgroundColor: "#1D2331",
+                          color: "white",
+                          maxHeight: "200px",
+                          "& .MuiAutocomplete-option": {
+                            "&:hover": {
+                              backgroundColor: "rgba(255, 255, 255, 0.1)",
+                            },
+                            "&.Mui-focused": {
+                              backgroundColor: "rgba(255, 255, 255, 0.1)",
+                            },
+                          },
+                        },
+                      }}
+                      getOptionLabel={(option) => {
+                        const stateNames: { [key: string]: string } = {
+                          AL: "Alabama",
+                          AK: "Alaska",
+                          AZ: "Arizona",
+                          AR: "Arkansas",
+                          CA: "California",
+                          CO: "Colorado",
+                          CT: "Connecticut",
+                          DE: "Delaware",
+                          FL: "Florida",
+                          GA: "Georgia",
+                          HI: "Hawaii",
+                          ID: "Idaho",
+                          IL: "Illinois",
+                          IN: "Indiana",
+                          IA: "Iowa",
+                          KS: "Kansas",
+                          KY: "Kentucky",
+                          LA: "Louisiana",
+                          ME: "Maine",
+                          MD: "Maryland",
+                          MA: "Massachusetts",
+                          MI: "Michigan",
+                          MN: "Minnesota",
+                          MS: "Mississippi",
+                          MO: "Missouri",
+                          MT: "Montana",
+                          NE: "Nebraska",
+                          NV: "Nevada",
+                          NH: "New Hampshire",
+                          NJ: "New Jersey",
+                          NM: "New Mexico",
+                          NY: "New York",
+                          NC: "North Carolina",
+                          ND: "North Dakota",
+                          OH: "Ohio",
+                          OK: "Oklahoma",
+                          OR: "Oregon",
+                          PA: "Pennsylvania",
+                          RI: "Rhode Island",
+                          SC: "South Carolina",
+                          SD: "South Dakota",
+                          TN: "Tennessee",
+                          TX: "Texas",
+                          UT: "Utah",
+                          VT: "Vermont",
+                          VA: "Virginia",
+                          WA: "Washington",
+                          WV: "West Virginia",
+                          WI: "Wisconsin",
+                          WY: "Wyoming",
+                        };
+                        return stateNames[option] || option;
+                      }}
+                    />
+                  )}
+                />
+
+                <Controller
+                  name="city"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      {...field}
+                      options={cities}
+                      onChange={(event, newValue) => {
+                        field.onChange(newValue || null);
+                        setSelectedCity(newValue || null);
+                      }}
+                      disabled={!selectedState}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="City"
+                          variant="outlined"
+                          error={!!errors.city}
+                          helperText={errors.city ? errors.city.message : ""}
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              color: "white",
+                              backgroundColor: "rgba(255, 255, 255, 0.1)",
+                              borderRadius: "12px",
+                              "& fieldset": {
+                                borderColor: "rgba(255, 255, 255, 0.3)",
+                              },
+                              "&:hover fieldset": {
+                                borderColor: "rgba(255, 255, 255, 0.5)",
+                              },
+                              "&.Mui-focused fieldset": {
+                                borderColor: "white",
+                              },
+                            },
+                            "& .MuiInputLabel-root": {
+                              color: "white",
+                              "&.Mui-focused": {
+                                color: "white",
+                              },
+                            },
+                          }}
+                        />
+                      )}
+                      sx={{
+                        width: "50%",
+                        "& .MuiAutocomplete-popupIndicator": {
+                          color: "white",
+                        },
+                        "& .MuiAutocomplete-clearIndicator": {
+                          color: "white",
+                        },
+                      }}
+                      ListboxProps={{
+                        sx: {
+                          backgroundColor: "#1D2331",
+                          color: "white",
+                          maxHeight: "200px",
+                          "& .MuiAutocomplete-option": {
+                            "&:hover": {
+                              backgroundColor: "rgba(255, 255, 255, 0.1)",
+                            },
+                            "&.Mui-focused": {
+                              backgroundColor: "rgba(255, 255, 255, 0.1)",
+                            },
+                          },
+                        },
+                      }}
+                    />
+                  )}
                 />
               </Box>
-            </Box>
 
-            <Box sx={{ display: "flex", gap: "20px" }}>
-              <Autocomplete
-                options={states} // Use the updated states array
-                value={selectedState}
-                onChange={(event, newValue) => {
-                  setSelectedState(newValue || "");
-                  setSelectedCity(null); // Reset selected city when state changes
-                  if (newValue === "American Samoa") {
-                    setCities(["Pago Pago", "Tafuna", "Leone"]);
-                  } else if (newValue === "Baker Island") {
-                    setCities(["Baker City"]);
-                  } else if (newValue === "Wake Island") {
-                    setCities(["Wake City"]);
-                  } else if (newValue === "United States Virgin Islands") {
-                    setCities([
-                      "Charlotte Amalie",
-                      "Christiansted",
-                      "Frederiksted",
-                    ]);
-                  } else if (
-                    newValue === "United States Minor Outlying Islands"
-                  ) {
-                    setCities(["Johnston Atoll", "Kingman Reef"]);
-                  } else if (newValue === "Palmyra Atoll") {
-                    setCities(["Cooper Island"]);
-                  } else if (newValue === "Northern Mariana Islands") {
-                    setCities(["Saipan", "Tinian", "Rota"]);
-                  } else if (newValue === "Navassa Island") {
-                    setCities(["Navassa City"]);
-                  } else if (newValue === "Midway Atoll") {
-                    setCities(["Sand Island"]);
-                  } else if (newValue === "Jarvis Island") {
-                    setCities(["Jarvis City"]);
-                  } else if (newValue === "Johnston Atoll") {
-                    setCities(["Johnston City"]);
-                  } else if (newValue === "Howland Island") {
-                    setCities(["Howland City"]);
-                  } else if (newValue === "Kingman Reef") {
-                    setCities(["Kingman City"]);
-                  } else if (newValue) {
-                    const selectedStateObj = State.getStatesOfCountry(
-                      "US"
-                    ).find((state) => state.name === newValue);
-                    const stateCode = selectedStateObj?.isoCode;
-                    if (stateCode) {
-                      const citiesInState = City.getCitiesOfState(
-                        "US",
-                        stateCode
-                      );
-                      setCities(citiesInState.map((city) => city.name));
-                    }
-                  } else {
-                    setCities([]);
-                  }
-                }}
-                renderInput={(params) => (
+              <Controller
+                name="message"
+                control={control}
+                render={({ field }) => (
                   <TextField
-                    {...params}
-                    label="State"
+                    {...field}
+                    label="Message"
                     variant="outlined"
+                    multiline
+                    rows={4}
+                    fullWidth
+                    error={!!errors.message}
+                    helperText={errors.message ? errors.message.message : ""}
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         color: "white",
@@ -446,201 +732,28 @@ const Footer = () => {
                     }}
                   />
                 )}
-                sx={{
-                  width: "50%",
-                  "& .MuiAutocomplete-popupIndicator": {
-                    color: "white",
-                  },
-                  "& .MuiAutocomplete-clearIndicator": {
-                    color: "white",
-                  },
-                }}
-                ListboxProps={{
-                  sx: {
-                    backgroundColor: "#1D2331",
-                    color: "white",
-                    maxHeight: "200px",
-                    "& .MuiAutocomplete-option": {
-                      "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                      },
-                      "&.Mui-focused": {
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                      },
-                    },
-                  },
-                }}
-                getOptionLabel={(option) => {
-                  const stateNames: { [key: string]: string } = {
-                    AL: "Alabama",
-                    AK: "Alaska",
-                    AZ: "Arizona",
-                    AR: "Arkansas",
-                    CA: "California",
-                    CO: "Colorado",
-                    CT: "Connecticut",
-                    DE: "Delaware",
-                    FL: "Florida",
-                    GA: "Georgia",
-                    HI: "Hawaii",
-                    ID: "Idaho",
-                    IL: "Illinois",
-                    IN: "Indiana",
-                    IA: "Iowa",
-                    KS: "Kansas",
-                    KY: "Kentucky",
-                    LA: "Louisiana",
-                    ME: "Maine",
-                    MD: "Maryland",
-                    MA: "Massachusetts",
-                    MI: "Michigan",
-                    MN: "Minnesota",
-                    MS: "Mississippi",
-                    MO: "Missouri",
-                    MT: "Montana",
-                    NE: "Nebraska",
-                    NV: "Nevada",
-                    NH: "New Hampshire",
-                    NJ: "New Jersey",
-                    NM: "New Mexico",
-                    NY: "New York",
-                    NC: "North Carolina",
-                    ND: "North Dakota",
-                    OH: "Ohio",
-                    OK: "Oklahoma",
-                    OR: "Oregon",
-                    PA: "Pennsylvania",
-                    RI: "Rhode Island",
-                    SC: "South Carolina",
-                    SD: "South Dakota",
-                    TN: "Tennessee",
-                    TX: "Texas",
-                    UT: "Utah",
-                    VT: "Vermont",
-                    VA: "Virginia",
-                    WA: "Washington",
-                    WV: "West Virginia",
-                    WI: "Wisconsin",
-                    WY: "Wyoming",
-                  };
-                  return stateNames[option] || option;
-                }}
               />
 
-              <Autocomplete
-                options={cities}
-                value={selectedCity}
-                onChange={(event, newValue) =>
-                  setSelectedCity(newValue || null)
-                }
-                disabled={!selectedState}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="City"
-                    variant="outlined"
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        color: "white",
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                        borderRadius: "12px",
-                        "& fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.3)",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.5)",
-                        },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "white",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "white",
-                        "&.Mui-focused": {
-                          color: "white",
-                        },
-                        "&.Mui-disabled": {
-                          color: "white", // Ensure label color remains white when disabled
-                        },
-                      },
-                    }}
-                  />
-                )}
+              <Button
+                type="submit"
+                variant="contained"
                 sx={{
-                  width: "50%",
-                  "& .MuiAutocomplete-popupIndicator": {
-                    color: "white",
-                  },
-                  "& .MuiAutocomplete-clearIndicator": {
-                    color: "white",
-                  },
-                }}
-                ListboxProps={{
-                  sx: {
-                    backgroundColor: "#1D2331",
-                    color: "white",
-                    maxHeight: "200px",
-                    "& .MuiAutocomplete-option": {
-                      "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                      },
-                      "&.Mui-focused": {
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                      },
-                    },
-                  },
-                }}
-              />
-            </Box>
-
-            <TextField
-              label="Message"
-              variant="outlined"
-              multiline
-              rows={4}
-              fullWidth
-              sx={{
-                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "#3D74FF",
                   color: "white",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  height: "50px",
+                  fontSize: "16px",
+                  fontWeight: "600",
                   borderRadius: "12px",
-                  "& fieldset": {
-                    borderColor: "rgba(255, 255, 255, 0.3)",
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: "#2D5FCC",
                   },
-                  "&:hover fieldset": {
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "white",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "white",
-                  "&.Mui-focused": {
-                    color: "white",
-                  },
-                },
-              }}
-            />
-
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#3D74FF",
-                color: "white",
-                height: "50px",
-                fontSize: "16px",
-                fontWeight: "600",
-                borderRadius: "12px",
-                textTransform: "none",
-                "&:hover": {
-                  backgroundColor: "#2D5FCC",
-                },
-              }}
-            >
-              Submit
-            </Button>
-          </Box>
+                }}
+              >
+                Submit
+              </Button>
+            </Box>
+          </form>
         </Box>
       </Box>
     </Box>
