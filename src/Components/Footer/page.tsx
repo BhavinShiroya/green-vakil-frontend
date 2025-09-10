@@ -14,7 +14,8 @@ import * as yup from "yup";
 
 // Define TypeScript interface for form data
 interface FormData {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phoneNumber?: string;
   message?: string;
@@ -25,12 +26,17 @@ interface FormData {
 
 // Define Yup validation schema
 const schema = yup.object().shape({
-  fullName: yup.string().required("Full Name is required"),
+  firstName: yup.string().required("First Name is required"),
+  lastName: yup.string().required("Last Name is required"),
   email: yup
     .string()
     .email("Invalid email format")
     .required("Email is required"),
-  phoneNumber: yup.string(),
+  phoneNumber: yup
+    .string()
+    .matches(/^[0-9]+$/, "Phone number must contain only numbers")
+    .min(6, "Phone number must be at least 6   digits")
+    .max(15, "Phone number must not exceed 15 digits"),
   message: yup.string(),
   legalService: yup.string().nullable().required("Legal Service is required"),
   state: yup.string().required("State is required"),
@@ -77,6 +83,7 @@ const Footer = () => {
     "Criminal Defense",
     "Personal Injury Law",
     "Employment & Labor Law",
+    "Not Sure / Other",
   ];
 
   // Listen for service selection from main page
@@ -155,42 +162,93 @@ const Footer = () => {
         <Box sx={{ width: { xs: "100%", md: "50%" }, padding: "0px" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-              <Controller
-                name="fullName"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Full Name"
-                    variant="outlined"
-                    fullWidth
-                    error={!!errors.fullName}
-                    helperText={errors.fullName ? errors.fullName.message : ""}
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        color: "white",
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                        borderRadius: "12px",
-                        "& fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.3)",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.5)",
-                        },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "white",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "white",
-                        "&.Mui-focused": {
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "20px",
+                  flexDirection: { xs: "column", md: "row" },
+                }}
+              >
+                <Controller
+                  name="firstName"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="First Name"
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.firstName}
+                      helperText={
+                        errors.firstName ? errors.firstName.message : ""
+                      }
+                      sx={{
+                        width: { xs: "100%", md: "50%" },
+                        "& .MuiOutlinedInput-root": {
                           color: "white",
+                          backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          borderRadius: "12px",
+                          "& fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.3)",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.5)",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
                         },
-                      },
-                    }}
-                  />
-                )}
-              />
+                        "& .MuiInputLabel-root": {
+                          color: "white",
+                          "&.Mui-focused": {
+                            color: "white",
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                />
+
+                <Controller
+                  name="lastName"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Last Name"
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.lastName}
+                      helperText={
+                        errors.lastName ? errors.lastName.message : ""
+                      }
+                      sx={{
+                        width: { xs: "100%", md: "50%" },
+                        "& .MuiOutlinedInput-root": {
+                          color: "white",
+                          backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          borderRadius: "12px",
+                          "& fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.3)",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.5)",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "white",
+                          "&.Mui-focused": {
+                            color: "white",
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                />
+              </Box>
 
               <Controller
                 name="legalService"
@@ -354,6 +412,16 @@ const Footer = () => {
                         label="Phone Number"
                         variant="outlined"
                         fullWidth
+                        type="tel"
+                        inputProps={{
+                          pattern: "[0-9]*",
+                          inputMode: "numeric",
+                        }}
+                        onChange={(e) => {
+                          // Only allow numbers
+                          const value = e.target.value.replace(/[^0-9]/g, "");
+                          field.onChange(value);
+                        }}
                         error={!!errors.phoneNumber}
                         helperText={
                           errors.phoneNumber ? errors.phoneNumber.message : ""

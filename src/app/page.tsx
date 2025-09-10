@@ -530,10 +530,9 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Smart legal guidance for startups, clear, reliable help
-                  through complex immigration matters whether it’s visas, green
-                  cards, or citizenship. entrepreneurs, and enterprises
-                  protecting your business at every stage.
+                  Trusted help with visas, green cards, work permits, and
+                  citizenship. Guidance for individuals, families, and
+                  businesses at every stage
                 </Typography>
               </Box>
             </Box>
@@ -986,25 +985,47 @@ export default function Home() {
           >
             About Us
           </Typography>
-          <Typography
+
+          <Box
             sx={{
-              fontSize: { xs: "15px", md: "17px" },
-              fontWeight: "400",
-              color: "#000000",
               width: { xs: "100%", md: "50%" },
-              lineHeight: { xs: "155%" },
             }}
           >
-            {` Greenway Lawyer is a legal services platform by Festlyn LLC,
-            dedicated to helping people find the best lawyers for their unique
-            legal needs. While we are not a law firm ourselves, we connect you
-            with experienced, trusted legal professionals who are. Our mission
-            is to simplify the process of finding the right attorney whether
-            you're facing a complex legal matter or simply need guidance by
-            offering a reliable, transparent, and user friendly experience.
-            Every lawyer in our network is thoroughly vetted, so you can move
-            forward with confidence knowing you’re in capable hands.`}
-          </Typography>
+            <Typography
+              sx={{
+                fontSize: { xs: "15px", md: "17px" },
+                fontWeight: "400",
+                color: "#000000",
+                // width: { xs: "100%", md: "50%" },
+                lineHeight: { xs: "155%" },
+              }}
+            >
+              {`Greenway Lawyer, a legal services platform by Festlyn LLC, helps individuals and businesses connect with attorneys who are best suited for their legal needs. The platform provides access to experienced lawyers and trusted legal professionals across multiple practice areas, making it simple to find the right attorney online.`}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: { xs: "15px", md: "17px" },
+                fontWeight: "400",
+                color: "#000000",
+                // width: { xs: "100%", md: "50%" },
+                lineHeight: { xs: "155%" },
+                marginBlock: "20px",
+              }}
+            >
+              {`Our mission is to make hiring an attorney clear, reliable, and client focused. Whether you are addressing a complex legal challenge or seeking straightforward guidance, Greenway Lawyer offers a transparent and professional experience designed to match you with qualified legal support.`}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: { xs: "15px", md: "17px" },
+                fontWeight: "400",
+                color: "#000000",
+                // width: { xs: "100%", md: "50%" },
+                lineHeight: { xs: "155%" },
+              }}
+            >
+              {`Each attorney in our network is thoroughly vetted, ensuring that clients receive skilled and dependable representation. Greenway Lawyer combines modern technology with trusted expertise to create a direct pathway to the right attorney and a stronger outcome for every client`}
+            </Typography>
+          </Box>
         </Box>
       </Box>
       <Box id="footer" sx={{ marginTop: "120px" }}>
