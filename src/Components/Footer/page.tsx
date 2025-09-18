@@ -92,20 +92,21 @@ const Footer = () => {
       });
 
       // Reset form and all state variables
-      reset({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phoneNumber: "",
-        message: "",
-        legalService: "",
-        state: "",
-        city: "",
-      });
+      reset();
       setSelectedLegalService(null);
       setSelectedCity(null);
       setSelectedState("");
       setCities([]);
+
+      // Manually trigger form field updates to ensure UI sync
+      setValue("firstName", "");
+      setValue("lastName", "");
+      setValue("email", "");
+      setValue("phoneNumber", "");
+      setValue("message", "");
+      setValue("state", "");
+      setValue("city", null as any);
+      setValue("legalService", null as any);
     } catch (error) {
       console.error("Error submitting form:", error);
 
@@ -526,6 +527,7 @@ const Footer = () => {
                     <Autocomplete
                       {...field}
                       options={states}
+                      value={selectedState || null}
                       onChange={(event, newValue) => {
                         field.onChange(newValue || "");
                         setSelectedState(newValue || "");
@@ -701,6 +703,7 @@ const Footer = () => {
                     <Autocomplete
                       {...field}
                       options={cities}
+                      value={selectedCity}
                       onChange={(event, newValue) => {
                         field.onChange(newValue || null);
                         setSelectedCity(newValue || null);
