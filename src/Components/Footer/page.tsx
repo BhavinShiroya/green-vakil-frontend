@@ -76,7 +76,7 @@ const Footer = () => {
       };
 
       const response = await axios.post(
-        "http://toc08o4sw0ks0wo8wwgs8skg.91.98.76.2.sslip.io/v1/contacts",
+        "https://fronterainfotech.com/v1/contacts",
         payload,
         {
           headers: {
