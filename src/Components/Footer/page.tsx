@@ -5,12 +5,15 @@ import {
   TextField,
   Button,
   Autocomplete,
+  CircularProgress,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { State, City } from "country-state-city";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 // Define TypeScript interface for form data
 interface FormData {
@@ -50,12 +53,73 @@ const Footer = () => {
     formState: { errors },
     trigger,
     setValue,
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+
+    try {
+      const payload = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        legalService: data.legalService,
+        email: data.email,
+        phoneNumber: data.phoneNumber || "",
+        state: data.state,
+        city: data.city,
+        message: data.message || "",
+      };
+
+      const response = await axios.post(
+        "http://toc08o4sw0ks0wo8wwgs8skg.91.98.76.2.sslip.io/v1/contacts",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // Show success message
+      toast.success("Message sent successfully! We'll contact you soon.", {
+        duration: 4000,
+        position: "top-right",
+      });
+
+      // Reset form and all state variables
+      reset({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        message: "",
+        legalService: "",
+        state: "",
+        city: "",
+      });
+      setSelectedLegalService(null);
+      setSelectedCity(null);
+      setSelectedState("");
+      setCities([]);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+
+      // Show error message
+      toast.error(
+        "❌ Failed to send message. Please check your connection and try again.",
+        {
+          duration: 4000,
+          position: "top-right",
+        }
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const [states, setStates] = useState<string[]>([]);
@@ -744,6 +808,7 @@ const Footer = () => {
               <Button
                 type="submit"
                 variant="contained"
+                disabled={isSubmitting}
                 sx={{
                   backgroundColor: "#3D74FF",
                   color: "white",
@@ -755,9 +820,24 @@ const Footer = () => {
                   "&:hover": {
                     backgroundColor: "#2D5FCC",
                   },
+                  "&:disabled": {
+                    backgroundColor: "rgba(61, 116, 255, 0.5)",
+                    color: "rgba(255, 255, 255, 0.7)",
+                  },
                 }}
               >
-                Submit
+                {isSubmitting ? (
+                  <>
+                    <CircularProgress
+                      size={20}
+                      color="inherit"
+                      sx={{ mr: 1 }}
+                    />
+                    Sending...
+                  </>
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </Box>
           </form>
