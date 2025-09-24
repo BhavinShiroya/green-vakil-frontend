@@ -106,8 +106,8 @@ const Footer = () => {
       setValue("phoneNumber", "");
       setValue("message", "");
       setValue("state", "");
-      setValue("city", null as any);
-      setValue("legalService", null as any);
+      setValue("city", "");
+      setValue("legalService", "");
     } catch (error) {
       console.error("Error submitting form:", error);
 
