@@ -54,6 +54,7 @@ const Footer = () => {
     trigger,
     setValue,
     reset,
+    watch,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -525,6 +526,7 @@ const Footer = () => {
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
+                      freeSolo
                       {...field}
                       options={states}
                       value={selectedState || null}
@@ -581,6 +583,11 @@ const Footer = () => {
                         } else {
                           setCities([]);
                         }
+                      }}
+                      onInputChange={(event, newInputValue) => {
+                        // Update selectedState when user types, so city field gets enabled
+                        setSelectedState(newInputValue);
+                        field.onChange(newInputValue || "");
                       }}
                       renderInput={(params) => (
                         <TextField
@@ -701,6 +708,7 @@ const Footer = () => {
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
+                      freeSolo
                       {...field}
                       options={cities}
                       value={selectedCity}
@@ -708,7 +716,12 @@ const Footer = () => {
                         field.onChange(newValue || null);
                         setSelectedCity(newValue || null);
                       }}
-                      disabled={!selectedState}
+                      onInputChange={(event, newInputValue) => {
+                        // Update form field value when user types custom city
+                        field.onChange(newInputValue || null);
+                        setSelectedCity(newInputValue || null);
+                      }}
+                      disabled={!watch("state")}
                       renderInput={(params) => (
                         <TextField
                           {...params}
