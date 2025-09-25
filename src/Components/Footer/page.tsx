@@ -552,6 +552,8 @@ const Footer = () => {
                         field.onChange(newValue || "");
                         setSelectedState(newValue || "");
                         setSelectedCity(null); // Reset selected city when state changes
+                        setValue("city", ""); // Clear city form field
+                        trigger("city"); // Revalidate city field
                         if (newValue === "American Samoa") {
                           setCities(["Pago Pago", "Tafuna", "Leone"]);
                         } else if (newValue === "Baker Island") {
@@ -606,6 +608,10 @@ const Footer = () => {
                         // Update selectedState when user types, so city field gets enabled
                         setSelectedState(newInputValue);
                         field.onChange(newInputValue || "");
+                        // Clear city when state input is cleared or changed
+                        setSelectedCity(null);
+                        setValue("city", "");
+                        trigger("city");
                       }}
                       renderInput={(params) => (
                         <TextField
@@ -733,7 +739,7 @@ const Footer = () => {
                       freeSolo
                       {...field}
                       options={cities}
-                      value={selectedCity}
+                      value={watch("city") || ""}
                       onChange={(event, newValue) => {
                         field.onChange(newValue || null);
                         setSelectedCity(newValue || null);
