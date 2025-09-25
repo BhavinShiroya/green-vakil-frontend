@@ -594,6 +594,10 @@ const Footer = () => {
                           {...params}
                           label="State"
                           variant="outlined"
+                          inputProps={{
+                            ...params.inputProps,
+                            maxLength: 12,
+                          }}
                           error={!!errors.state}
                           helperText={errors.state ? errors.state.message : ""}
                           sx={{
@@ -727,6 +731,10 @@ const Footer = () => {
                           {...params}
                           label="City"
                           variant="outlined"
+                          inputProps={{
+                            ...params.inputProps,
+                            maxLength: 12,
+                          }}
                           error={!!errors.city}
                           helperText={errors.city ? errors.city.message : ""}
                           sx={{
