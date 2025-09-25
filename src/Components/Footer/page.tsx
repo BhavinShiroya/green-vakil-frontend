@@ -37,9 +37,14 @@ const schema = yup.object().shape({
     .required("Email is required"),
   phoneNumber: yup
     .string()
-    .matches(/^[0-9]+$/, "Phone number must contain only numbers")
-    .min(6, "Phone number must be at least 6   digits")
-    .max(15, "Phone number must not exceed 15 digits"),
+    .test(
+      "phone-format",
+      "Phone number must be in format: XXX XXX XXXX",
+      function (value) {
+        if (!value || value === "") return true; // Allow empty
+        return /^\d{3} \d{3} \d{4}$/.test(value);
+      }
+    ),
   message: yup.string(),
   legalService: yup.string().nullable().required("Legal Service is required"),
   state: yup.string().required("State is required"),
@@ -480,13 +485,26 @@ const Footer = () => {
                         fullWidth
                         type="tel"
                         inputProps={{
-                          pattern: "[0-9]*",
+                          pattern: "[0-9 ]*",
                           inputMode: "numeric",
+                          maxLength: 12,
                         }}
                         onChange={(e) => {
-                          // Only allow numbers
+                          // Only allow numbers and format as XXX XXX XXXX
                           const value = e.target.value.replace(/[^0-9]/g, "");
-                          field.onChange(value);
+                          let formattedValue = "";
+
+                          if (value.length > 0) {
+                            formattedValue = value.substring(0, 3);
+                          }
+                          if (value.length > 3) {
+                            formattedValue += " " + value.substring(3, 6);
+                          }
+                          if (value.length > 6) {
+                            formattedValue += " " + value.substring(6, 10);
+                          }
+
+                          field.onChange(formattedValue);
                         }}
                         error={!!errors.phoneNumber}
                         helperText={
