@@ -1003,42 +1003,114 @@ export default function Home() {
           <Box
             sx={{
               width: { xs: "100%", md: "50%" },
+              display: "flex",
+              flexDirection: "column",
+              gap: { xs: "18px", md: "20px" },
             }}
           >
-            <Typography
-              sx={{
-                fontSize: { xs: "15px", md: "17px" },
-                fontWeight: "400",
-                color: "#000000",
-                // width: { xs: "100%", md: "50%" },
-                lineHeight: { xs: "155%" },
-              }}
+            <Box
+              sx={{ display: "flex", alignItems: "flex-start", gap: "12px" }}
             >
-              {`Greenway Lawyer, a legal services platform by Festlyn LLC, helps individuals and businesses connect with attorneys who are best suited for their legal needs. The platform provides access to experienced lawyers and trusted legal professionals across multiple practice areas, making it simple to find the right attorney online.`}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { xs: "15px", md: "17px" },
-                fontWeight: "400",
-                color: "#000000",
-                // width: { xs: "100%", md: "50%" },
-                lineHeight: { xs: "155%" },
-                marginBlock: "20px",
-              }}
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: 1,
+                  marginTop: "2px",
+                }}
+              >
+                •
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: { xs: "155%" },
+                }}
+              >
+                {`Greenway Lawyer, a legal services platform by Festlyn LLC, helps individuals and businesses connect with attorneys who are best suited for their legal needs.`}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{ display: "flex", alignItems: "flex-start", gap: "12px" }}
             >
-              {`Our mission is to make hiring an attorney clear, reliable, and client focused. Whether you are addressing a complex legal challenge or seeking straightforward guidance, Greenway Lawyer offers a transparent and professional experience designed to match you with qualified legal support.`}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { xs: "15px", md: "17px" },
-                fontWeight: "400",
-                color: "#000000",
-                // width: { xs: "100%", md: "50%" },
-                lineHeight: { xs: "155%" },
-              }}
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: 1,
+                  marginTop: "2px",
+                }}
+              >
+                •
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: { xs: "155%" },
+                }}
+              >
+                {`The platform provides access to experienced lawyers and trusted legal professionals across multiple practice areas, making it simple to find the right attorney online.`}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{ display: "flex", alignItems: "flex-start", gap: "12px" }}
             >
-              {`Each attorney in our network is thoroughly vetted, ensuring that clients receive skilled and dependable representation. Greenway Lawyer combines modern technology with trusted expertise to create a direct pathway to the right attorney and a stronger outcome for every client`}
-            </Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: 1,
+                  marginTop: "2px",
+                }}
+              >
+                •
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: { xs: "155%" },
+                }}
+              >
+                {`Our mission is to make hiring an attorney clear, reliable, and client focused. Whether you are addressing a complex legal challenge or seeking straightforward guidance, Greenway Lawyer offers a transparent and professional experience designed to match you with qualified legal support.`}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{ display: "flex", alignItems: "flex-start", gap: "12px" }}
+            >
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: 1,
+                  marginTop: "2px",
+                }}
+              >
+                •
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: { xs: "155%" },
+                }}
+              >
+                {`Each attorney in our network is thoroughly vetted, ensuring that clients receive skilled and dependable representation. Greenway Lawyer combines modern technology with trusted expertise to create a direct pathway to the right attorney and a stronger outcome for every client.`}
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>
