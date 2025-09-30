@@ -71,7 +71,6 @@ export default function Navbar() {
   };
 
   const navItems = [
-    { id: "home", label: "Home" },
     { id: "services", label: "Services" },
     { id: "attorney", label: "Attorney" },
     { id: "articles", label: "Articles" },
@@ -96,6 +95,27 @@ export default function Navbar() {
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         }}
       >
+        {/* Desktop Logo */}
+        <Box
+          sx={{
+            display: { xs: "none", md: "flex" },
+            alignItems: "center",
+          }}
+        >
+          <Image
+            src={Logo}
+            alt="logo"
+            width={240}
+            height={60}
+            style={{
+              width: "auto",
+              height: "auto",
+              maxWidth: "240px",
+              maxHeight: "60px",
+            }}
+          />
+        </Box>
+
         {/* Desktop Navigation */}
         <Box
           sx={{
@@ -103,6 +123,7 @@ export default function Navbar() {
             gap: "25px",
             alignItems: "center",
             justifyContent: "center",
+            flex: 1,
           }}
         >
           {navItems.map((item) => (
@@ -152,33 +173,10 @@ export default function Navbar() {
           </IconButton>
         </Box>
 
-        {/* Logo */}
-        <Box
-          sx={{
-            marginRight: { xs: 0, md: "15%" },
-            display: { xs: "none", md: "flex" },
-            justifyContent: "center",
-            flex: 1,
-          }}
-        >
-          <Image
-            src={Logo}
-            alt="logo"
-            width={240}
-            height={60}
-            style={{
-              width: "auto",
-              height: "auto",
-              maxWidth: "240px",
-              maxHeight: "60px",
-            }}
-          />
-        </Box>
-
-        {/* Desktop Contact Button */}
+        {/* Desktop Login Button */}
         <Box sx={{ display: { xs: "none", md: "block" } }}>
           <Typography
-            onClick={scrollToFooter}
+            // onClick={scrollToFooter}
             sx={{
               backgroundColor: "#3D74FF",
               color: "#fff",
@@ -193,7 +191,7 @@ export default function Navbar() {
               cursor: "pointer",
             }}
           >
-            Contact Us
+            Login
           </Typography>
         </Box>
       </Box>

@@ -152,6 +152,9 @@ export default function Home() {
               cursor: "pointer",
               mt: "50px",
               mx: { xs: "auto", md: 0 }, // Center horizontally only on mobile
+              "&:hover": {
+                backgroundColor: "#2D5FCC",
+              },
             }}
           >
             Contact Us
