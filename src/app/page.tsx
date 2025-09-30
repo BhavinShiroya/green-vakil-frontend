@@ -122,7 +122,7 @@ export default function Home() {
               textAlign: { xs: "center", md: "start" },
             }}
           >
-            we’re your trusted gateway to the best legal support. We bridge the
+            We are your trusted gateway to the best legal support. We bridge the
             gap between you and the right attorney, simplifying your search so
             you can focus on moving forward with confidence.
           </Typography>
@@ -184,7 +184,7 @@ export default function Home() {
           textAlign: "center",
           backgroundColor: "#f5f5f5",
           display: "flex",
-          paddingTop: { xs: "80px", md: "120px" },
+          paddingTop: { xs: "80px", md: "110px" },
           flexDirection: "column",
         }}
       >
@@ -894,7 +894,7 @@ export default function Home() {
         id="attorney"
         sx={{
           height: { xs: "715px", sm: "760px", md: "500px" },
-          marginTop: "120px",
+          marginTop: "110px",
           backgroundColor: "#3D74FF",
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
@@ -937,7 +937,7 @@ export default function Home() {
               marginTop: { xs: "50px", md: "unset" },
             }}
           >
-            Are You an Attorney?
+            Are You An Attorney?
           </Typography>
           <Typography
             sx={{
@@ -948,9 +948,9 @@ export default function Home() {
               textAlign: { xs: "start", md: "unset" },
             }}
           >
-            We’re building a trusted network of legal professionals across the
-            U.S. If you’re an attorney and want to be listed on our platform,
-            we’d love to hear from you.
+            We are building a trusted network of legal professionals across the
+            U.S. If you are an attorney and want to be listed on our platform,
+            we would love to hear from you.
           </Typography>
           <Button
             sx={{
@@ -974,7 +974,7 @@ export default function Home() {
         id="about-us"
         sx={{
           // minHeight: "100vh",
-          marginTop: { xs: "80px", md: "120px" },
+          marginTop: { xs: "80px", md: "80px" },
           paddingInline: { xs: "20px", md: "80px" },
           // backgroundColor: "#f5f5f5",
         }}
@@ -1039,7 +1039,7 @@ export default function Home() {
           </Box>
         </Box>
       </Box>
-      <Box id="footer" sx={{ marginTop: "120px" }}>
+      <Box id="footer" sx={{ marginTop: "80px" }}>
         <Footer />
       </Box>
       {/* Footer Section */}

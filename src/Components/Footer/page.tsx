@@ -92,7 +92,7 @@ const Footer = () => {
       );
 
       // Show success message
-      toast.success("Message sent successfully! We'll contact you soon.", {
+      toast.success("Message sent successfully! We will contact you soon.", {
         duration: 4000,
         position: "top-right",
       });
@@ -215,7 +215,7 @@ const Footer = () => {
               fontFamily: "TTRamillas",
             }}
           >
-            {`We're Just a Message Away`}
+            {`We Are Just A Message Away`}
           </Typography>
           <Typography
             sx={{
@@ -224,7 +224,7 @@ const Footer = () => {
               fontWeight: "400",
             }}
           >
-            {` Whether you have questions or need legal help, we're here to connect
+            {` Whether you have questions or need legal help, we are here to connect
             you with the right support quickly and confidentially.`}
           </Typography>
         </Box>
