@@ -127,6 +127,17 @@ export default function Home() {
             you can focus on moving forward with confidence.
           </Typography>
           <Button
+            onClick={() => {
+              const footerElement = document.getElementById("footer");
+              if (footerElement) {
+                const navbarHeight = 100; // Height of the fixed navbar
+                const elementPosition = footerElement.offsetTop - navbarHeight;
+                window.scrollTo({
+                  top: elementPosition,
+                  behavior: "smooth",
+                });
+              }
+            }}
             sx={{
               backgroundColor: "#3D74FF",
               color: "#fff",

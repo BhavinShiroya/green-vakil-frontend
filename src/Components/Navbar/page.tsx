@@ -53,6 +53,19 @@ export default function Navbar() {
     setMobileOpen(false);
   };
 
+  const scrollToFooter = () => {
+    const footerElement = document.getElementById("footer");
+    if (footerElement) {
+      const navbarHeight = 100; // Height of the fixed navbar
+      const elementPosition = footerElement.offsetTop - navbarHeight;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth",
+      });
+    }
+    setMobileOpen(false);
+  };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -165,6 +178,7 @@ export default function Navbar() {
         {/* Desktop Contact Button */}
         <Box sx={{ display: { xs: "none", md: "block" } }}>
           <Typography
+            onClick={scrollToFooter}
             sx={{
               backgroundColor: "#3D74FF",
               color: "#fff",
@@ -241,6 +255,7 @@ export default function Navbar() {
             ))}
             <ListItem sx={{ padding: "20px 0" }}>
               <Typography
+                onClick={scrollToFooter}
                 sx={{
                   backgroundColor: "#3D74FF",
                   color: "#fff",
