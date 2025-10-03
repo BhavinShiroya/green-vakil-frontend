@@ -544,7 +544,6 @@ const Footer = () => {
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
-                      freeSolo
                       {...field}
                       options={states}
                       value={selectedState || null}
