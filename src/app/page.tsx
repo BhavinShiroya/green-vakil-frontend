@@ -112,7 +112,7 @@ export default function Home() {
               marginTop: { xs: "100px", md: "0px" },
             }}
           >
-            Find Your Legal Ally with Greenway Lawyer
+            Find Your Legal Ally With Greenway Lawyer
           </Typography>
           <Typography
             sx={{
