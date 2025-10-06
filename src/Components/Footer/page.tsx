@@ -62,6 +62,16 @@ const Footer = () => {
     watch,
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      message: "",
+      legalService: "",
+      state: "",
+      city: "",
+    },
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -98,21 +108,25 @@ const Footer = () => {
       });
 
       // Reset form and all state variables
-      reset();
       setSelectedLegalService(null);
       setSelectedCity(null);
       setSelectedState("");
       setCities([]);
 
-      // Manually trigger form field updates to ensure UI sync
+      // Clear form fields manually to avoid validation triggers
       setValue("firstName", "");
       setValue("lastName", "");
       setValue("email", "");
       setValue("phoneNumber", "");
       setValue("message", "");
+      setValue("legalService", "");
       setValue("state", "");
       setValue("city", "");
-      setValue("legalService", "");
+
+      // Reset form state after clearing values
+      setTimeout(() => {
+        reset();
+      }, 100);
     } catch (error) {
       console.error("Error submitting form:", error);
 
@@ -740,13 +754,17 @@ const Footer = () => {
                       options={cities}
                       value={watch("city") || ""}
                       onChange={(event, newValue) => {
-                        field.onChange(newValue || null);
+                        field.onChange(newValue || "");
                         setSelectedCity(newValue || null);
+                        // Trigger validation to clear any errors
+                        trigger("city");
                       }}
                       onInputChange={(event, newInputValue) => {
                         // Update form field value when user types custom city
-                        field.onChange(newInputValue || null);
+                        field.onChange(newInputValue || "");
                         setSelectedCity(newInputValue || null);
+                        // Trigger validation to clear any errors
+                        trigger("city");
                       }}
                       disabled={!watch("state")}
                       renderInput={(params) => (
