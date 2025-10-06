@@ -53,6 +53,14 @@ export default function Navbar() {
     setMobileOpen(false);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    setMobileOpen(false);
+  };
+
   const scrollToFooter = () => {
     const footerElement = document.getElementById("footer");
     if (footerElement) {
@@ -100,7 +108,9 @@ export default function Navbar() {
           sx={{
             display: { xs: "none", md: "flex" },
             alignItems: "center",
+            cursor: "pointer",
           }}
+          onClick={scrollToTop}
         >
           <Image
             src={Logo}
@@ -151,18 +161,25 @@ export default function Navbar() {
             width: "100%",
           }}
         >
-          <Image
-            src={Logo}
-            alt="logo"
-            width={240}
-            height={60}
-            style={{
-              width: "auto",
-              height: "auto",
-              maxWidth: "240px",
-              maxHeight: "60px",
+          <Box
+            sx={{
+              cursor: "pointer",
             }}
-          />
+            onClick={scrollToTop}
+          >
+            <Image
+              src={Logo}
+              alt="logo"
+              width={240}
+              height={60}
+              style={{
+                width: "auto",
+                height: "auto",
+                maxWidth: "240px",
+                maxHeight: "60px",
+              }}
+            />
+          </Box>
           <IconButton
             color="inherit"
             aria-label="open drawer"
