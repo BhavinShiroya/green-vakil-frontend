@@ -13,14 +13,22 @@ import Logo from "../../../public/Greenway.logo.svg";
 import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
+    // Check if we're on articles page
+    if (window.location.pathname === "/articles") {
+      setActiveSection("articles");
+      return;
+    }
+
     const handleScroll = () => {
-      const sections = ["home", "services", "attorney", "about-us", "articles"];
+      const sections = ["home", "services", "attorney", "about-us"];
       const navbarHeight = 100;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -40,24 +48,63 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle route changes
+  useEffect(() => {
+    if (window.location.pathname === "/articles") {
+      setActiveSection("articles");
+    } else if (window.location.pathname === "/") {
+      setActiveSection("home");
+    }
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const navbarHeight = 100; // Height of the fixed navbar
-      const elementPosition = element.offsetTop - navbarHeight;
-      window.scrollTo({
-        top: elementPosition,
-        behavior: "smooth",
-      });
+    // If we're not on the home page, navigate to home first
+    if (window.location.pathname !== "/") {
+      router.push("/");
+      // Use a more reliable method to wait for page load
+      const scrollToElement = () => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const navbarHeight = 100;
+          const elementPosition = element.offsetTop - navbarHeight;
+          window.scrollTo({
+            top: elementPosition,
+            behavior: "smooth",
+          });
+        } else {
+          // If element not found, try again after a short delay
+          setTimeout(scrollToElement, 50);
+        }
+      };
+      // Start trying to scroll after a short delay
+      setTimeout(scrollToElement, 200);
+    } else {
+      // If already on home page, scroll to section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const navbarHeight = 100; // Height of the fixed navbar
+        const elementPosition = element.offsetTop - navbarHeight;
+        window.scrollTo({
+          top: elementPosition,
+          behavior: "smooth",
+        });
+      }
     }
     setMobileOpen(false);
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    // Check if we're on the home page
+    if (window.location.pathname === "/") {
+      // If on home page, scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } else {
+      // If on any other page, navigate to home page
+      router.push("/");
+    }
     setMobileOpen(false);
   };
 
@@ -71,6 +118,11 @@ export default function Navbar() {
         behavior: "smooth",
       });
     }
+    setMobileOpen(false);
+  };
+
+  const navigateToArticles = () => {
+    router.push("/articles");
     setMobileOpen(false);
   };
 
@@ -145,7 +197,11 @@ export default function Navbar() {
                 color: activeSection === item.id ? "#000000" : "#808080",
                 cursor: "pointer",
               }}
-              onClick={() => scrollToSection(item.id)}
+              onClick={() =>
+                item.id === "articles"
+                  ? navigateToArticles()
+                  : scrollToSection(item.id)
+              }
             >
               {item.label}
             </Typography>
@@ -191,7 +247,8 @@ export default function Navbar() {
         </Box>
 
         {/* Desktop Login Button */}
-        <Box sx={{ display: { xs: "none", md: "block" } }}>
+        <Box sx={{ width: { xs: "100%", md: "137px" } }}></Box>
+        {/* <Box sx={{ display: { xs: "none", md: "block" } }}>
           <Typography
             // onClick={scrollToFooter}
             sx={{
@@ -210,7 +267,7 @@ export default function Navbar() {
           >
             Login
           </Typography>
-        </Box>
+        </Box> */}
       </Box>
 
       {/* Mobile Drawer */}
@@ -262,7 +319,11 @@ export default function Navbar() {
                     padding: "12px 0",
                     borderBottom: "1px solid #f0f0f0",
                   }}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() =>
+                    item.id === "articles"
+                      ? navigateToArticles()
+                      : scrollToSection(item.id)
+                  }
                 >
                   {item.label}
                 </Typography>

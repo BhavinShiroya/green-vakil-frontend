@@ -7,6 +7,7 @@ import { Poppins } from "next/font/google";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Toaster } from "react-hot-toast";
+import Navbar from "../Components/Navbar/page";
 
 // Geist fonts
 const geistSans = Geist({
@@ -44,6 +45,7 @@ export default function RootLayout({
       >
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <Navbar />
           {children}
           <Toaster
             position="top-right"
