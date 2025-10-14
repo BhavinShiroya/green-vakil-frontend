@@ -376,11 +376,11 @@ export default function ArticleDetailPage() {
                     }}
                   >
                     <Typography
-                      variant="h2"
+                      // variant="h6"
                       sx={{
-                        fontWeight: "800",
-                        fontSize: { xs: "32px", md: "42px", lg: "48px" },
-                        lineHeight: 1.1,
+                        fontWeight: "700",
+                        fontSize: { xs: "32px" },
+                        lineHeight: 1.4,
                         color: "#1a1a1a",
                         flex: 1,
                         minWidth: "300px",
