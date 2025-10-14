@@ -486,8 +486,6 @@ export default function ArticleDetailPage() {
                   </Box>
                 </Box>
 
-                
-
                 {/* Article Content */}
                 {article.description && (
                   <Box

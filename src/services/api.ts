@@ -11,6 +11,7 @@ export interface Author {
 export interface Article {
   id: string;
   title: string;
+  subtitle?: string;
   description: string;
   author: Author;
   createdAt: string;

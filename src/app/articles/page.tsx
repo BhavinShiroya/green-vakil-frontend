@@ -197,20 +197,18 @@ export default function ArticlesPage() {
                   />
                 </Box>
 
-                {article.description && (
+                {article.subtitle && (
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{
                       marginBottom: "16px",
                       lineHeight: 1.6,
+                      fontStyle: "italic",
                     }}
-                    dangerouslySetInnerHTML={{
-                      __html: article.description
-                        .replace(/&lt;/g, "<")
-                        .replace(/&gt;/g, ">"),
-                    }}
-                  />
+                  >
+                    {article.subtitle}
+                  </Typography>
                 )}
 
                 <Box
