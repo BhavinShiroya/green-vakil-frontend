@@ -29,15 +29,14 @@ export interface ArticlesResponse {
 }
 
 export const apiService = {
-  // Get all articles (fetches all pages)
-  async getArticles(): Promise<Article[]> {
+  async getPublishedArticles(): Promise<Article[]> {
     try {
       let allArticles: Article[] = [];
       let currentPage = 1;
       let totalPages = 1;
 
       do {
-        const response = await fetch(`${API_BASE_URL}/articles?page=${currentPage}&limit=100`, {
+        const response = await fetch(`${API_BASE_URL}/articles/published?sortBy=createdAt:desc&page=${currentPage}&limit=100`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -60,7 +59,7 @@ export const apiService = {
 
       return allArticles;
     } catch (error) {
-      console.error('Error fetching articles:', error);
+      console.error('Error fetching published articles:', error);
       throw error;
     }
   },

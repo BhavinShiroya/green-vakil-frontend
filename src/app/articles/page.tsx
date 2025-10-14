@@ -40,7 +40,7 @@ export default function ArticlesPage() {
     const fetchArticles = async () => {
       try {
         setLoading(true);
-        const data = await apiService.getArticles();
+        const data = await apiService.getPublishedArticles();
         setArticles(data);
         setError(null);
       } catch (err) {
