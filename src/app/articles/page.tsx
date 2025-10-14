@@ -184,17 +184,6 @@ export default function ArticlesPage() {
                   >
                     {article.title}
                   </Typography>
-                  <Chip
-                    label={article.status}
-                    size="small"
-                    sx={{
-                      backgroundColor:
-                        article.status === "published" ? "#4caf50" : "#ff9800",
-                      color: "white",
-                      fontSize: "10px",
-                      textTransform: "capitalize",
-                    }}
-                  />
                 </Box>
 
                 {article.subtitle && (

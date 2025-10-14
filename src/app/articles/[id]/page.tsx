@@ -389,21 +389,6 @@ export default function ArticleDetailPage() {
                     >
                       {article.title}
                     </Typography>
-                    <Chip
-                      label={article.status}
-                      size="medium"
-                      sx={{
-                        backgroundColor:
-                          article.status === "published"
-                            ? "#4caf50"
-                            : "#ff9800",
-                        color: "white",
-                        fontSize: "12px",
-                        textTransform: "capitalize",
-                        fontWeight: "600",
-                        height: "32px",
-                      }}
-                    />
                   </Box>
 
                   {/* Author and Meta Info */}
@@ -629,27 +614,6 @@ export default function ArticleDetailPage() {
                   <Typography variant="body1" sx={{ fontWeight: "500" }}>
                     {article.author.name}
                   </Typography>
-                </Box>
-
-                <Box>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ fontSize: "12px" }}
-                  >
-                    STATUS
-                  </Typography>
-                  <Chip
-                    label={article.status}
-                    size="small"
-                    sx={{
-                      backgroundColor:
-                        article.status === "published" ? "#4caf50" : "#ff9800",
-                      color: "white",
-                      fontSize: "10px",
-                      textTransform: "capitalize",
-                    }}
-                  />
                 </Box>
 
                 <Box>
