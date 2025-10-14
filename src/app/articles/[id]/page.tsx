@@ -81,7 +81,7 @@ export default function ArticleDetailPage() {
   const [showShareMenu, setShowShareMenu] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const articleId = params?.id as string;
+  const articleSlug = params?.id as string;
 
   // Reading progress tracking
   useEffect(() => {
@@ -152,11 +152,11 @@ export default function ArticleDetailPage() {
 
   useEffect(() => {
     setMounted(true);
-    if (articleId) {
+    if (articleSlug) {
       const fetchArticle = async () => {
         try {
           setLoading(true);
-          const data = await apiService.getArticle(articleId);
+          const data = await apiService.getPublishedArticleBySlug(articleSlug);
           setArticle(data);
           setError(null);
         } catch (err) {
@@ -169,7 +169,7 @@ export default function ArticleDetailPage() {
 
       fetchArticle();
     }
-  }, [articleId]);
+  }, [articleSlug]);
 
   // Skeleton loading component
   const SkeletonLoader = () => (

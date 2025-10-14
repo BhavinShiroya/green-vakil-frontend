@@ -86,4 +86,26 @@ export const apiService = {
       throw error;
     }
   },
+
+  // Get published article by slug
+  async getPublishedArticleBySlug(slug: string): Promise<Article> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/articles/published/${slug}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: Article = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching published article by slug:', error);
+      throw error;
+    }
+  },
 };

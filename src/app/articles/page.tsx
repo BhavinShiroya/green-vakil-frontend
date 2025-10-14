@@ -31,8 +31,9 @@ export default function ArticlesPage() {
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  const handleArticleClick = (articleId: string) => {
-    router.push(`/articles/${articleId}`);
+  const handleArticleClick = (article: Article) => {
+    const slug = article.slug || article.id;
+    router.push(`/articles/${slug}`);
   };
 
   useEffect(() => {
@@ -140,7 +141,7 @@ export default function ArticlesPage() {
           {articles.map((article) => (
             <Card
               key={article.id}
-              onClick={() => handleArticleClick(article.id)}
+              onClick={() => handleArticleClick(article)}
               sx={{
                 height: "100%",
                 display: "flex",
