@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build --turbopack && next-sitemap",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -17,6 +18,7 @@
     "axios": "^1.12.2",
     "country-state-city": "^3.2.1",
     "next": "15.5.0",
+    "next-sitemap": "^4.2.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
