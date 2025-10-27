@@ -900,23 +900,52 @@ export default function Home() {
       <Box
         id="attorney"
         sx={{
-          height: { xs: "715px", sm: "760px", md: "500px" },
+          height: { md: "500px" },
+          minHeight: { xs: "715px", sm: "760px", md: "500px" },
           marginTop: "110px",
           backgroundColor: "#3D74FF",
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           alignItems: { xs: "start", md: "center" },
-          justifyContent: "center", // Ensure image is at the end
-          paddingInline: { xs: "20px", md: "unset" },
+          justifyContent: "center",
+          paddingInline: { xs: "20px", md: "80px" },
+          position: "relative",
+          paddingBottom: { xs: "0", md: "0" },
+          gap: { xs: 0, md: "60px" },
         }}
       >
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", md: "flex" },
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "flex-end",
             marginBottom: { xs: "0px", md: "0" },
-            order: { xs: 1, md: 0 }, // Move to top in mobile view
+            order: { xs: 1, md: 0 },
+            height: "100%",
+            width: "auto",
+            position: "relative",
+            flexShrink: 0,
+          }}
+        >
+          <Image
+            src={AttorneyImage}
+            alt="AttorneyImage"
+            style={{
+              width: `${attorneyDimensions.width}px`,
+              height: `${attorneyDimensions.height}px`,
+            }}
+          />
+        </Box>
+
+        {/* Mobile only image container - positioned at bottom */}
+        <Box
+          sx={{
+            display: { xs: "flex", md: "none" },
+            justifyContent: "flex-start",
+            alignItems: "center",
+            order: { xs: 2, md: 0 },
+            marginTop: "auto",
+            width: "100%",
           }}
         >
           <Image
@@ -932,6 +961,11 @@ export default function Home() {
           sx={{
             width: { xs: "100%", md: "745px" },
             textAlign: { xs: "start", md: "left" },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            order: { xs: 1, md: 1 },
+            paddingTop: { xs: "30px", md: "0" },
           }}
         >
           <Typography
