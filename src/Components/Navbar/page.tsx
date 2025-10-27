@@ -217,9 +217,22 @@ export default function Navbar() {
             width: "100%",
           }}
         >
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mb: "10px" }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Box
             sx={{
               cursor: "pointer",
+              margin: "0 auto",
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
             }}
             onClick={scrollToTop}
           >
@@ -236,14 +249,7 @@ export default function Navbar() {
               }}
             />
           </Box>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={handleDrawerToggle}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Box sx={{ width: "40px" }}></Box>
         </Box>
 
         {/* Desktop Login Button */}
@@ -282,7 +288,7 @@ export default function Navbar() {
           display: { xs: "block", md: "none" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: "100%",
+            width: "80%",
           },
         }}
       >
