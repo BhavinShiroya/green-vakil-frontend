@@ -100,7 +100,7 @@ export default function Home() {
           }}
         >
           <Typography
-            variant="body1"
+            component="h1"
             sx={{
               textAlign: { xs: "center", md: "start" },
               fontSize: { xs: "40px", md: "60px" },
@@ -115,11 +115,14 @@ export default function Home() {
             Find Your Legal Ally With Greenway Lawyer
           </Typography>
           <Typography
+            component="h2"
             sx={{
               width: { xs: "353px", sm: "655px" },
               fontSize: { xs: "14px", md: "16px" },
               fontWeight: "400",
               textAlign: { xs: "center", md: "start" },
+              lineHeight: "160%",
+              letterSpacing: "0px",
             }}
           >
             We are your trusted gateway to the best legal support. We bridge the
@@ -192,7 +195,7 @@ export default function Home() {
         }}
       >
         <Typography
-          variant="h2"
+          component="h2"
           sx={{
             fontSize: { xs: "35px", md: "60px" },
             fontWeight: "800",
@@ -200,6 +203,7 @@ export default function Home() {
             textAlign: "start",
             fontFamily: "TTRamillas",
             marginLeft: { xs: "0px", xl: "230px" },
+            lineHeight: "130%",
           }}
         >
           Legal Services We Connect You With
@@ -931,6 +935,7 @@ export default function Home() {
           }}
         >
           <Typography
+            component="h2"
             sx={{
               fontSize: { xs: "35px", md: "60px" },
               fontWeight: "800",
@@ -943,12 +948,15 @@ export default function Home() {
             Are You An Attorney?
           </Typography>
           <Typography
+            component="h2"
             sx={{
               fontSize: { xs: "15px", md: "17px" },
               fontWeight: "400",
               color: "#fff",
               marginBottom: { xs: "20px", md: "0" },
               textAlign: { xs: "start", md: "unset" },
+              lineHeight: "160%",
+              letterSpacing: "0px",
             }}
           >
             We are building a trusted network of legal professionals across the
