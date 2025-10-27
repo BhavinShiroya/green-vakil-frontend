@@ -774,7 +774,7 @@ const Footer = () => {
                           variant="outlined"
                           inputProps={{
                             ...params.inputProps,
-                            maxLength: 12,
+                            maxLength: 17,
                           }}
                           error={!!errors.city}
                           helperText={errors.city ? errors.city.message : ""}
