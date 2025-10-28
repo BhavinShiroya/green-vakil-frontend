@@ -168,6 +168,10 @@ export default function Home() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            width: { xs: "353px", sm: "578px" },
+            height: { xs: "357px", sm: "578px" },
+            minWidth: { xs: "353px", sm: "578px" },
+            minHeight: { xs: "357px", sm: "578px" },
           }}
         >
           <Image
