@@ -14,6 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { FaInstagram, FaLinkedin, FaFacebook } from "react-icons/fa";
 
 // Define TypeScript interface for form data
 interface FormData {
@@ -200,165 +201,78 @@ const Footer = () => {
   }, [trigger, setValue]);
 
   return (
-    <Box
-      sx={{
-        height: { xs: "952px", md: "702px" },
-        backgroundColor: "#1D2331",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingInline: { xs: "20px", md: "80px" },
-      }}
-    >
+    <Box>
       <Box
         sx={{
+          height: { xs: "952px", md: "702px" },
+          backgroundColor: "#1D2331",
           display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          width: "100%",
-          justifyContent: "center",
-          gap: { xs: "40px", md: "120px" },
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingInline: { xs: "20px", md: "80px" },
         }}
       >
-        <Box sx={{ width: { xs: "353px", md: "500px" } }}>
-          <Typography
-            sx={{
-              color: "#ffff",
-              fontSize: { xs: "35px", md: "60px" },
-              fontWeight: "800",
-              lineHeight: "130%",
-              fontFamily: "TTRamillas",
-            }}
-          >
-            {`We Are Just A Message Away`}
-          </Typography>
-          <Typography
-            sx={{
-              color: "#ffff",
-              fontSize: { xs: "15px", md: "16px" },
-              fontWeight: "400",
-            }}
-          >
-            {` Whether you have questions or need legal help, we are here to connect
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            width: "100%",
+            justifyContent: "center",
+            gap: { xs: "40px", md: "120px" },
+          }}
+        >
+          <Box sx={{ width: { xs: "353px", md: "500px" } }}>
+            <Typography
+              sx={{
+                color: "#ffff",
+                fontSize: { xs: "35px", md: "60px" },
+                fontWeight: "800",
+                lineHeight: "130%",
+                fontFamily: "TTRamillas",
+              }}
+            >
+              {`We Are Just A Message Away`}
+            </Typography>
+            <Typography
+              sx={{
+                color: "#ffff",
+                fontSize: { xs: "15px", md: "16px" },
+                fontWeight: "400",
+              }}
+            >
+              {` Whether you have questions or need legal help, we are here to connect
             you with the right support quickly and confidentially.`}
-          </Typography>
-        </Box>
+            </Typography>
+          </Box>
 
-        {/* Contact Form */}
-        <Box sx={{ width: { xs: "100%", md: "50%" }, padding: "0px" }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {/* Contact Form */}
+          <Box sx={{ width: { xs: "100%", md: "50%" }, padding: "0px" }}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Box
-                sx={{
-                  display: "flex",
-                  gap: "20px",
-                  flexDirection: { xs: "column", md: "row" },
-                }}
+                sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
               >
-                <Controller
-                  name="firstName"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="First Name"
-                      variant="outlined"
-                      fullWidth
-                      error={!!errors.firstName}
-                      helperText={
-                        errors.firstName ? errors.firstName.message : ""
-                      }
-                      sx={{
-                        width: { xs: "100%", md: "50%" },
-                        "& .MuiOutlinedInput-root": {
-                          color: "white",
-                          backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          borderRadius: "12px",
-                          "& fieldset": {
-                            borderColor: "rgba(255, 255, 255, 0.3)",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "rgba(255, 255, 255, 0.5)",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor: "white",
-                          },
-                        },
-                        "& .MuiInputLabel-root": {
-                          color: "white",
-                          "&.Mui-focused": {
-                            color: "white",
-                          },
-                        },
-                      }}
-                    />
-                  )}
-                />
-
-                <Controller
-                  name="lastName"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Last Name"
-                      variant="outlined"
-                      fullWidth
-                      error={!!errors.lastName}
-                      helperText={
-                        errors.lastName ? errors.lastName.message : ""
-                      }
-                      sx={{
-                        width: { xs: "100%", md: "50%" },
-                        "& .MuiOutlinedInput-root": {
-                          color: "white",
-                          backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          borderRadius: "12px",
-                          "& fieldset": {
-                            borderColor: "rgba(255, 255, 255, 0.3)",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "rgba(255, 255, 255, 0.5)",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor: "white",
-                          },
-                        },
-                        "& .MuiInputLabel-root": {
-                          color: "white",
-                          "&.Mui-focused": {
-                            color: "white",
-                          },
-                        },
-                      }}
-                    />
-                  )}
-                />
-              </Box>
-
-              <Controller
-                name="legalService"
-                control={control}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    options={legalServices}
-                    value={selectedLegalService}
-                    onChange={(event, newValue) => {
-                      console.log("Service selected in dropdown:", newValue);
-                      field.onChange(newValue || null);
-                      setSelectedLegalService(newValue);
-                      trigger("legalService"); // Revalidate the field
-                    }}
-                    renderInput={(params) => (
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "20px",
+                    flexDirection: { xs: "column", md: "row" },
+                  }}
+                >
+                  <Controller
+                    name="firstName"
+                    control={control}
+                    render={({ field }) => (
                       <TextField
-                        {...params}
-                        label="Legal Service Needed"
+                        {...field}
+                        label="First Name"
                         variant="outlined"
-                        error={!!errors.legalService}
+                        fullWidth
+                        error={!!errors.firstName}
                         helperText={
-                          errors.legalService ? errors.legalService.message : ""
+                          errors.firstName ? errors.firstName.message : ""
                         }
                         sx={{
+                          width: { xs: "100%", md: "50%" },
                           "& .MuiOutlinedInput-root": {
                             color: "white",
                             backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -382,149 +296,23 @@ const Footer = () => {
                         }}
                       />
                     )}
-                    sx={{
-                      "& .MuiAutocomplete-popupIndicator": {
-                        color: "white",
-                      },
-                      "& .MuiAutocomplete-clearIndicator": {
-                        color: "white",
-                      },
-                    }}
-                    ListboxProps={{
-                      sx: {
-                        backgroundColor: "#1D2331",
-                        color: "white",
-                        "& .MuiAutocomplete-option": {
-                          "&:hover": {
-                            backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          },
-                          "&.Mui-focused": {
-                            backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          },
-                        },
-                      },
-                    }}
                   />
-                )}
-              />
-
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: "20px",
-                  flexDirection: { xs: "column", md: "row" },
-                }}
-              >
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Email Address"
-                      type="email"
-                      variant="outlined"
-                      fullWidth
-                      error={!!errors.email}
-                      helperText={errors.email ? errors.email.message : ""}
-                      sx={{
-                        width: { xs: "100%", md: "50%" },
-                        "& .MuiOutlinedInput-root": {
-                          color: "white",
-                          backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          borderRadius: "12px",
-                          "& fieldset": {
-                            borderColor: "rgba(255, 255, 255, 0.3)",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "rgba(255, 255, 255, 0.5)",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor: "white",
-                          },
-                        },
-                        "& .MuiInputLabel-root": {
-                          color: "white",
-                          "&.Mui-focused": {
-                            color: "white",
-                          },
-                        },
-                      }}
-                    />
-                  )}
-                />
-
-                <Box
-                  sx={{
-                    width: { xs: "100%", md: "50%" },
-                    display: "flex",
-                    gap: "8px",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: "80px",
-                      height: "56px",
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
-                      borderRadius: "12px",
-                      border: "1px solid rgba(255, 255, 255, 0.3)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      "&:hover": {
-                        borderColor: "rgba(255, 255, 255, 0.5)",
-                      },
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                      }}
-                    >
-                      +1
-                    </Typography>
-                  </Box>
 
                   <Controller
-                    name="phoneNumber"
+                    name="lastName"
                     control={control}
                     render={({ field }) => (
                       <TextField
                         {...field}
-                        label="Phone Number"
+                        label="Last Name"
                         variant="outlined"
                         fullWidth
-                        type="tel"
-                        inputProps={{
-                          pattern: "[0-9 ]*",
-                          inputMode: "numeric",
-                          maxLength: 12,
-                        }}
-                        onChange={(e) => {
-                          // Only allow numbers and format as XXX XXX XXXX
-                          const value = e.target.value.replace(/[^0-9]/g, "");
-                          let formattedValue = "";
-
-                          if (value.length > 0) {
-                            formattedValue = value.substring(0, 3);
-                          }
-                          if (value.length > 3) {
-                            formattedValue += " " + value.substring(3, 6);
-                          }
-                          if (value.length > 6) {
-                            formattedValue += " " + value.substring(6, 10);
-                          }
-
-                          field.onChange(formattedValue);
-                        }}
-                        error={!!errors.phoneNumber}
+                        error={!!errors.lastName}
                         helperText={
-                          errors.phoneNumber ? errors.phoneNumber.message : ""
+                          errors.lastName ? errors.lastName.message : ""
                         }
                         sx={{
+                          width: { xs: "100%", md: "50%" },
                           "& .MuiOutlinedInput-root": {
                             color: "white",
                             backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -550,93 +338,32 @@ const Footer = () => {
                     )}
                   />
                 </Box>
-              </Box>
 
-              <Box sx={{ display: "flex", gap: "20px" }}>
                 <Controller
-                  name="state"
+                  name="legalService"
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
                       {...field}
-                      options={states}
-                      value={selectedState || null}
+                      options={legalServices}
+                      value={selectedLegalService}
                       onChange={(event, newValue) => {
-                        field.onChange(newValue || "");
-                        setSelectedState(newValue || "");
-                        setSelectedCity(null); // Reset selected city when state changes
-                        setValue("city", ""); // Clear city form field
-                        trigger("city"); // Revalidate city field
-                        if (newValue === "American Samoa") {
-                          setCities(["Pago Pago", "Tafuna", "Leone"]);
-                        } else if (newValue === "Baker Island") {
-                          setCities(["Baker City"]);
-                        } else if (newValue === "Wake Island") {
-                          setCities(["Wake City"]);
-                        } else if (
-                          newValue === "United States Virgin Islands"
-                        ) {
-                          setCities([
-                            "Charlotte Amalie",
-                            "Christiansted",
-                            "Frederiksted",
-                          ]);
-                        } else if (
-                          newValue === "United States Minor Outlying Islands"
-                        ) {
-                          setCities(["Johnston Atoll", "Kingman Reef"]);
-                        } else if (newValue === "Palmyra Atoll") {
-                          setCities(["Cooper Island"]);
-                        } else if (newValue === "Northern Mariana Islands") {
-                          setCities(["Saipan", "Tinian", "Rota"]);
-                        } else if (newValue === "Navassa Island") {
-                          setCities(["Navassa City"]);
-                        } else if (newValue === "Midway Atoll") {
-                          setCities(["Sand Island"]);
-                        } else if (newValue === "Jarvis Island") {
-                          setCities(["Jarvis City"]);
-                        } else if (newValue === "Johnston Atoll") {
-                          setCities(["Johnston City"]);
-                        } else if (newValue === "Howland Island") {
-                          setCities(["Howland City"]);
-                        } else if (newValue === "Kingman Reef") {
-                          setCities(["Kingman City"]);
-                        } else if (newValue) {
-                          const selectedStateObj = State.getStatesOfCountry(
-                            "US"
-                          ).find((state) => state.name === newValue);
-                          const stateCode = selectedStateObj?.isoCode;
-                          if (stateCode) {
-                            const citiesInState = City.getCitiesOfState(
-                              "US",
-                              stateCode
-                            );
-                            setCities(citiesInState.map((city) => city.name));
+                        console.log("Service selected in dropdown:", newValue);
+                        field.onChange(newValue || null);
+                        setSelectedLegalService(newValue);
+                        trigger("legalService"); // Revalidate the field
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Legal Service Needed"
+                          variant="outlined"
+                          error={!!errors.legalService}
+                          helperText={
+                            errors.legalService
+                              ? errors.legalService.message
+                              : ""
                           }
-                        } else {
-                          setCities([]);
-                        }
-                      }}
-                      onInputChange={(event, newInputValue) => {
-                        // Update selectedState when user types, so city field gets enabled
-                        setSelectedState(newInputValue);
-                        field.onChange(newInputValue || "");
-                        // Clear city when state input is cleared or changed
-                        setSelectedCity(null);
-                        setValue("city", "");
-                        trigger("city");
-                      }}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="State"
-                          variant="outlined"
-                          inputProps={{
-                            ...params.inputProps,
-                            maxLength: 12,
-                          }}
-                          error={!!errors.state}
-                          helperText={errors.state ? errors.state.message : ""}
                           sx={{
                             "& .MuiOutlinedInput-root": {
                               color: "white",
@@ -662,7 +389,6 @@ const Footer = () => {
                         />
                       )}
                       sx={{
-                        width: "50%",
                         "& .MuiAutocomplete-popupIndicator": {
                           color: "white",
                         },
@@ -674,148 +400,6 @@ const Footer = () => {
                         sx: {
                           backgroundColor: "#1D2331",
                           color: "white",
-                          maxHeight: "200px",
-                          "& .MuiAutocomplete-option": {
-                            "&:hover": {
-                              backgroundColor: "rgba(255, 255, 255, 0.1)",
-                            },
-                            "&.Mui-focused": {
-                              backgroundColor: "rgba(255, 255, 255, 0.1)",
-                            },
-                          },
-                        },
-                      }}
-                      getOptionLabel={(option) => {
-                        const stateNames: { [key: string]: string } = {
-                          AL: "Alabama",
-                          AK: "Alaska",
-                          AZ: "Arizona",
-                          AR: "Arkansas",
-                          CA: "California",
-                          CO: "Colorado",
-                          CT: "Connecticut",
-                          DE: "Delaware",
-                          FL: "Florida",
-                          GA: "Georgia",
-                          HI: "Hawaii",
-                          ID: "Idaho",
-                          IL: "Illinois",
-                          IN: "Indiana",
-                          IA: "Iowa",
-                          KS: "Kansas",
-                          KY: "Kentucky",
-                          LA: "Louisiana",
-                          ME: "Maine",
-                          MD: "Maryland",
-                          MA: "Massachusetts",
-                          MI: "Michigan",
-                          MN: "Minnesota",
-                          MS: "Mississippi",
-                          MO: "Missouri",
-                          MT: "Montana",
-                          NE: "Nebraska",
-                          NV: "Nevada",
-                          NH: "New Hampshire",
-                          NJ: "New Jersey",
-                          NM: "New Mexico",
-                          NY: "New York",
-                          NC: "North Carolina",
-                          ND: "North Dakota",
-                          OH: "Ohio",
-                          OK: "Oklahoma",
-                          OR: "Oregon",
-                          PA: "Pennsylvania",
-                          RI: "Rhode Island",
-                          SC: "South Carolina",
-                          SD: "South Dakota",
-                          TN: "Tennessee",
-                          TX: "Texas",
-                          UT: "Utah",
-                          VT: "Vermont",
-                          VA: "Virginia",
-                          WA: "Washington",
-                          WV: "West Virginia",
-                          WI: "Wisconsin",
-                          WY: "Wyoming",
-                        };
-                        return stateNames[option] || option;
-                      }}
-                    />
-                  )}
-                />
-
-                <Controller
-                  name="city"
-                  control={control}
-                  render={({ field }) => (
-                    <Autocomplete
-                      freeSolo
-                      {...field}
-                      options={cities}
-                      value={watch("city") || ""}
-                      onChange={(event, newValue) => {
-                        field.onChange(newValue || "");
-                        setSelectedCity(newValue || null);
-                        // Trigger validation to clear any errors
-                        trigger("city");
-                      }}
-                      onInputChange={(event, newInputValue) => {
-                        // Update form field value when user types custom city
-                        field.onChange(newInputValue || "");
-                        setSelectedCity(newInputValue || null);
-                        // Trigger validation to clear any errors
-                        trigger("city");
-                      }}
-                      disabled={!watch("state")}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="City"
-                          variant="outlined"
-                          inputProps={{
-                            ...params.inputProps,
-                            maxLength: 17,
-                          }}
-                          error={!!errors.city}
-                          helperText={errors.city ? errors.city.message : ""}
-                          sx={{
-                            "& .MuiOutlinedInput-root": {
-                              color: "white",
-                              backgroundColor: "rgba(255, 255, 255, 0.1)",
-                              borderRadius: "12px",
-                              "& fieldset": {
-                                borderColor: "rgba(255, 255, 255, 0.3)",
-                              },
-                              "&:hover fieldset": {
-                                borderColor: "rgba(255, 255, 255, 0.5)",
-                              },
-                              "&.Mui-focused fieldset": {
-                                borderColor: "white",
-                              },
-                            },
-                            "& .MuiInputLabel-root": {
-                              color: "white",
-                              "&.Mui-focused": {
-                                color: "white",
-                              },
-                            },
-                          }}
-                        />
-                      )}
-                      sx={{
-                        width: "50%",
-                        "& .MuiAutocomplete-popupIndicator": {
-                          color: "white",
-                        },
-                        "& .MuiAutocomplete-clearIndicator": {
-                          color: "white",
-                        },
-                      }}
-                      ListboxProps={{
-                        sx: {
-                          backgroundColor: "#1D2331",
-                          color: "white",
-                          maxHeight: "200px",
                           "& .MuiAutocomplete-option": {
                             "&:hover": {
                               backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -829,83 +413,790 @@ const Footer = () => {
                     />
                   )}
                 />
-              </Box>
 
-              <Controller
-                name="message"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Message"
-                    variant="outlined"
-                    multiline
-                    rows={4}
-                    fullWidth
-                    error={!!errors.message}
-                    helperText={errors.message ? errors.message.message : ""}
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "20px",
+                    flexDirection: { xs: "column", md: "row" },
+                  }}
+                >
+                  <Controller
+                    name="email"
+                    control={control}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Email Address"
+                        type="email"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.email}
+                        helperText={errors.email ? errors.email.message : ""}
+                        sx={{
+                          width: { xs: "100%", md: "50%" },
+                          "& .MuiOutlinedInput-root": {
+                            color: "white",
+                            backgroundColor: "rgba(255, 255, 255, 0.1)",
+                            borderRadius: "12px",
+                            "& fieldset": {
+                              borderColor: "rgba(255, 255, 255, 0.3)",
+                            },
+                            "&:hover fieldset": {
+                              borderColor: "rgba(255, 255, 255, 0.5)",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "white",
+                            },
+                          },
+                          "& .MuiInputLabel-root": {
+                            color: "white",
+                            "&.Mui-focused": {
+                              color: "white",
+                            },
+                          },
+                        }}
+                      />
+                    )}
+                  />
+
+                  <Box
                     sx={{
-                      "& .MuiOutlinedInput-root": {
-                        color: "white",
+                      width: { xs: "100%", md: "50%" },
+                      display: "flex",
+                      gap: "8px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: "80px",
+                        height: "56px",
                         backgroundColor: "rgba(255, 255, 255, 0.1)",
                         borderRadius: "12px",
-                        "& fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.3)",
-                        },
-                        "&:hover fieldset": {
+                        border: "1px solid rgba(255, 255, 255, 0.3)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        "&:hover": {
                           borderColor: "rgba(255, 255, 255, 0.5)",
                         },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "white",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "white",
-                        "&.Mui-focused": {
+                      }}
+                    >
+                      <Typography
+                        sx={{
                           color: "white",
-                        },
-                      },
-                    }}
-                  />
-                )}
-              />
+                          fontSize: "14px",
+                          fontWeight: "500",
+                        }}
+                      >
+                        +1
+                      </Typography>
+                    </Box>
 
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={isSubmitting}
+                    <Controller
+                      name="phoneNumber"
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="Phone Number"
+                          variant="outlined"
+                          fullWidth
+                          type="tel"
+                          inputProps={{
+                            pattern: "[0-9 ]*",
+                            inputMode: "numeric",
+                            maxLength: 12,
+                          }}
+                          onChange={(e) => {
+                            // Only allow numbers and format as XXX XXX XXXX
+                            const value = e.target.value.replace(/[^0-9]/g, "");
+                            let formattedValue = "";
+
+                            if (value.length > 0) {
+                              formattedValue = value.substring(0, 3);
+                            }
+                            if (value.length > 3) {
+                              formattedValue += " " + value.substring(3, 6);
+                            }
+                            if (value.length > 6) {
+                              formattedValue += " " + value.substring(6, 10);
+                            }
+
+                            field.onChange(formattedValue);
+                          }}
+                          error={!!errors.phoneNumber}
+                          helperText={
+                            errors.phoneNumber ? errors.phoneNumber.message : ""
+                          }
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              color: "white",
+                              backgroundColor: "rgba(255, 255, 255, 0.1)",
+                              borderRadius: "12px",
+                              "& fieldset": {
+                                borderColor: "rgba(255, 255, 255, 0.3)",
+                              },
+                              "&:hover fieldset": {
+                                borderColor: "rgba(255, 255, 255, 0.5)",
+                              },
+                              "&.Mui-focused fieldset": {
+                                borderColor: "white",
+                              },
+                            },
+                            "& .MuiInputLabel-root": {
+                              color: "white",
+                              "&.Mui-focused": {
+                                color: "white",
+                              },
+                            },
+                          }}
+                        />
+                      )}
+                    />
+                  </Box>
+                </Box>
+
+                <Box sx={{ display: "flex", gap: "20px" }}>
+                  <Controller
+                    name="state"
+                    control={control}
+                    render={({ field }) => (
+                      <Autocomplete
+                        {...field}
+                        options={states}
+                        value={selectedState || null}
+                        onChange={(event, newValue) => {
+                          field.onChange(newValue || "");
+                          setSelectedState(newValue || "");
+                          setSelectedCity(null); // Reset selected city when state changes
+                          setValue("city", ""); // Clear city form field
+                          trigger("city"); // Revalidate city field
+                          if (newValue === "American Samoa") {
+                            setCities(["Pago Pago", "Tafuna", "Leone"]);
+                          } else if (newValue === "Baker Island") {
+                            setCities(["Baker City"]);
+                          } else if (newValue === "Wake Island") {
+                            setCities(["Wake City"]);
+                          } else if (
+                            newValue === "United States Virgin Islands"
+                          ) {
+                            setCities([
+                              "Charlotte Amalie",
+                              "Christiansted",
+                              "Frederiksted",
+                            ]);
+                          } else if (
+                            newValue === "United States Minor Outlying Islands"
+                          ) {
+                            setCities(["Johnston Atoll", "Kingman Reef"]);
+                          } else if (newValue === "Palmyra Atoll") {
+                            setCities(["Cooper Island"]);
+                          } else if (newValue === "Northern Mariana Islands") {
+                            setCities(["Saipan", "Tinian", "Rota"]);
+                          } else if (newValue === "Navassa Island") {
+                            setCities(["Navassa City"]);
+                          } else if (newValue === "Midway Atoll") {
+                            setCities(["Sand Island"]);
+                          } else if (newValue === "Jarvis Island") {
+                            setCities(["Jarvis City"]);
+                          } else if (newValue === "Johnston Atoll") {
+                            setCities(["Johnston City"]);
+                          } else if (newValue === "Howland Island") {
+                            setCities(["Howland City"]);
+                          } else if (newValue === "Kingman Reef") {
+                            setCities(["Kingman City"]);
+                          } else if (newValue) {
+                            const selectedStateObj = State.getStatesOfCountry(
+                              "US"
+                            ).find((state) => state.name === newValue);
+                            const stateCode = selectedStateObj?.isoCode;
+                            if (stateCode) {
+                              const citiesInState = City.getCitiesOfState(
+                                "US",
+                                stateCode
+                              );
+                              setCities(citiesInState.map((city) => city.name));
+                            }
+                          } else {
+                            setCities([]);
+                          }
+                        }}
+                        onInputChange={(event, newInputValue) => {
+                          // Update selectedState when user types, so city field gets enabled
+                          setSelectedState(newInputValue);
+                          field.onChange(newInputValue || "");
+                          // Clear city when state input is cleared or changed
+                          setSelectedCity(null);
+                          setValue("city", "");
+                          trigger("city");
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="State"
+                            variant="outlined"
+                            inputProps={{
+                              ...params.inputProps,
+                              maxLength: 12,
+                            }}
+                            error={!!errors.state}
+                            helperText={
+                              errors.state ? errors.state.message : ""
+                            }
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                color: "white",
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                borderRadius: "12px",
+                                "& fieldset": {
+                                  borderColor: "rgba(255, 255, 255, 0.3)",
+                                },
+                                "&:hover fieldset": {
+                                  borderColor: "rgba(255, 255, 255, 0.5)",
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "white",
+                                },
+                              },
+                              "& .MuiInputLabel-root": {
+                                color: "white",
+                                "&.Mui-focused": {
+                                  color: "white",
+                                },
+                              },
+                            }}
+                          />
+                        )}
+                        sx={{
+                          width: "50%",
+                          "& .MuiAutocomplete-popupIndicator": {
+                            color: "white",
+                          },
+                          "& .MuiAutocomplete-clearIndicator": {
+                            color: "white",
+                          },
+                        }}
+                        ListboxProps={{
+                          sx: {
+                            backgroundColor: "#1D2331",
+                            color: "white",
+                            maxHeight: "200px",
+                            "& .MuiAutocomplete-option": {
+                              "&:hover": {
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                              },
+                              "&.Mui-focused": {
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                              },
+                            },
+                          },
+                        }}
+                        getOptionLabel={(option) => {
+                          const stateNames: { [key: string]: string } = {
+                            AL: "Alabama",
+                            AK: "Alaska",
+                            AZ: "Arizona",
+                            AR: "Arkansas",
+                            CA: "California",
+                            CO: "Colorado",
+                            CT: "Connecticut",
+                            DE: "Delaware",
+                            FL: "Florida",
+                            GA: "Georgia",
+                            HI: "Hawaii",
+                            ID: "Idaho",
+                            IL: "Illinois",
+                            IN: "Indiana",
+                            IA: "Iowa",
+                            KS: "Kansas",
+                            KY: "Kentucky",
+                            LA: "Louisiana",
+                            ME: "Maine",
+                            MD: "Maryland",
+                            MA: "Massachusetts",
+                            MI: "Michigan",
+                            MN: "Minnesota",
+                            MS: "Mississippi",
+                            MO: "Missouri",
+                            MT: "Montana",
+                            NE: "Nebraska",
+                            NV: "Nevada",
+                            NH: "New Hampshire",
+                            NJ: "New Jersey",
+                            NM: "New Mexico",
+                            NY: "New York",
+                            NC: "North Carolina",
+                            ND: "North Dakota",
+                            OH: "Ohio",
+                            OK: "Oklahoma",
+                            OR: "Oregon",
+                            PA: "Pennsylvania",
+                            RI: "Rhode Island",
+                            SC: "South Carolina",
+                            SD: "South Dakota",
+                            TN: "Tennessee",
+                            TX: "Texas",
+                            UT: "Utah",
+                            VT: "Vermont",
+                            VA: "Virginia",
+                            WA: "Washington",
+                            WV: "West Virginia",
+                            WI: "Wisconsin",
+                            WY: "Wyoming",
+                          };
+                          return stateNames[option] || option;
+                        }}
+                      />
+                    )}
+                  />
+
+                  <Controller
+                    name="city"
+                    control={control}
+                    render={({ field }) => (
+                      <Autocomplete
+                        freeSolo
+                        {...field}
+                        options={cities}
+                        value={watch("city") || ""}
+                        onChange={(event, newValue) => {
+                          field.onChange(newValue || "");
+                          setSelectedCity(newValue || null);
+                          // Trigger validation to clear any errors
+                          trigger("city");
+                        }}
+                        onInputChange={(event, newInputValue) => {
+                          // Update form field value when user types custom city
+                          field.onChange(newInputValue || "");
+                          setSelectedCity(newInputValue || null);
+                          // Trigger validation to clear any errors
+                          trigger("city");
+                        }}
+                        disabled={!watch("state")}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="City"
+                            variant="outlined"
+                            inputProps={{
+                              ...params.inputProps,
+                              maxLength: 17,
+                            }}
+                            error={!!errors.city}
+                            helperText={errors.city ? errors.city.message : ""}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                color: "white",
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                borderRadius: "12px",
+                                "& fieldset": {
+                                  borderColor: "rgba(255, 255, 255, 0.3)",
+                                },
+                                "&:hover fieldset": {
+                                  borderColor: "rgba(255, 255, 255, 0.5)",
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "white",
+                                },
+                              },
+                              "& .MuiInputLabel-root": {
+                                color: "white",
+                                "&.Mui-focused": {
+                                  color: "white",
+                                },
+                              },
+                            }}
+                          />
+                        )}
+                        sx={{
+                          width: "50%",
+                          "& .MuiAutocomplete-popupIndicator": {
+                            color: "white",
+                          },
+                          "& .MuiAutocomplete-clearIndicator": {
+                            color: "white",
+                          },
+                        }}
+                        ListboxProps={{
+                          sx: {
+                            backgroundColor: "#1D2331",
+                            color: "white",
+                            maxHeight: "200px",
+                            "& .MuiAutocomplete-option": {
+                              "&:hover": {
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                              },
+                              "&.Mui-focused": {
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                              },
+                            },
+                          },
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
+
+                <Controller
+                  name="message"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Message"
+                      variant="outlined"
+                      multiline
+                      rows={4}
+                      fullWidth
+                      error={!!errors.message}
+                      helperText={errors.message ? errors.message.message : ""}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          color: "white",
+                          backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          borderRadius: "12px",
+                          "& fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.3)",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.5)",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "white",
+                          "&.Mui-focused": {
+                            color: "white",
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                />
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={isSubmitting}
+                  sx={{
+                    backgroundColor: "#3D74FF",
+                    color: "white",
+                    height: "50px",
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    borderRadius: "12px",
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "#2D5FCC",
+                    },
+                    "&:disabled": {
+                      backgroundColor: "rgba(61, 116, 255, 0.5)",
+                      color: "rgba(255, 255, 255, 0.7)",
+                    },
+                  }}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <CircularProgress
+                        size={20}
+                        color="inherit"
+                        sx={{ mr: 1 }}
+                      />
+                      Sending...
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              </Box>
+            </form>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* Footer Bottom Section */}
+      <Box>
+        <Box
+          sx={{
+            backgroundColor: "#1D2331",
+            // borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+            paddingInline: { xs: "20px", md: "80px" },
+            paddingBlock: { xs: "40px", md: "60px" },
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              justifyContent: "space-between",
+              gap: { xs: "30px", md: "60px" },
+              maxWidth: "1500px",
+              margin: "0 auto",
+            }}
+          >
+            {/* Logo and Description */}
+            <Box sx={{ width: { xs: "100%", md: "30%" } }}>
+              <Typography
                 sx={{
-                  backgroundColor: "#3D74FF",
-                  color: "white",
-                  height: "50px",
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  borderRadius: "12px",
-                  textTransform: "none",
-                  "&:hover": {
-                    backgroundColor: "#2D5FCC",
-                  },
-                  "&:disabled": {
-                    backgroundColor: "rgba(61, 116, 255, 0.5)",
-                    color: "rgba(255, 255, 255, 0.7)",
-                  },
+                  fontSize: "24px",
+                  fontWeight: "800",
+                  color: "#fff",
+                  fontFamily: "TTRamillas",
+                  marginBottom: "15px",
                 }}
               >
-                {isSubmitting ? (
-                  <>
-                    <CircularProgress
-                      size={20}
-                      color="inherit"
-                      sx={{ mr: 1 }}
-                    />
-                    Sending...
-                  </>
-                ) : (
-                  "Submit"
-                )}
-              </Button>
+                Greenway Lawyer
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  color: "rgba(255, 255, 255, 0.7)",
+                  lineHeight: "160%",
+                }}
+              >
+                Your trusted gateway to expert legal support. Connecting you
+                with qualified attorneys across the United States.
+              </Typography>
             </Box>
-          </form>
+
+            {/* Quick Links */}
+            <Box sx={{ width: { xs: "100%", md: "20%" } }}>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#fff",
+                  marginBottom: "20px",
+                }}
+              >
+                Quick Links
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px",
+                }}
+              >
+                <Typography
+                  component="a"
+                  href="#about-us"
+                  sx={{
+                    fontSize: "14px",
+                    color: "rgba(255, 255, 255, 0.7)",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    "&:hover": {
+                      color: "#3D74FF",
+                    },
+                  }}
+                >
+                  About Us
+                </Typography>
+                <Typography
+                  component="a"
+                  href="#"
+                  sx={{
+                    fontSize: "14px",
+                    color: "rgba(255, 255, 255, 0.7)",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    "&:hover": {
+                      color: "#3D74FF",
+                    },
+                  }}
+                >
+                  Privacy Policy
+                </Typography>
+                <Typography
+                  component="a"
+                  href="#"
+                  sx={{
+                    fontSize: "14px",
+                    color: "rgba(255, 255, 255, 0.7)",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    "&:hover": {
+                      color: "#3D74FF",
+                    },
+                  }}
+                >
+                  Terms of Service
+                </Typography>
+                <Typography
+                  component="a"
+                  href="#"
+                  sx={{
+                    fontSize: "14px",
+                    color: "rgba(255, 255, 255, 0.7)",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    "&:hover": {
+                      color: "#3D74FF",
+                    },
+                  }}
+                >
+                  Disclaimer
+                </Typography>
+              </Box>
+            </Box>
+
+            {/* Contact Info */}
+            <Box sx={{ width: { xs: "100%", md: "25%" } }}>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#fff",
+                  marginBottom: "20px",
+                }}
+              >
+                Contact Info
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "rgba(255, 255, 255, 0.7)",
+                  }}
+                >
+                  Email: info@greenwaylawyer.com
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "rgba(255, 255, 255, 0.7)",
+                  }}
+                >
+                  Phone: +1 (555) 123-4567
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "rgba(255, 255, 255, 0.7)",
+                  }}
+                >
+                  United States
+                </Typography>
+              </Box>
+            </Box>
+
+            {/* Social Media Links */}
+            <Box sx={{ width: { xs: "100%", md: "20%" } }}>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#fff",
+                  marginBottom: "20px",
+                }}
+              >
+                Follow Us
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "15px",
+                }}
+              >
+                <Box
+                  component="a"
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    "&:hover": {
+                      backgroundColor: "#3D74FF",
+                    },
+                  }}
+                >
+                  <FaInstagram size={20} style={{ color: "#fff" }} />
+                </Box>
+                <Box
+                  component="a"
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    "&:hover": {
+                      backgroundColor: "#3D74FF",
+                    },
+                  }}
+                >
+                  <FaLinkedin size={20} style={{ color: "#fff" }} />
+                </Box>
+                <Box
+                  component="a"
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    "&:hover": {
+                      backgroundColor: "#3D74FF",
+                    },
+                  }}
+                >
+                  <FaFacebook size={20} style={{ color: "#fff" }} />
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Copyright */}
+          <Box
+            sx={{
+              marginTop: { xs: "30px", md: "40px" },
+              paddingTop: { xs: "20px", md: "30px" },
+              borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+              textAlign: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "14px",
+                color: "rgba(255, 255, 255, 0.6)",
+              }}
+            >
+              © {new Date().getFullYear()} Greenway Lawyer. All rights reserved.
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Box>
