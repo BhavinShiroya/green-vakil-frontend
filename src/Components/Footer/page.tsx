@@ -14,7 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { FaInstagram, FaLinkedin, FaFacebook } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaFacebook, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 // Define TypeScript interface for form data
@@ -1153,6 +1153,28 @@ const Footer = () => {
                   }}
                 >
                   <FaXTwitter size={20} style={{ color: "#fff" }} />
+                </Box>
+                <Box
+                  component="a"
+                  href="https://www.youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    "&:hover": {
+                      backgroundColor: "#3D74FF",
+                    },
+                  }}
+                >
+                  <FaYoutube size={20} style={{ color: "#fff" }} />
                 </Box>
                 <Box
                   component="a"
