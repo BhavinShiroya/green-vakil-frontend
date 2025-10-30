@@ -1076,7 +1076,7 @@ export default function Home() {
                   lineHeight: { xs: "155%" },
                 }}
               >
-                {`Greenway Lawyer, a legal services platform by Festlyn LLC, helps individuals and businesses connect with attorneys who are best suited for their legal needs.`}
+                {`Greenway Lawyer, a legal services platform by  Greenway Lawyer LLC, helps individuals and businesses connect with attorneys who are best suited for their legal needs.`}
               </Typography>
             </Box>
 
