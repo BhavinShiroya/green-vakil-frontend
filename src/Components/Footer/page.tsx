@@ -198,10 +198,22 @@ const Footer = () => {
 
       // Handle different error scenarios
       const apiError = error as ApiError;
+
+      // Extract backend error message
+      const backendError = apiError.response?.data as
+        | { message?: string; error?: string }
+        | undefined;
+      const errorMessage =
+        backendError?.message ||
+        backendError?.error ||
+        "Failed to subscribe. Please try again later.";
+
       if (apiError.response?.status === 409) {
-        setNewsletterError("This email is already subscribed");
+        setNewsletterError(errorMessage || "This email is already subscribed");
       } else {
-        toast.error("Failed to subscribe. Please try again later.", {
+        // Show backend error message in toast and also set it in the field
+        setNewsletterError(errorMessage);
+        toast.error(errorMessage, {
           duration: 4000,
           position: "top-right",
         });
