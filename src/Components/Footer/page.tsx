@@ -1079,7 +1079,7 @@ const Footer = () => {
                     color: "rgba(255, 255, 255, 0.7)",
                   }}
                 >
-                  Phone: +1 (555) 123-4567
+                  Phone:<a href="tel:+15514207661"> +1 (551) 420-7661</a>
                 </Typography>
                 <Typography
                   sx={{
