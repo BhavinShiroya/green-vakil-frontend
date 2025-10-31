@@ -108,4 +108,32 @@ export const apiService = {
       throw error;
     }
   },
+
+  // Subscribe to newsletter
+  async subscribeToNewsletter(email: string): Promise<void> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/newsletters`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        const error = new Error(`HTTP error! status: ${response.status}`) as any;
+        error.response = {
+          status: response.status,
+          data: errorData,
+        };
+        throw error;
+      }
+
+      return;
+    } catch (error) {
+      console.error('Error subscribing to newsletter:', error);
+      throw error;
+    }
+  },
 };

@@ -16,6 +16,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { FaInstagram, FaLinkedin, FaFacebook, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { apiService } from "../../services/api";
 
 // Define TypeScript interface for form data
 interface FormData {
@@ -216,40 +217,32 @@ const Footer = () => {
       return;
     }
 
-    // setIsNewsletterSubmitting(true);
+    setIsNewsletterSubmitting(true);
 
-    // try {
-    //   const response = await axios.post(
-    //     "https://fronterainfotech.com/v1/newsletter/subscribe",
-    //     { email: newsletterEmail },
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
+    try {
+      await apiService.subscribeToNewsletter(newsletterEmail);
 
-    //   toast.success("Successfully subscribed to our newsletter!", {
-    //     duration: 4000,
-    //     position: "top-right",
-    //   });
+      toast.success("Successfully subscribed to our newsletter!", {
+        duration: 4000,
+        position: "top-right",
+      });
 
-    //   setNewsletterEmail("");
-    // } catch (error: any) {
-    //   console.error("Error subscribing to newsletter:", error);
+      setNewsletterEmail("");
+    } catch (error: any) {
+      console.error("Error subscribing to newsletter:", error);
 
-    //   // Handle different error scenarios
-    //   if (error.response?.status === 409) {
-    //     setNewsletterError("This email is already subscribed");
-    //   } else {
-    //     toast.error("Failed to subscribe. Please try again later.", {
-    //       duration: 4000,
-    //       position: "top-right",
-    //     });
-    //   }
-    // } finally {
-    //   setIsNewsletterSubmitting(false);
-    // }
+      // Handle different error scenarios
+      if (error.response?.status === 409) {
+        setNewsletterError("This email is already subscribed");
+      } else {
+        toast.error("Failed to subscribe. Please try again later.", {
+          duration: 4000,
+          position: "top-right",
+        });
+      }
+    } finally {
+      setIsNewsletterSubmitting(false);
+    }
   };
 
   return (
