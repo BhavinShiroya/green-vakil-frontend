@@ -77,6 +77,9 @@ const Footer = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
+  const [newsletterError, setNewsletterError] = useState("");
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
@@ -201,11 +204,59 @@ const Footer = () => {
     };
   }, [trigger, setValue]);
 
+  // Newsletter subscription handler
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setNewsletterError("");
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!newsletterEmail || !emailRegex.test(newsletterEmail)) {
+      setNewsletterError("Please enter a valid email address");
+      return;
+    }
+
+    // setIsNewsletterSubmitting(true);
+
+    // try {
+    //   const response = await axios.post(
+    //     "https://fronterainfotech.com/v1/newsletter/subscribe",
+    //     { email: newsletterEmail },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+
+    //   toast.success("Successfully subscribed to our newsletter!", {
+    //     duration: 4000,
+    //     position: "top-right",
+    //   });
+
+    //   setNewsletterEmail("");
+    // } catch (error: any) {
+    //   console.error("Error subscribing to newsletter:", error);
+
+    //   // Handle different error scenarios
+    //   if (error.response?.status === 409) {
+    //     setNewsletterError("This email is already subscribed");
+    //   } else {
+    //     toast.error("Failed to subscribe. Please try again later.", {
+    //       duration: 4000,
+    //       position: "top-right",
+    //     });
+    //   }
+    // } finally {
+    //   setIsNewsletterSubmitting(false);
+    // }
+  };
+
   return (
     <Box>
       <Box
         sx={{
-          height: { xs: "952px", md: "702px" },
+          height: { xs: "1120px", md: "702px" },
           backgroundColor: "#1D2331",
           display: "flex",
           justifyContent: "space-between",
@@ -220,9 +271,15 @@ const Footer = () => {
             width: "100%",
             justifyContent: "center",
             gap: { xs: "40px", md: "120px" },
+            flexWrap: "wrap",
           }}
         >
-          <Box sx={{ width: { xs: "353px", md: "500px" } }}>
+          <Box
+            sx={{
+              width: { xs: "353px", md: "500px" },
+              order: { xs: 0, md: 1 },
+            }}
+          >
             <Typography
               sx={{
                 color: "#ffff",
@@ -239,15 +296,142 @@ const Footer = () => {
                 color: "#ffff",
                 fontSize: { xs: "15px", md: "16px" },
                 fontWeight: "400",
+                marginBottom: { xs: "0px", md: "30px" },
               }}
             >
               {` Whether you have questions or need legal help, we are here to connect
             you with the right support quickly and confidentially.`}
             </Typography>
+
+            {/* Newsletter Subscription - Desktop View (in left column) */}
+            <Box
+              sx={{
+                width: { xs: "100%", md: "80%" },
+                display: { xs: "none", md: "block" }, // Hide on mobile, show on desktop
+                mt: "80px",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "#ffff",
+                  fontSize: { xs: "18px", md: "20px" },
+                  fontWeight: "600",
+                  marginBottom: "12px",
+                }}
+              >
+                Stay Updated
+              </Typography>
+              <Typography
+                sx={{
+                  color: "rgba(255, 255, 255, 0.8)",
+                  fontSize: { xs: "14px", md: "15px" },
+                  fontWeight: "400",
+                  marginBottom: "16px",
+                  lineHeight: "160%",
+                }}
+              >
+                Subscribe to our newsletter for legal insights, articles, and
+                news.
+              </Typography>
+              <Box
+                component="form"
+                onSubmit={handleNewsletterSubmit}
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", md: "row" },
+                  gap: "12px",
+                  alignItems: { xs: "stretch", md: "flex-start" },
+                }}
+              >
+                <TextField
+                  type="email"
+                  placeholder="Enter your email"
+                  value={newsletterEmail}
+                  onChange={(e) => {
+                    setNewsletterEmail(e.target.value);
+                    setNewsletterError("");
+                  }}
+                  error={!!newsletterError}
+                  helperText={newsletterError}
+                  sx={{
+                    flex: 1,
+                    "& .MuiOutlinedInput-root": {
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      borderRadius: "8px",
+                      height: "48px",
+                      "& fieldset": {
+                        borderColor: "rgba(255, 255, 255, 0.2)",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "rgba(255, 255, 255, 0.3)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#3D74FF",
+                      },
+                      "& .MuiInputBase-input": {
+                        color: "#fff",
+                        padding: "12px 14px",
+                        "&::placeholder": {
+                          color: "rgba(255, 255, 255, 0.5)",
+                          opacity: 1,
+                        },
+                      },
+                    },
+                    "& .MuiFormHelperText-root": {
+                      color: "rgba(255, 255, 255, 0.7)",
+                      fontSize: "12px",
+                    },
+                  }}
+                  disabled={isNewsletterSubmitting}
+                />
+                <Button
+                  type="submit"
+                  disabled={isNewsletterSubmitting || !newsletterEmail}
+                  sx={{
+                    backgroundColor: "#3D74FF",
+                    color: "#fff",
+                    borderRadius: "8px",
+                    height: "48px",
+                    padding: { xs: "12px 24px", md: "12px 32px" },
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    textTransform: "none",
+                    whiteSpace: "nowrap",
+                    minWidth: "120px",
+                    "&:hover": {
+                      backgroundColor: "#2D5FDD",
+                    },
+                    "&:disabled": {
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      color: "rgba(255, 255, 255, 0.5)",
+                    },
+                  }}
+                >
+                  {isNewsletterSubmitting ? (
+                    <>
+                      <CircularProgress
+                        size={16}
+                        color="inherit"
+                        sx={{ mr: 1 }}
+                      />
+                      Subscribing...
+                    </>
+                  ) : (
+                    "Subscribe"
+                  )}
+                </Button>
+              </Box>
+            </Box>
           </Box>
 
           {/* Contact Form */}
-          <Box sx={{ width: { xs: "100%", md: "50%" }, padding: "0px" }}>
+          <Box
+            sx={{
+              width: { xs: "100%", md: "50%" },
+              padding: "0px",
+              order: { xs: 1, md: 2 },
+            }}
+          >
             <form onSubmit={handleSubmit(onSubmit)}>
               <Box
                 sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
@@ -916,6 +1100,126 @@ const Footer = () => {
               </Box>
             </form>
           </Box>
+
+          {/* Newsletter Subscription */}
+          <Box
+            sx={{
+              width: { xs: "100%", md: "500px" },
+              order: { xs: 2, md: 3 },
+              display: { xs: "block", md: "none" }, // Show only on mobile initially
+            }}
+          >
+            <Typography
+              sx={{
+                color: "#ffff",
+                fontSize: { xs: "18px", md: "20px" },
+                fontWeight: "600",
+                marginBottom: "12px",
+              }}
+            >
+              Stay Updated
+            </Typography>
+            <Typography
+              sx={{
+                color: "rgba(255, 255, 255, 0.8)",
+                fontSize: { xs: "14px", md: "15px" },
+                fontWeight: "400",
+                marginBottom: "16px",
+                lineHeight: "160%",
+              }}
+            >
+              Subscribe to our newsletter for legal insights, articles, and
+              news.
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleNewsletterSubmit}
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                gap: "12px",
+                alignItems: { xs: "stretch", md: "flex-start" },
+              }}
+            >
+              <TextField
+                type="email"
+                placeholder="Enter your email"
+                value={newsletterEmail}
+                onChange={(e) => {
+                  setNewsletterEmail(e.target.value);
+                  setNewsletterError("");
+                }}
+                error={!!newsletterError}
+                helperText={newsletterError}
+                sx={{
+                  flex: 1,
+                  "& .MuiOutlinedInput-root": {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    borderRadius: "8px",
+                    height: "48px",
+                    "& fieldset": {
+                      borderColor: "rgba(255, 255, 255, 0.2)",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "rgba(255, 255, 255, 0.3)",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#3D74FF",
+                    },
+                    "& .MuiInputBase-input": {
+                      color: "#fff",
+                      padding: "12px 14px",
+                      "&::placeholder": {
+                        color: "rgba(255, 255, 255, 0.5)",
+                        opacity: 1,
+                      },
+                    },
+                  },
+                  "& .MuiFormHelperText-root": {
+                    color: "rgba(255, 255, 255, 0.7)",
+                    fontSize: "12px",
+                  },
+                }}
+                disabled={isNewsletterSubmitting}
+              />
+              <Button
+                type="submit"
+                disabled={isNewsletterSubmitting || !newsletterEmail}
+                sx={{
+                  backgroundColor: "#3D74FF",
+                  color: "#fff",
+                  borderRadius: "8px",
+                  height: "48px",
+                  padding: { xs: "12px 24px", md: "12px 32px" },
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  textTransform: "none",
+                  whiteSpace: "nowrap",
+                  minWidth: "120px",
+                  "&:hover": {
+                    backgroundColor: "#2D5FDD",
+                  },
+                  "&:disabled": {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "rgba(255, 255, 255, 0.5)",
+                  },
+                }}
+              >
+                {isNewsletterSubmitting ? (
+                  <>
+                    <CircularProgress
+                      size={16}
+                      color="inherit"
+                      sx={{ mr: 1 }}
+                    />
+                    Subscribing...
+                  </>
+                ) : (
+                  "Subscribe"
+                )}
+              </Button>
+            </Box>
+          </Box>
         </Box>
       </Box>
 
@@ -926,7 +1230,7 @@ const Footer = () => {
             backgroundColor: "#1D2331",
             // borderTop: "1px solid rgba(255, 255, 255, 0.1)",
             paddingInline: { xs: "20px", md: "80px" },
-            paddingBlock: { xs: "40px", md: "60px" },
+            paddingBlock: { xs: "40px", md: "30px" },
           }}
         >
           <Box
