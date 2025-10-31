@@ -5,7 +5,8 @@ Disallow: /admin/
 Disallow: /api/
 
 # Host
-Host: https://greenwaylawyer.com
+Host: http://localhost:3000/
 
 # Sitemaps
-Sitemap: https://greenwaylawyer.com/sitemap.xml
+Sitemap: http://localhost:3000/sitemap.xml
+Sitemap: https://fronterainfotech.com/sitemap.xml

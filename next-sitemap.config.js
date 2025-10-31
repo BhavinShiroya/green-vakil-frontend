@@ -1,6 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || "https://greenwaylawyer.com",
+  siteUrl:
+    process.env.SITE_URL || "https://green-vakil-frontend-rho.vercel.app/",
   generateRobotsTxt: true, // (optional)
   generateIndexSitemap: false, // Set to true if you have many pages
   exclude: ["/admin/*", "/api/*"], // Exclude admin and API routes
@@ -20,7 +21,7 @@ module.exports = {
         disallow: ["/admin/", "/api/"],
       },
     ],
-    additionalSitemaps: ["https://greenwaylawyer.com/sitemap.xml"],
+    additionalSitemaps: ["https://fronterainfotech.com/sitemap.xml"],
   },
   transform: async (config, path) => {
     // Custom priority and changefreq for different pages

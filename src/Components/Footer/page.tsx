@@ -12,23 +12,10 @@ import { State, City } from "country-state-city";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { FaInstagram, FaLinkedin, FaFacebook, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { apiService } from "../../services/api";
-
-// Define TypeScript interface for form data
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber?: string;
-  message?: string;
-  legalService: string | null;
-  state: string;
-  city: string | null;
-}
+import { apiService, ApiError } from "../../services/api";
 
 // Define Yup validation schema
 const schema = yup.object().shape({
@@ -82,31 +69,10 @@ const Footer = () => {
   const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
   const [newsletterError, setNewsletterError] = useState("");
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async () => {
     setIsSubmitting(true);
 
     try {
-      const payload = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        legalService: data.legalService,
-        email: data.email,
-        phoneNumber: data.phoneNumber || "",
-        state: data.state,
-        city: data.city,
-        message: data.message || "",
-      };
-
-      const response = await axios.post(
-        "https://fronterainfotech.com/v1/contacts",
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
       // Show success message
       toast.success("Message sent successfully! We will contact you soon.", {
         duration: 4000,
@@ -115,7 +81,7 @@ const Footer = () => {
 
       // Reset form and all state variables
       setSelectedLegalService(null);
-      setSelectedCity(null);
+
       setSelectedState("");
       setCities([]);
 
@@ -155,7 +121,6 @@ const Footer = () => {
   const [selectedLegalService, setSelectedLegalService] = useState<
     string | null
   >(null);
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
   useEffect(() => {
     const usStates = State.getStatesOfCountry("US"); // List of U.S. states
@@ -228,11 +193,12 @@ const Footer = () => {
       });
 
       setNewsletterEmail("");
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error subscribing to newsletter:", error);
 
       // Handle different error scenarios
-      if (error.response?.status === 409) {
+      const apiError = error as ApiError;
+      if (apiError.response?.status === 409) {
         setNewsletterError("This email is already subscribed");
       } else {
         toast.error("Failed to subscribe. Please try again later.", {
@@ -748,7 +714,7 @@ const Footer = () => {
                         onChange={(event, newValue) => {
                           field.onChange(newValue || "");
                           setSelectedState(newValue || "");
-                          setSelectedCity(null); // Reset selected city when state changes
+
                           setValue("city", ""); // Clear city form field
                           trigger("city"); // Revalidate city field
                           if (newValue === "American Samoa") {
@@ -806,7 +772,7 @@ const Footer = () => {
                           setSelectedState(newInputValue);
                           field.onChange(newInputValue || "");
                           // Clear city when state input is cleared or changed
-                          setSelectedCity(null);
+
                           setValue("city", "");
                           trigger("city");
                         }}
@@ -941,14 +907,13 @@ const Footer = () => {
                         value={watch("city") || ""}
                         onChange={(event, newValue) => {
                           field.onChange(newValue || "");
-                          setSelectedCity(newValue || null);
                           // Trigger validation to clear any errors
                           trigger("city");
                         }}
                         onInputChange={(event, newInputValue) => {
                           // Update form field value when user types custom city
                           field.onChange(newInputValue || "");
-                          setSelectedCity(newInputValue || null);
+
                           // Trigger validation to clear any errors
                           trigger("city");
                         }}

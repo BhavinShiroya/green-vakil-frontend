@@ -1,6 +1,14 @@
 // API service for making HTTP requests
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://fronterainfotech.com/v1';
 
+// Error type for API errors
+export interface ApiError extends Error {
+  response?: {
+    status: number;
+    data?: unknown;
+  };
+}
+
 export interface Author {
   role: string;
   isEmailVerified: boolean;
@@ -122,7 +130,7 @@ export const apiService = {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        const error = new Error(`HTTP error! status: ${response.status}`) as any;
+        const error: ApiError = new Error(`HTTP error! status: ${response.status}`);
         error.response = {
           status: response.status,
           data: errorData,
