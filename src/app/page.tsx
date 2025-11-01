@@ -176,7 +176,7 @@ export default function Home() {
         >
           <Image
             src={HomeImage}
-            alt="home"
+            alt="Lawyer Image"
             style={{
               width: `${homeDimensions.width}px`,
               height: `${homeDimensions.height}px`,

@@ -170,8 +170,8 @@ export default function Navbar() {
             width={240}
             height={60}
             style={{
-              width: "auto",
-              height: "auto",
+              width: "240px",
+              height: "60px",
               maxWidth: "240px",
               maxHeight: "60px",
             }}
