@@ -21,7 +21,7 @@ export interface Article {
   title: string;
   subtitle?: string;
   description: string;
-  author: Author;
+  authorName: string;
   createdAt: string;
   updatedAt: string;
   status: string;

@@ -190,7 +190,7 @@ export default function ArticlesClient({
                     color="text.secondary"
                     sx={{ fontSize: "12px" }}
                   >
-                    By {article.author.name}
+                    By {article.authorName}
                   </Typography>
                   <Chip
                     label={formatDate(article.createdAt)}

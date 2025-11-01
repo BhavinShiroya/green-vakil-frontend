@@ -3,7 +3,6 @@ import ArticlesClient from "./ArticlesClient";
 
 // Revalidate every 60 seconds (ISR)
 export const revalidate = 60;
-
 export default async function ArticlesPage() {
   // Server-side data fetching for SSG
   let articles: Article[] = [];
