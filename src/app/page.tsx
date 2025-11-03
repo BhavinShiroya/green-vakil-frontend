@@ -1002,6 +1002,17 @@ export default function Home() {
             we would love to hear from you.
           </Typography>
           <Button
+            onClick={() => {
+              const footerElement = document.getElementById("footer");
+              if (footerElement) {
+                const navbarHeight = 100; // Height of the fixed navbar
+                const elementPosition = footerElement.offsetTop - navbarHeight;
+                window.scrollTo({
+                  top: elementPosition,
+                  behavior: "smooth",
+                });
+              }
+            }}
             sx={{
               backgroundColor: "#fff",
               color: "#000000",
@@ -1011,6 +1022,10 @@ export default function Home() {
               width: "210px",
               fontSize: "18px",
               fontWeight: "500",
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "rgba(255, 255, 255, 0.9)",
+              },
             }}
           >
             Join Our Network
