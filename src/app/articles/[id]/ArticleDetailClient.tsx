@@ -487,6 +487,7 @@ export default function ArticleDetailClient({
                     vertical: "top",
                     horizontal: "right",
                   }}
+                  disableScrollLock
                   PaperProps={{
                     sx: {
                       borderRadius: "12px",
