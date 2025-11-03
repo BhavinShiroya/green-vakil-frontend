@@ -301,7 +301,7 @@ export default function ArticleDetailClient({
                           fontWeight: "600",
                         }}
                       >
-                        {article.authorName.charAt(0).toUpperCase()}
+                        {article.authorName?.charAt(0).toUpperCase()}
                       </Avatar>
                       <Box>
                         <Typography
