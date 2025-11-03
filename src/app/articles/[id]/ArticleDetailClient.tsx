@@ -301,7 +301,7 @@ export default function ArticleDetailClient({
                           fontWeight: "600",
                         }}
                       >
-                        {article.author.name.charAt(0).toUpperCase()}
+                        {article.authorName.charAt(0).toUpperCase()}
                       </Avatar>
                       <Box>
                         <Typography
@@ -313,7 +313,7 @@ export default function ArticleDetailClient({
                             marginBottom: "2px",
                           }}
                         >
-                          {article.author.name}
+                          {article.authorName}
                         </Typography>
                         <Typography
                           variant="body2"
@@ -502,7 +502,7 @@ export default function ArticleDetailClient({
                     AUTHOR
                   </Typography>
                   <Typography variant="body1" sx={{ fontWeight: "500" }}>
-                    {article.author.name}
+                    {article.authorName}
                   </Typography>
                 </Box>
 
