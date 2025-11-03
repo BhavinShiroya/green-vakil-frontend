@@ -227,37 +227,42 @@ const Footer = () => {
     <Box>
       <Box
         sx={{
-          height: { xs: "1120px", md: "702px" },
+          height: { xs: "1120px", sm: "702px", md: "702px" },
           backgroundColor: "#1D2331",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          paddingInline: { xs: "20px", md: "80px" },
+          paddingInline: { xs: "20px", sm: "30px", md: "50px", lg: "80px" },
         }}
       >
         <Box
           sx={{
             display: "flex",
-            flexDirection: { xs: "column", md: "row" },
+            flexDirection: { xs: "column", sm: "row", md: "row" },
             width: "100%",
             justifyContent: "center",
-            gap: { xs: "40px", md: "120px" },
-            flexWrap: "wrap",
+            gap: { xs: "40px", sm: "40px", md: "60px", lg: "120px" },
+            flexWrap: { xs: "wrap", sm: "nowrap", md: "nowrap" },
           }}
         >
           <Box
             sx={{
-              width: { xs: "353px", md: "500px" },
-              order: { xs: 0, md: 1 },
+              width: { xs: "353px", sm: "420px", md: "450px", lg: "500px" },
+              maxWidth: "100%",
+              minWidth: { xs: "auto", sm: "350px" },
+              flexShrink: 0,
+              order: { xs: 0, sm: 1, md: 1 },
             }}
           >
             <Typography
               sx={{
                 color: "#ffff",
-                fontSize: { xs: "35px", md: "60px" },
+                fontSize: { xs: "35px", sm: "42px", md: "50px", lg: "60px" },
                 fontWeight: "800",
                 lineHeight: "130%",
                 fontFamily: "TTRamillas",
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
               }}
             >
               {`We Are Just A Message Away`}
@@ -277,8 +282,8 @@ const Footer = () => {
             {/* Newsletter Subscription - Desktop View (in left column) */}
             <Box
               sx={{
-                width: { xs: "100%", md: "80%" },
-                display: { xs: "none", md: "block" }, // Hide on mobile, show on desktop
+                width: { xs: "100%", sm: "80%", md: "80%" },
+                display: { xs: "none", sm: "block", md: "block" }, // Hide on mobile, show on desktop
                 mt: "80px",
               }}
             >
@@ -309,9 +314,13 @@ const Footer = () => {
                 onSubmit={handleNewsletterSubmit}
                 sx={{
                   display: "flex",
-                  flexDirection: { xs: "column", md: "row" },
+                  flexDirection: { xs: "column", sm: "row", md: "row" },
                   gap: "12px",
-                  alignItems: { xs: "stretch", md: "flex-start" },
+                  alignItems: {
+                    xs: "stretch",
+                    sm: "flex-start",
+                    md: "flex-start",
+                  },
                 }}
               >
                 <TextField
@@ -398,9 +407,12 @@ const Footer = () => {
           {/* Contact Form */}
           <Box
             sx={{
-              width: { xs: "100%", md: "50%" },
+              width: { xs: "100%", sm: "auto", md: "auto" },
+              flex: { xs: "none", sm: "1 1 auto", md: "1 1 auto" },
+              minWidth: { xs: "auto", sm: "400px" },
+              maxWidth: { xs: "100%", sm: "600px", md: "650px" },
               padding: "0px",
-              order: { xs: 1, md: 2 },
+              order: { xs: 1, sm: 2, md: 2 },
             }}
           >
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -411,7 +423,7 @@ const Footer = () => {
                   sx={{
                     display: "flex",
                     gap: "20px",
-                    flexDirection: { xs: "column", md: "row" },
+                    flexDirection: { xs: "column", sm: "row", md: "row" },
                   }}
                 >
                   <Controller
@@ -428,7 +440,7 @@ const Footer = () => {
                           errors.firstName ? errors.firstName.message : ""
                         }
                         sx={{
-                          width: { xs: "100%", md: "50%" },
+                          width: { xs: "100%", sm: "50%", md: "50%" },
                           "& .MuiOutlinedInput-root": {
                             color: "white",
                             backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -468,7 +480,7 @@ const Footer = () => {
                           errors.lastName ? errors.lastName.message : ""
                         }
                         sx={{
-                          width: { xs: "100%", md: "50%" },
+                          width: { xs: "100%", sm: "50%", md: "50%" },
                           "& .MuiOutlinedInput-root": {
                             color: "white",
                             backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -574,7 +586,7 @@ const Footer = () => {
                   sx={{
                     display: "flex",
                     gap: "20px",
-                    flexDirection: { xs: "column", md: "row" },
+                    flexDirection: { xs: "column", sm: "row", md: "row" },
                   }}
                 >
                   <Controller
@@ -590,7 +602,7 @@ const Footer = () => {
                         error={!!errors.email}
                         helperText={errors.email ? errors.email.message : ""}
                         sx={{
-                          width: { xs: "100%", md: "50%" },
+                          width: { xs: "100%", sm: "50%", md: "50%" },
                           "& .MuiOutlinedInput-root": {
                             color: "white",
                             backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -618,7 +630,7 @@ const Footer = () => {
 
                   <Box
                     sx={{
-                      width: { xs: "100%", md: "50%" },
+                      width: { xs: "100%", sm: "50%", md: "50%" },
                       display: "flex",
                       gap: "8px",
                     }}
@@ -1074,9 +1086,9 @@ const Footer = () => {
           {/* Newsletter Subscription */}
           <Box
             sx={{
-              width: { xs: "100%", md: "500px" },
-              order: { xs: 2, md: 3 },
-              display: { xs: "block", md: "none" }, // Show only on mobile initially
+              width: { xs: "100%", sm: "500px", md: "500px" },
+              order: { xs: 2, sm: 3, md: 3 },
+              display: { xs: "block", sm: "none", md: "none" }, // Show only on mobile, hide on sm and above
             }}
           >
             <Typography
@@ -1206,9 +1218,9 @@ const Footer = () => {
           <Box
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", md: "row" },
+              flexDirection: { xs: "column", sm: "row", md: "row" },
               justifyContent: "space-between",
-              gap: { xs: "30px", md: "60px" },
+              gap: { xs: "30px", sm: "60px", md: "60px" },
               maxWidth: "1500px",
               margin: "0 auto",
             }}
