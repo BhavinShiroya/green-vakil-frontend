@@ -16,10 +16,26 @@ import {
   Divider,
   Paper,
   Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
-import { ArrowBack, AccessTime, CalendarToday } from "@mui/icons-material";
+import {
+  ArrowBack,
+  AccessTime,
+  CalendarToday,
+  Share,
+  ContentCopy,
+  WhatsApp,
+  Facebook,
+  X,
+  LinkedIn,
+} from "@mui/icons-material";
 import { Article } from "../../../services/api";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 interface ArticleDetailClientProps {
   article: Article | null;
@@ -63,6 +79,9 @@ export default function ArticleDetailClient({
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
+  const [shareMenuAnchor, setShareMenuAnchor] = useState<null | HTMLElement>(
+    null
+  );
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -89,6 +108,88 @@ export default function ArticleDetailClient({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [article]);
+
+  // Close share menu on scroll
+  useEffect(() => {
+    if (!shareMenuAnchor) return;
+
+    const handleScroll = () => {
+      setShareMenuAnchor(null);
+    };
+
+    window.addEventListener("scroll", handleScroll, true);
+    return () => window.removeEventListener("scroll", handleScroll, true);
+  }, [shareMenuAnchor]);
+
+  // Share functionality
+  const handleShareMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setShareMenuAnchor(event.currentTarget);
+  };
+
+  const handleShareMenuClose = () => {
+    setShareMenuAnchor(null);
+  };
+
+  const getArticleUrl = () => {
+    if (typeof window !== "undefined") {
+      return window.location.href;
+    }
+    return "";
+  };
+
+  const getArticleTitle = () => {
+    return article?.title || "";
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      const url = getArticleUrl();
+      await navigator.clipboard.writeText(url);
+      toast.success("Link copied to clipboard!");
+      handleShareMenuClose();
+    } catch (err) {
+      toast.error("Failed to copy link");
+      console.error("Failed to copy:", err);
+    }
+  };
+
+  const handleWhatsAppShare = () => {
+    const url = getArticleUrl();
+    const text = `Check out this article: ${getArticleTitle()}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
+      `${text} ${url}`
+    )}`;
+    window.open(whatsappUrl, "_blank");
+    handleShareMenuClose();
+  };
+
+  const handleFacebookShare = () => {
+    const url = getArticleUrl();
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      url
+    )}`;
+    window.open(facebookUrl, "_blank", "width=600,height=400");
+    handleShareMenuClose();
+  };
+
+  const handleTwitterShare = () => {
+    const url = getArticleUrl();
+    const text = getArticleTitle();
+    const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+      url
+    )}&text=${encodeURIComponent(text)}`;
+    window.open(twitterUrl, "_blank", "width=600,height=400");
+    handleShareMenuClose();
+  };
+
+  const handleLinkedInShare = () => {
+    const url = getArticleUrl();
+    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+      url
+    )}`;
+    window.open(linkedInUrl, "_blank", "width=600,height=400");
+    handleShareMenuClose();
+  };
 
   if (error) {
     return (
@@ -279,6 +380,18 @@ export default function ArticleDetailClient({
                     >
                       {article.title}
                     </Typography>
+                    <IconButton
+                      onClick={handleShareMenuOpen}
+                      sx={{
+                        backgroundColor: "#f5f5f5",
+                        "&:hover": {
+                          backgroundColor: "#e0e0e0",
+                        },
+                      }}
+                      aria-label="share article"
+                    >
+                      <Share />
+                    </IconButton>
                   </Box>
 
                   {/* Author and Meta Info */}
@@ -360,6 +473,105 @@ export default function ArticleDetailClient({
                     </Box>
                   </Box>
                 </Box>
+
+                {/* Share Menu */}
+                <Menu
+                  anchorEl={shareMenuAnchor}
+                  open={Boolean(shareMenuAnchor)}
+                  onClose={handleShareMenuClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  PaperProps={{
+                    sx: {
+                      borderRadius: "12px",
+                      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
+                      minWidth: "200px",
+                      mt: 1,
+                    },
+                  }}
+                >
+                  <MenuItem
+                    onClick={handleCopyLink}
+                    sx={{
+                      borderRadius: "8px",
+                      margin: "4px 8px",
+                      "&:hover": {
+                        backgroundColor: "#f5f5f5",
+                      },
+                    }}
+                  >
+                    <ListItemIcon>
+                      <ContentCopy fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Copy Link</ListItemText>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleWhatsAppShare}
+                    sx={{
+                      borderRadius: "8px",
+                      margin: "4px 8px",
+                      "&:hover": {
+                        backgroundColor: "#f5f5f5",
+                      },
+                    }}
+                  >
+                    <ListItemIcon>
+                      <WhatsApp fontSize="small" sx={{ color: "#25D366" }} />
+                    </ListItemIcon>
+                    <ListItemText>Share on WhatsApp</ListItemText>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleFacebookShare}
+                    sx={{
+                      borderRadius: "8px",
+                      margin: "4px 8px",
+                      "&:hover": {
+                        backgroundColor: "#f5f5f5",
+                      },
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Facebook fontSize="small" sx={{ color: "#1877F2" }} />
+                    </ListItemIcon>
+                    <ListItemText>Share on Facebook</ListItemText>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleTwitterShare}
+                    sx={{
+                      borderRadius: "8px",
+                      margin: "4px 8px",
+                      "&:hover": {
+                        backgroundColor: "#f5f5f5",
+                      },
+                    }}
+                  >
+                    <ListItemIcon>
+                      <X fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Share on X (Twitter)</ListItemText>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleLinkedInShare}
+                    sx={{
+                      borderRadius: "8px",
+                      margin: "4px 8px",
+                      "&:hover": {
+                        backgroundColor: "#f5f5f5",
+                      },
+                    }}
+                  >
+                    <ListItemIcon>
+                      <LinkedIn fontSize="small" sx={{ color: "#0077B5" }} />
+                    </ListItemIcon>
+                    <ListItemText>Share on LinkedIn</ListItemText>
+                  </MenuItem>
+                </Menu>
 
                 {/* Article Content */}
                 {article.description && (
