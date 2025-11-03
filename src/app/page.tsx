@@ -231,7 +231,7 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Corporate & Business Law")}
               sx={{
-                width: { xs: "353px", md: "625px" },
+                width: { xs: "353px", md: "600px", lg: "625px" },
                 height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
@@ -311,7 +311,7 @@ export default function Home() {
             <Box
               onClick={() => handleServiceClick("Family & Divorce Law")}
               sx={{
-                width: { xs: "353px", md: "625px" },
+                width: { xs: "353px", md: "600px", lg: "625px" },
                 height: { xs: "214px", md: "150px" },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "20px",
