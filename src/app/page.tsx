@@ -110,9 +110,19 @@ export default function Home() {
               lineHeight: "120%",
               fontFamily: "TTRamillas",
               marginTop: { xs: "100px", md: "0px" },
+              minHeight: { md: "216px" }, // Reserve space for 3 lines on desktop only (60px * 1.2 * 3 = 216px)
             }}
           >
-            Find Your Legal Ally With Greenway Lawyer
+            {/* Mobile: Original text without breaks */}
+            <Box component="span" sx={{ display: { xs: "block", md: "none" } }}>
+              Find Your Legal Ally With Greenway Lawyer
+            </Box>
+            {/* Desktop: Text with explicit breaks */}
+            <Box component="span" sx={{ display: { xs: "none", md: "block" } }}>
+              Find Your Legal Ally With Greenway
+              <br />
+              Lawyer
+            </Box>
           </Typography>
           <Typography
             component="h2"
