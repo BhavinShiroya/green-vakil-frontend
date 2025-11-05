@@ -391,12 +391,15 @@ const Footer = () => {
                     textTransform: "none",
                     whiteSpace: "nowrap",
                     minWidth: "120px",
+                    cursor: "pointer",
                     "&:hover": {
                       backgroundColor: "#2D5FDD",
+                      cursor: "pointer",
                     },
                     "&:disabled": {
                       backgroundColor: "rgba(255, 255, 255, 0.1)",
                       color: "rgba(255, 255, 255, 0.5)",
+                      cursor: "not-allowed",
                     },
                   }}
                 >
@@ -1070,12 +1073,15 @@ const Footer = () => {
                     fontWeight: "600",
                     borderRadius: "12px",
                     textTransform: "none",
+                    cursor: "pointer",
                     "&:hover": {
                       backgroundColor: "#2D5FCC",
+                      cursor: "pointer",
                     },
                     "&:disabled": {
                       backgroundColor: "rgba(61, 116, 255, 0.5)",
                       color: "rgba(255, 255, 255, 0.7)",
+                      cursor: "not-allowed",
                     },
                   }}
                 >
@@ -1204,12 +1210,15 @@ const Footer = () => {
                   textTransform: "none",
                   whiteSpace: "nowrap",
                   minWidth: "120px",
+                  cursor: "pointer",
                   "&:hover": {
                     backgroundColor: "#2D5FDD",
+                    cursor: "pointer",
                   },
                   "&:disabled": {
                     backgroundColor: "rgba(255, 255, 255, 0.1)",
                     color: "rgba(255, 255, 255, 0.5)",
+                    cursor: "not-allowed",
                   },
                 }}
               >

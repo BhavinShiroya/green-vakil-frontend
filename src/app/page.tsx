@@ -167,6 +167,7 @@ export default function Home() {
               mx: { xs: "auto", md: 0 }, // Center horizontally only on mobile
               "&:hover": {
                 backgroundColor: "#2D5FCC",
+                cursor: "pointer",
               },
             }}
           >
@@ -1035,6 +1036,7 @@ export default function Home() {
               cursor: "pointer",
               "&:hover": {
                 backgroundColor: "rgba(255, 255, 255, 0.9)",
+                cursor: "pointer",
               },
             }}
           >

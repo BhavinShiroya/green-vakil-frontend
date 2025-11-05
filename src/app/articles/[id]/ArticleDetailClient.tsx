@@ -305,8 +305,10 @@ export default function ArticleDetailClient({
               sx={{
                 marginBottom: "24px",
                 color: "#666",
+                cursor: "pointer",
                 "&:hover": {
                   backgroundColor: "rgba(0,0,0,0.04)",
+                  cursor: "pointer",
                 },
               }}
             >
@@ -384,8 +386,10 @@ export default function ArticleDetailClient({
                       onClick={handleShareMenuOpen}
                       sx={{
                         backgroundColor: "#f5f5f5",
+                        cursor: "pointer",
                         "&:hover": {
                           backgroundColor: "#e0e0e0",
+                          cursor: "pointer",
                         },
                       }}
                       aria-label="share article"
@@ -502,8 +506,10 @@ export default function ArticleDetailClient({
                     sx={{
                       borderRadius: "8px",
                       margin: "4px 8px",
+                      cursor: "pointer",
                       "&:hover": {
                         backgroundColor: "#f5f5f5",
+                        cursor: "pointer",
                       },
                     }}
                   >
@@ -517,8 +523,10 @@ export default function ArticleDetailClient({
                     sx={{
                       borderRadius: "8px",
                       margin: "4px 8px",
+                      cursor: "pointer",
                       "&:hover": {
                         backgroundColor: "#f5f5f5",
+                        cursor: "pointer",
                       },
                     }}
                   >
@@ -532,8 +540,10 @@ export default function ArticleDetailClient({
                     sx={{
                       borderRadius: "8px",
                       margin: "4px 8px",
+                      cursor: "pointer",
                       "&:hover": {
                         backgroundColor: "#f5f5f5",
+                        cursor: "pointer",
                       },
                     }}
                   >
@@ -547,8 +557,10 @@ export default function ArticleDetailClient({
                     sx={{
                       borderRadius: "8px",
                       margin: "4px 8px",
+                      cursor: "pointer",
                       "&:hover": {
                         backgroundColor: "#f5f5f5",
+                        cursor: "pointer",
                       },
                     }}
                   >
@@ -562,8 +574,10 @@ export default function ArticleDetailClient({
                     sx={{
                       borderRadius: "8px",
                       margin: "4px 8px",
+                      cursor: "pointer",
                       "&:hover": {
                         backgroundColor: "#f5f5f5",
+                        cursor: "pointer",
                       },
                     }}
                   >

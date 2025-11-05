@@ -222,7 +222,13 @@ export default function Navbar() {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mb: "10px" }}
+            sx={{
+              mb: "10px",
+              cursor: "pointer",
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }}
           >
             <MenuIcon />
           </IconButton>
@@ -308,7 +314,15 @@ export default function Navbar() {
               marginBottom: "40px",
             }}
           >
-            <IconButton onClick={handleDrawerToggle}>
+            <IconButton
+              onClick={handleDrawerToggle}
+              sx={{
+                cursor: "pointer",
+                "&:hover": {
+                  cursor: "pointer",
+                },
+              }}
+            >
               <CloseIcon />
             </IconButton>
           </Box>
