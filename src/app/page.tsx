@@ -1,6 +1,19 @@
 "use client";
 import Image from "next/image";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Autocomplete,
+  CircularProgress,
+  IconButton,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import Navbar from "@/Components/Navbar/page";
 import HomeImage from "../../public/Lawyer.png";
 import CorporateIcon from "../../public/CorporateIcon.svg";
@@ -15,8 +28,228 @@ import EmploymentIcon from "../../public/EmploymentIcon.svg";
 import AttorneyImage from "../../public/femaleJudge.svg";
 import Footer from "@/Components/Footer/page";
 import { useEffect, useState } from "react";
+import { State, City } from "country-state-city";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import toast from "react-hot-toast";
+import { apiService, ApiError } from "../services/api";
+
+// Define Yup validation schema for modal form
+const modalSchema = yup.object().shape({
+  fullName: yup.string().required("Please fill in this field"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Please fill in this field"),
+  phone: yup
+    .string()
+    .required("Please fill in this field")
+    .test(
+      "phone-format",
+      "Phone number must be in format: XXX XXX XXXX",
+      function (value) {
+        if (!value || value === "") return false;
+        return /^\d{3} \d{3} \d{4}$/.test(value);
+      }
+    ),
+  state: yup.string().required("Please fill in this field"),
+  city: yup.string().required("Please fill in this field"),
+  legalService: yup.string().required("Please fill in this field"),
+});
 
 export default function Home() {
+  // Modal state
+  const [openModal, setOpenModal] = useState(false);
+
+  // React Hook Form setup
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue,
+    watch,
+    trigger,
+  } = useForm({
+    resolver: yupResolver(modalSchema),
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+    shouldFocusError: false,
+    defaultValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+      city: "",
+      state: "",
+      legalService: "",
+    },
+  });
+
+  const [states, setStates] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedLegalService, setSelectedLegalService] = useState<
+    string | null
+  >(null);
+
+  // Reset selectedLegalService when modal closes
+  useEffect(() => {
+    if (!openModal) {
+      setSelectedLegalService(null);
+    }
+  }, [openModal]);
+
+  // Legal services options
+  const legalServices = [
+    "Immigration Law",
+    "Real Estate Law",
+    "Corporate & Business Law",
+    "Family & Divorce Law",
+    "Estate Planning & Wills",
+    "Criminal Defense",
+    "Personal Injury Law",
+    "Employment & Labor Law",
+    "Not Sure / Other",
+  ];
+
+  // Load states on mount
+  useEffect(() => {
+    const usStates = State.getStatesOfCountry("US");
+    if (usStates) {
+      setStates(usStates.map((state) => state.name));
+    }
+  }, []);
+
+  // Watch state value from form
+  const watchedState = watch("state");
+
+  // Load cities when state changes
+  useEffect(() => {
+    if (watchedState) {
+      const stateCode = State.getStatesOfCountry("US")?.find(
+        (s) => s.name === watchedState
+      )?.isoCode;
+      if (stateCode) {
+        const stateCities = City.getCitiesOfState("US", stateCode);
+        if (stateCities) {
+          setCities(stateCities.map((city) => city.name));
+        }
+      } else {
+        setCities([]);
+      }
+    } else {
+      setCities([]);
+      setValue("city", "");
+    }
+  }, [watchedState, setValue]);
+
+  // Close modal on scroll
+  useEffect(() => {
+    if (!openModal) return;
+
+    const handleScroll = () => {
+      handleCloseModal();
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [openModal]);
+
+  // Handle modal open
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  // Handle modal close
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    // Reset form
+    reset();
+    setSelectedLegalService(null);
+    setCities([]);
+    // Clear form fields manually to avoid validation triggers
+    setValue("fullName", "");
+    setValue("email", "");
+    setValue("phone", "");
+    setValue("city", "");
+    setValue("state", "");
+    setValue("legalService", "");
+    // Reset form state after clearing values
+    setTimeout(() => {
+      reset();
+    }, 100);
+  };
+
+  // Format phone number
+  const formatPhoneNumber = (value: string) => {
+    const numbers = value.replace(/[^0-9]/g, "");
+    let formatted = "";
+
+    if (numbers.length > 0) {
+      formatted = numbers.substring(0, 3);
+    }
+    if (numbers.length > 3) {
+      formatted += " " + numbers.substring(3, 6);
+    }
+    if (numbers.length > 6) {
+      formatted += " " + numbers.substring(6, 10);
+    }
+
+    return formatted;
+  };
+
+  // Handle form submit
+  const onSubmit = async (data: {
+    fullName: string;
+    email: string;
+    phone: string;
+    city: string;
+    state: string;
+    legalService: string;
+  }) => {
+    setIsSubmitting(true);
+
+    try {
+      await apiService.submitAttorneyApplication({
+        fullName: data.fullName,
+        email: data.email,
+        phoneNumber: data.phone,
+        city: data.city,
+        state: data.state,
+        legalService: data.legalService,
+      });
+
+      toast.success("Thank you for your interest! We will contact you soon.", {
+        duration: 4000,
+        position: "top-right",
+      });
+
+      // Close modal and reset form
+      handleCloseModal();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+
+      // Handle different error scenarios
+      const apiError = error as ApiError;
+      const backendError = apiError.response?.data as
+        | { message?: string; error?: string }
+        | undefined;
+      const errorMessage =
+        backendError?.message ||
+        backendError?.error ||
+        "Failed to submit. Please check your connection and try again.";
+
+      toast.error(errorMessage, {
+        duration: 4000,
+        position: "top-right",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   const handleServiceClick = (serviceName: string) => {
     // Scroll to footer - target the beginning of the footer section
     const footerElement = document.getElementById("footer");
@@ -1013,17 +1246,7 @@ export default function Home() {
             we would love to hear from you.
           </Typography>
           <Button
-            onClick={() => {
-              const footerElement = document.getElementById("footer");
-              if (footerElement) {
-                const navbarHeight = 100; // Height of the fixed navbar
-                const elementPosition = footerElement.offsetTop - navbarHeight;
-                window.scrollTo({
-                  top: elementPosition,
-                  behavior: "smooth",
-                });
-              }
-            }}
+            onClick={handleOpenModal}
             sx={{
               backgroundColor: "#fff",
               color: "#000000",
@@ -1192,6 +1415,332 @@ export default function Home() {
       <Box id="footer" sx={{ marginTop: "80px" }}>
         <Footer />
       </Box>
+
+      {/* Join Our Network Modal */}
+      <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: "16px",
+            padding: "8px",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "24px 24px 16px 24px",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: "24px",
+              fontWeight: "700",
+              color: "#1a1a1a",
+            }}
+          >
+            Join Our Network
+          </Typography>
+          <IconButton
+            onClick={handleCloseModal}
+            sx={{
+              cursor: "pointer",
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <DialogContent sx={{ padding: "24px" }}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              {/* Full Name and Email in one row */}
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "20px",
+                  flexDirection: { xs: "column", sm: "row", md: "row" },
+                }}
+              >
+                {/* Full Name */}
+                <Controller
+                  name="fullName"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Full Name"
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.fullName}
+                      helperText={
+                        errors.fullName ? errors.fullName.message : ""
+                      }
+                      sx={{
+                        flex: 1,
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "12px",
+                        },
+                      }}
+                      required
+                    />
+                  )}
+                />
+
+                {/* Email */}
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Email Address"
+                      type="email"
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.email}
+                      helperText={errors.email ? errors.email.message : ""}
+                      sx={{
+                        flex: 1,
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "12px",
+                        },
+                      }}
+                      required
+                    />
+                  )}
+                />
+              </Box>
+
+              {/* Phone */}
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Phone Number"
+                    variant="outlined"
+                    fullWidth
+                    type="tel"
+                    onChange={(e) => {
+                      const formatted = formatPhoneNumber(e.target.value);
+                      field.onChange(formatted);
+                    }}
+                    inputProps={{
+                      inputMode: "numeric",
+                      maxLength: 12,
+                    }}
+                    error={!!errors.phone}
+                    helperText={errors.phone ? errors.phone.message : ""}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "12px",
+                      },
+                    }}
+                    required
+                  />
+                )}
+              />
+
+              {/* State and City in one row */}
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "20px",
+                  flexDirection: { xs: "column", sm: "row", md: "row" },
+                }}
+              >
+                {/* State */}
+                <Controller
+                  name="state"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      {...field}
+                      options={states}
+                      value={watch("state") || ""}
+                      onChange={(event, newValue) => {
+                        field.onChange(newValue || "");
+                        setValue("city", "");
+                        trigger("city");
+                      }}
+                      sx={{
+                        flex: 1,
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="State"
+                          variant="outlined"
+                          error={!!errors.state}
+                          helperText={errors.state ? errors.state.message : ""}
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              borderRadius: "12px",
+                            },
+                          }}
+                          required
+                        />
+                      )}
+                    />
+                  )}
+                />
+
+                {/* City */}
+                <Controller
+                  name="city"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      freeSolo
+                      {...field}
+                      options={cities}
+                      value={watch("city") || ""}
+                      onChange={(event, newValue) => {
+                        field.onChange(newValue || "");
+                        trigger("city");
+                      }}
+                      onInputChange={(event, newInputValue) => {
+                        field.onChange(newInputValue || "");
+                        trigger("city");
+                      }}
+                      disabled={!watchedState}
+                      sx={{
+                        flex: 1,
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="City"
+                          variant="outlined"
+                          error={!!errors.city}
+                          helperText={
+                            errors.city
+                              ? errors.city.message
+                              : watchedState && cities.length === 0
+                              ? "Type your city name"
+                              : ""
+                          }
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              borderRadius: "12px",
+                            },
+                          }}
+                          required
+                        />
+                      )}
+                    />
+                  )}
+                />
+              </Box>
+
+              {/* Legal Service */}
+              <Controller
+                name="legalService"
+                control={control}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    options={legalServices}
+                    value={selectedLegalService}
+                    onChange={(event, newValue) => {
+                      field.onChange(newValue || "");
+                      setSelectedLegalService(newValue);
+                      trigger("legalService");
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Legal Service"
+                        variant="outlined"
+                        error={!!errors.legalService}
+                        helperText={
+                          errors.legalService ? errors.legalService.message : ""
+                        }
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            borderRadius: "12px",
+                          },
+                        }}
+                        required
+                      />
+                    )}
+                  />
+                )}
+              />
+            </Box>
+          </DialogContent>
+
+          <DialogActions
+            sx={{
+              padding: "16px 24px 24px 24px",
+              justifyContent: "flex-end",
+              gap: "12px",
+            }}
+          >
+            <Button
+              onClick={handleCloseModal}
+              disabled={isSubmitting}
+              sx={{
+                color: "#666",
+                textTransform: "none",
+                fontSize: "16px",
+                fontWeight: "500",
+                cursor: "pointer",
+                "&:hover": {
+                  cursor: "pointer",
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                },
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isSubmitting}
+              sx={{
+                backgroundColor: "#3D74FF",
+                color: "white",
+                borderRadius: "12px",
+                padding: "10px 24px",
+                fontSize: "16px",
+                fontWeight: "600",
+                textTransform: "none",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "#2D5FCC",
+                  cursor: "pointer",
+                },
+                "&:disabled": {
+                  backgroundColor: "rgba(61, 116, 255, 0.5)",
+                  color: "rgba(255, 255, 255, 0.7)",
+                  cursor: "not-allowed",
+                },
+              }}
+            >
+              {isSubmitting ? (
+                <>
+                  <CircularProgress size={20} color="inherit" sx={{ mr: 1 }} />
+                  Submitting...
+                </>
+              ) : (
+                "Submit"
+              )}
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+
       {/* Footer Section */}
     </Box>
   );

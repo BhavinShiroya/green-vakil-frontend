@@ -17,7 +17,7 @@ export interface Author {
 }
 
 export interface Article {
-  author: Author
+  author?: Author | null;
   id: string;
   title: string;
   subtitle?: string;
@@ -36,6 +36,15 @@ export interface ArticlesResponse {
   limit: number;
   totalPages: number;
   totalResults: number;
+}
+
+export interface AttorneySubmission {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  city: string;
+  state: string;
+  legalService: string;
 }
 
 export const apiService = {
@@ -142,6 +151,34 @@ export const apiService = {
       return;
     } catch (error) {
       console.error('Error subscribing to newsletter:', error);
+      throw error;
+    }
+  },
+
+  // Submit attorney application
+  async submitAttorneyApplication(data: AttorneySubmission): Promise<void> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/attorneys`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        const error: ApiError = new Error(`HTTP error! status: ${response.status}`);
+        error.response = {
+          status: response.status,
+          data: errorData,
+        };
+        throw error;
+      }
+
+      return;
+    } catch (error) {
+      console.error('Error submitting attorney application:', error);
       throw error;
     }
   },

@@ -432,15 +432,15 @@ export default function ArticleDetailClient({
                         >
                           {article.authorName}
                         </Typography>
-                        <Typography
+                        {/* <Typography
                           variant="body2"
                           sx={{
                             color: "#666",
                             fontSize: "14px",
                           }}
                         >
-                          {article.author.role}
-                        </Typography>
+                          {article.author?.role || "Author"}
+                        </Typography> */}
                       </Box>
                     </Box>
 
