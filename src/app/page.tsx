@@ -1066,6 +1066,8 @@ export default function Home() {
               fontWeight: "800",
               color: "#000000",
               fontFamily: "TTRamillas",
+              width: { xs: "100%", md: "50%", xl: "500px" },
+              textAlign: { xs: "center", md: "start", xl: "end" },
             }}
           >
             About Us

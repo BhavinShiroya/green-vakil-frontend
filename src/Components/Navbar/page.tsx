@@ -13,17 +13,26 @@ import Logo from "../../../public/Greenway.logo.svg";
 import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Handle route changes - detect articles page
+  useEffect(() => {
+    if (pathname?.startsWith("/articles")) {
+      setActiveSection("articles");
+    } else if (pathname === "/") {
+      setActiveSection("home");
+    }
+  }, [pathname]);
 
   useEffect(() => {
-    // Check if we're on articles page
-    if (window.location.pathname === "/articles") {
-      setActiveSection("articles");
+    // Only handle scroll-based section detection on home page
+    if (pathname !== "/") {
       return;
     }
 
@@ -46,16 +55,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Handle route changes
-  useEffect(() => {
-    if (window.location.pathname === "/articles") {
-      setActiveSection("articles");
-    } else if (window.location.pathname === "/") {
-      setActiveSection("home");
-    }
-  }, []);
+  }, [pathname]);
 
   const scrollToSection = (sectionId: string) => {
     // If we're not on the home page, navigate to home first
