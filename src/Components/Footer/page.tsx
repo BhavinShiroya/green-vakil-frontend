@@ -312,6 +312,7 @@ const Footer = () => {
               <Box
                 component="form"
                 onSubmit={handleNewsletterSubmit}
+                noValidate
                 sx={{
                   display: "flex",
                   flexDirection: { xs: "column", sm: "row", md: "row" },
@@ -348,6 +349,15 @@ const Footer = () => {
                       "&.Mui-focused fieldset": {
                         borderColor: "#3D74FF",
                       },
+                      "&.Mui-error fieldset": {
+                        borderColor: "#d32f2f",
+                      },
+                      "&.Mui-error:hover fieldset": {
+                        borderColor: "#d32f2f",
+                      },
+                      "&.Mui-error.Mui-focused fieldset": {
+                        borderColor: "#d32f2f",
+                      },
                       "& .MuiInputBase-input": {
                         color: "#fff",
                         padding: "12px 14px",
@@ -360,6 +370,9 @@ const Footer = () => {
                     "& .MuiFormHelperText-root": {
                       color: "rgba(255, 255, 255, 0.7)",
                       fontSize: "12px",
+                      "&.Mui-error": {
+                        color: "#d32f2f",
+                      },
                     },
                   }}
                   disabled={isNewsletterSubmitting}
@@ -1116,6 +1129,7 @@ const Footer = () => {
             <Box
               component="form"
               onSubmit={handleNewsletterSubmit}
+              noValidate
               sx={{
                 display: "flex",
                 flexDirection: { xs: "column", md: "row" },
@@ -1148,6 +1162,15 @@ const Footer = () => {
                     "&.Mui-focused fieldset": {
                       borderColor: "#3D74FF",
                     },
+                    "&.Mui-error fieldset": {
+                      borderColor: "#d32f2f",
+                    },
+                    "&.Mui-error:hover fieldset": {
+                      borderColor: "#d32f2f",
+                    },
+                    "&.Mui-error.Mui-focused fieldset": {
+                      borderColor: "#d32f2f",
+                    },
                     "& .MuiInputBase-input": {
                       color: "#fff",
                       padding: "12px 14px",
@@ -1160,6 +1183,9 @@ const Footer = () => {
                   "& .MuiFormHelperText-root": {
                     color: "rgba(255, 255, 255, 0.7)",
                     fontSize: "12px",
+                    "&.Mui-error": {
+                      color: "#d32f2f",
+                    },
                   },
                 }}
                 disabled={isNewsletterSubmitting}
