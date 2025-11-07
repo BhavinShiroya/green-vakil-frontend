@@ -143,20 +143,6 @@ export default function Home() {
     }
   }, [watchedState, setValue]);
 
-  // Close modal on scroll
-  useEffect(() => {
-    if (!openModal) return;
-
-    const handleScroll = () => {
-      handleCloseModal();
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [openModal]);
-
   // Handle modal open
   const handleOpenModal = () => {
     setOpenModal(true);
