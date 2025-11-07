@@ -356,15 +356,15 @@ export default function ArticleDetailClient({
                 </Box>
               )}
 
-              <CardContent sx={{ padding: "40px" }}>
+              <CardContent sx={{ padding: { xs: "20px", md: "40px" } }}>
                 {/* Article Header */}
-                <Box sx={{ marginBottom: "32px" }}>
+                <Box sx={{ marginBottom: { xs: "20px", md: "32px" } }}>
                   <Box
                     sx={{
                       display: "flex",
                       alignItems: "flex-start",
                       justifyContent: "space-between",
-                      marginBottom: "24px",
+                      marginBottom: { xs: "16px", md: "24px" },
                       flexWrap: "wrap",
                       gap: 2,
                     }}
@@ -372,11 +372,11 @@ export default function ArticleDetailClient({
                     <Typography
                       sx={{
                         fontWeight: "700",
-                        fontSize: { xs: "32px" },
-                        lineHeight: 1.4,
+                        fontSize: { xs: "22px", sm: "26px", md: "32px" },
+                        lineHeight: { xs: 1.3, md: 1.4 },
                         color: "#1a1a1a",
                         flex: 1,
-                        minWidth: "300px",
+                        minWidth: { xs: "0", sm: "300px" },
                         letterSpacing: "-0.02em",
                       }}
                     >
@@ -403,18 +403,24 @@ export default function ArticleDetailClient({
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      gap: 3,
-                      marginBottom: "24px",
+                      gap: { xs: 1.5, md: 3 },
+                      marginBottom: { xs: "16px", md: "24px" },
                       flexWrap: "wrap",
                     }}
                   >
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: { xs: 1, md: 2 },
+                      }}
+                    >
                       <Avatar
                         sx={{
-                          width: 48,
-                          height: 48,
+                          width: { xs: 40, md: 48 },
+                          height: { xs: 40, md: 48 },
                           backgroundColor: "#1976d2",
-                          fontSize: "18px",
+                          fontSize: { xs: "16px", md: "18px" },
                           fontWeight: "600",
                         }}
                       >
@@ -425,7 +431,7 @@ export default function ArticleDetailClient({
                           variant="body1"
                           sx={{
                             color: "#333",
-                            fontSize: "16px",
+                            fontSize: { xs: "14px", md: "16px" },
                             fontWeight: "600",
                             marginBottom: "2px",
                           }}
@@ -447,12 +453,17 @@ export default function ArticleDetailClient({
                     <Divider orientation="vertical" flexItem />
 
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                      <CalendarToday sx={{ fontSize: "16px", color: "#666" }} />
+                      <CalendarToday
+                        sx={{
+                          fontSize: { xs: "14px", md: "16px" },
+                          color: "#666",
+                        }}
+                      />
                       <Typography
                         variant="body2"
                         sx={{
                           color: "#666",
-                          fontSize: "14px",
+                          fontSize: { xs: "12px", md: "14px" },
                         }}
                       >
                         {mounted ? formatDate(article.createdAt) : "Loading..."}
@@ -462,12 +473,17 @@ export default function ArticleDetailClient({
                     <Divider orientation="vertical" flexItem />
 
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                      <AccessTime sx={{ fontSize: "16px", color: "#666" }} />
+                      <AccessTime
+                        sx={{
+                          fontSize: { xs: "14px", md: "16px" },
+                          color: "#666",
+                        }}
+                      />
                       <Typography
                         variant="body2"
                         sx={{
                           color: "#666",
-                          fontSize: "14px",
+                          fontSize: { xs: "12px", md: "14px" },
                         }}
                       >
                         {article.description
@@ -593,31 +609,31 @@ export default function ArticleDetailClient({
                   <Box
                     sx={{
                       "& p": {
-                        marginBottom: "24px",
-                        lineHeight: 1.8,
-                        fontSize: "18px",
+                        marginBottom: { xs: "16px", md: "24px" },
+                        lineHeight: { xs: 1.6, md: 1.8 },
+                        fontSize: { xs: "16px", md: "18px" },
                         color: "#2c2c2c",
                         textAlign: "justify",
                       },
                       "& h1, & h2, & h3, & h4, & h5, & h6": {
-                        marginTop: "32px",
-                        marginBottom: "16px",
+                        marginTop: { xs: "24px", md: "32px" },
+                        marginBottom: { xs: "12px", md: "16px" },
                         fontWeight: "700",
                         color: "#1a1a1a",
-                        lineHeight: 1.3,
+                        lineHeight: { xs: 1.2, md: 1.3 },
                       },
-                      "& h1": { fontSize: "32px" },
-                      "& h2": { fontSize: "28px" },
-                      "& h3": { fontSize: "24px" },
-                      "& h4": { fontSize: "20px" },
+                      "& h1": { fontSize: { xs: "24px", md: "32px" } },
+                      "& h2": { fontSize: { xs: "22px", md: "28px" } },
+                      "& h3": { fontSize: { xs: "20px", md: "24px" } },
+                      "& h4": { fontSize: { xs: "18px", md: "20px" } },
                       "& ul, & ol": {
-                        marginBottom: "24px",
-                        paddingLeft: "32px",
+                        marginBottom: { xs: "16px", md: "24px" },
+                        paddingLeft: { xs: "20px", md: "32px" },
                       },
                       "& li": {
-                        marginBottom: "12px",
-                        lineHeight: 1.7,
-                        fontSize: "18px",
+                        marginBottom: { xs: "8px", md: "12px" },
+                        lineHeight: { xs: 1.5, md: 1.7 },
+                        fontSize: { xs: "16px", md: "18px" },
                         color: "#2c2c2c",
                       },
                       "& blockquote": {
