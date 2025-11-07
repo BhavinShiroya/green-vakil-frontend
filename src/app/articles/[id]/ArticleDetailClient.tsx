@@ -234,7 +234,7 @@ export default function ArticleDetailClient({
       sx={{
         paddingTop: { xs: "90px", md: "120px" },
         minHeight: "100vh",
-        padding: "40px 20px",
+        padding: "40px 0px",
         position: "relative",
       }}
     >
