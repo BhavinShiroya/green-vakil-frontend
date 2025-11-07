@@ -1460,13 +1460,19 @@ export default function Home() {
         </DialogTitle>
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogContent sx={{ padding: "24px" }}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <DialogContent sx={{ padding: { xs: "16px", md: "24px" } }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: { xs: "12px", md: "20px" },
+              }}
+            >
               {/* Full Name and Email in one row */}
               <Box
                 sx={{
                   display: "flex",
-                  gap: "20px",
+                  gap: { xs: "12px", md: "20px" },
                   flexDirection: { xs: "column", sm: "row", md: "row" },
                 }}
               >
@@ -1480,6 +1486,7 @@ export default function Home() {
                       label="Full Name"
                       variant="outlined"
                       fullWidth
+                      size="small"
                       error={!!errors.fullName}
                       helperText={
                         errors.fullName ? errors.fullName.message : ""
@@ -1488,6 +1495,14 @@ export default function Home() {
                         flex: 1,
                         "& .MuiOutlinedInput-root": {
                           borderRadius: "12px",
+                          height: { xs: "40px", md: "56px" },
+                          fontSize: { xs: "14px", md: "16px" },
+                        },
+                        "& .MuiInputLabel-root": {
+                          fontSize: { xs: "14px", md: "16px" },
+                        },
+                        "& .MuiFormHelperText-root": {
+                          fontSize: { xs: "11px", md: "12px" },
                         },
                       }}
                       required
@@ -1506,12 +1521,21 @@ export default function Home() {
                       type="email"
                       variant="outlined"
                       fullWidth
+                      size="small"
                       error={!!errors.email}
                       helperText={errors.email ? errors.email.message : ""}
                       sx={{
                         flex: 1,
                         "& .MuiOutlinedInput-root": {
                           borderRadius: "12px",
+                          height: { xs: "40px", md: "56px" },
+                          fontSize: { xs: "14px", md: "16px" },
+                        },
+                        "& .MuiInputLabel-root": {
+                          fontSize: { xs: "14px", md: "16px" },
+                        },
+                        "& .MuiFormHelperText-root": {
+                          fontSize: { xs: "11px", md: "12px" },
                         },
                       }}
                       required
@@ -1531,6 +1555,7 @@ export default function Home() {
                     variant="outlined"
                     fullWidth
                     type="tel"
+                    size="small"
                     onChange={(e) => {
                       const formatted = formatPhoneNumber(e.target.value);
                       field.onChange(formatted);
@@ -1544,6 +1569,14 @@ export default function Home() {
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         borderRadius: "12px",
+                        height: { xs: "40px", md: "56px" },
+                        fontSize: { xs: "14px", md: "16px" },
+                      },
+                      "& .MuiInputLabel-root": {
+                        fontSize: { xs: "14px", md: "16px" },
+                      },
+                      "& .MuiFormHelperText-root": {
+                        fontSize: { xs: "11px", md: "12px" },
                       },
                     }}
                     required
@@ -1555,7 +1588,7 @@ export default function Home() {
               <Box
                 sx={{
                   display: "flex",
-                  gap: "20px",
+                  gap: { xs: "12px", md: "20px" },
                   flexDirection: { xs: "column", sm: "row", md: "row" },
                 }}
               >
@@ -1581,11 +1614,20 @@ export default function Home() {
                           {...params}
                           label="State"
                           variant="outlined"
+                          size="small"
                           error={!!errors.state}
                           helperText={errors.state ? errors.state.message : ""}
                           sx={{
                             "& .MuiOutlinedInput-root": {
                               borderRadius: "12px",
+                              height: { xs: "40px", md: "56px" },
+                              fontSize: { xs: "14px", md: "16px" },
+                            },
+                            "& .MuiInputLabel-root": {
+                              fontSize: { xs: "14px", md: "16px" },
+                            },
+                            "& .MuiFormHelperText-root": {
+                              fontSize: { xs: "11px", md: "12px" },
                             },
                           }}
                           required
@@ -1622,6 +1664,7 @@ export default function Home() {
                           {...params}
                           label="City"
                           variant="outlined"
+                          size="small"
                           error={!!errors.city}
                           helperText={
                             errors.city
@@ -1633,6 +1676,14 @@ export default function Home() {
                           sx={{
                             "& .MuiOutlinedInput-root": {
                               borderRadius: "12px",
+                              height: { xs: "40px", md: "56px" },
+                              fontSize: { xs: "14px", md: "16px" },
+                            },
+                            "& .MuiInputLabel-root": {
+                              fontSize: { xs: "14px", md: "16px" },
+                            },
+                            "& .MuiFormHelperText-root": {
+                              fontSize: { xs: "11px", md: "12px" },
                             },
                           }}
                           required
@@ -1662,6 +1713,7 @@ export default function Home() {
                         {...params}
                         label="Legal Service"
                         variant="outlined"
+                        size="small"
                         error={!!errors.legalService}
                         helperText={
                           errors.legalService ? errors.legalService.message : ""
@@ -1669,6 +1721,14 @@ export default function Home() {
                         sx={{
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "12px",
+                            height: { xs: "40px", md: "56px" },
+                            fontSize: { xs: "14px", md: "16px" },
+                          },
+                          "& .MuiInputLabel-root": {
+                            fontSize: { xs: "14px", md: "16px" },
+                          },
+                          "& .MuiFormHelperText-root": {
+                            fontSize: { xs: "11px", md: "12px" },
                           },
                         }}
                         required
@@ -1682,9 +1742,9 @@ export default function Home() {
 
           <DialogActions
             sx={{
-              padding: "16px 24px 24px 24px",
+              padding: { xs: "12px 16px 16px 16px", md: "16px 24px 24px 24px" },
               justifyContent: "flex-end",
-              gap: "12px",
+              gap: { xs: "8px", md: "12px" },
             }}
           >
             <Button
@@ -1693,8 +1753,9 @@ export default function Home() {
               sx={{
                 color: "#666",
                 textTransform: "none",
-                fontSize: "16px",
+                fontSize: { xs: "14px", md: "16px" },
                 fontWeight: "500",
+                padding: { xs: "8px 16px", md: "10px 24px" },
                 cursor: "pointer",
                 "&:hover": {
                   cursor: "pointer",
@@ -1712,8 +1773,8 @@ export default function Home() {
                 backgroundColor: "#3D74FF",
                 color: "white",
                 borderRadius: "12px",
-                padding: "10px 24px",
-                fontSize: "16px",
+                padding: { xs: "8px 16px", md: "10px 24px" },
+                fontSize: { xs: "14px", md: "16px" },
                 fontWeight: "600",
                 textTransform: "none",
                 cursor: "pointer",
