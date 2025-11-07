@@ -110,7 +110,6 @@ export default function Home() {
     "Criminal Defense",
     "Personal Injury Law",
     "Employment & Labor Law",
-    "Not Sure / Other",
   ];
 
   // Load states on mount
