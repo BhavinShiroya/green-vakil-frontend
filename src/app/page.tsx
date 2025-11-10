@@ -353,9 +353,11 @@ export default function Home() {
               letterSpacing: "0px",
             }}
           >
-            We are your trusted gateway to the best legal support. We bridge the
-            gap between you and the right attorney, simplifying your search so
-            you can focus on moving forward with confidence.
+            We are your direct connection to reliable legal advice. At Greenway
+            Lawyer, we connect people with the right attorney, simplifying every
+            step so you can understand your options and move forward with
+            confidence. Here, the law is spoken clearly, feels approachable, and
+            works in your favor.
           </Typography>
           <Button
             onClick={() => {
@@ -439,7 +441,7 @@ export default function Home() {
             lineHeight: "130%",
           }}
         >
-          Legal Services We Connect You With
+          Trusted and Specialized Legal Services for Every Stage of Your Life:
         </Typography>
         <Box
           sx={{
@@ -533,7 +535,9 @@ export default function Home() {
                   }}
                 >
                   Smart legal guidance for startups, entrepreneurs, and
-                  enterprises protecting your business at every stage.
+                  established companies. Protect your contracts, ideas, and
+                  every stage of your growth with clear and reliable legal
+                  support.
                 </Typography>
               </Box>
             </Box>
@@ -603,7 +607,7 @@ export default function Home() {
                     marginTop: { xs: "80px", md: "unset" },
                   }}
                 >
-                  Family & Divorce Law
+                  Family Law and Divorce
                 </Typography>
                 <Typography
                   sx={{
@@ -612,8 +616,9 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Navigating life’s most personal transitions with care,
-                  clarity, and compassion from trusted legal experts.
+                  Compassionate and professional guidance to help you navigate
+                  separations, custody cases, and family agreements with clarity
+                  and empathy.
                 </Typography>
               </Box>
             </Box>
@@ -692,7 +697,7 @@ export default function Home() {
                     marginTop: { xs: "80px", md: "unset" },
                   }}
                 >
-                  Estate Planning & Wills
+                  Wills and Estate Planning
                 </Typography>
                 <Typography
                   sx={{
@@ -701,8 +706,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Secure your future and protect your loved ones plan with
-                  confidence through skilled legal support.
+                  Secure your future and that of your loved ones. Organize your
+                  assets with confidence, legal backing, and a long-term vision.
                 </Typography>
               </Box>
             </Box>
@@ -781,9 +786,9 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Trusted help with visas, green cards, work permits, and
-                  citizenship. Guidance for individuals, families, and
-                  businesses at every stage
+                  Dependable assistance for visas, residency, work permits, and
+                  citizenship. Practical guidance for individuals, families, and
+                  businesses every step of the way.
                 </Typography>
               </Box>
             </Box>
@@ -862,7 +867,7 @@ export default function Home() {
                     marginTop: { xs: "80px", md: "unset" },
                   }}
                 >
-                  Criminal Defense
+                  Criminal Law and Defense
                 </Typography>
                 <Typography
                   sx={{
@@ -871,8 +876,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Strong, strategic defense when it matters most—your rights
-                  protected by experienced professionals.
+                  Strong, strategic defense when you need it most. Your rights
+                  protected by experienced attorneys committed to your case.
                 </Typography>
               </Box>
             </Box>
@@ -951,8 +956,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  From buying a home to resolving disputes, get dependable legal
-                  help for all your property matters.
+                  From buying or leasing to resolving disputes, receive clear,
+                  trustworthy legal advice for all your property matters.
                 </Typography>
               </Box>
             </Box>
@@ -1040,8 +1045,9 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  If you’ve been hurt, we connect you with attorneys who fight
-                  for your compensation and peace of mind.
+                  If you’ve suffered an accident or injury, we connect you with
+                  lawyers who will fight for your compensation and peace of
+                  mind.
                 </Typography>
               </Box>
             </Box>
@@ -1111,7 +1117,7 @@ export default function Home() {
                     marginTop: { xs: "80px", md: "unset" },
                   }}
                 >
-                  Employment & Labor Law
+                  Labor and Employment Law
                 </Typography>
                 <Typography
                   sx={{
@@ -1120,8 +1126,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  {`Know your rights at work whether you're an employee or
-                  employer, get expert legal insight on workplace matters.`}
+                  {`Know and protect your workplace rights. Whether you’re an employee or an
+                employer, access reliable legal counsel to resolve any work-related conflicts.`}
                 </Typography>
               </Box>
             </Box>
@@ -1212,7 +1218,8 @@ export default function Home() {
               marginTop: { xs: "50px", md: "unset" },
             }}
           >
-            Are You An Attorney?
+            Are you a lawyer? Join the network that’s transforming the way law
+            is practiced.
           </Typography>
           <Typography
             component="h2"
@@ -1226,9 +1233,14 @@ export default function Home() {
               letterSpacing: "0px",
             }}
           >
-            We are building a trusted network of legal professionals across the
-            U.S. If you are an attorney and want to be listed on our platform,
-            we would love to hear from you.
+            Become part of Greenway Lawyer, a community of legal professionals
+            who believe in a new way of connecting with people — closer,
+            clearer, and more human.
+            <br />
+            <br />
+            We give you visibility, digital tools, and a network of clients who
+            value trust just as much as experience. You bring the expertise; we
+            make sure people find you.
           </Typography>
           <Button
             onClick={handleOpenModal}
@@ -1313,7 +1325,8 @@ export default function Home() {
                   lineHeight: { xs: "155%" },
                 }}
               >
-                {`Greenway Lawyer, a legal services platform by  Greenway Lawyer LLC, helps individuals and businesses connect with attorneys who are best suited for their legal needs.`}
+                {`At Greenway Lawyer, we believe the law shouldn’t be a maze — it should be a
+            clear path toward real solutions.`}
               </Typography>
             </Box>
 
@@ -1339,7 +1352,9 @@ export default function Home() {
                   lineHeight: { xs: "155%" },
                 }}
               >
-                {`The platform provides access to experienced lawyers and trusted legal professionals across multiple practice areas, making it simple to find the right attorney online.`}
+                {`We are a modern legal platform that connects individuals and businesses with
+verified lawyers, carefully selected for their expertise, ethics, and genuine
+human commitment.`}
               </Typography>
             </Box>
 
@@ -1365,7 +1380,11 @@ export default function Home() {
                   lineHeight: { xs: "155%" },
                 }}
               >
-                {`Our mission is to make hiring an attorney clear, reliable, and client focused. Whether you are addressing a complex legal challenge or seeking straightforward guidance, Greenway Lawyer offers a transparent and professional experience designed to match you with qualified legal support.`}
+                {`Our mission is simple: to make finding the right lawyer an easy, transparent,
+
+                  and stress-free experience. Whether you’re facing a divorce, a workplace
+                    issue, or a business decision, we help you take the right step with the guidance
+                  of professionals who understand your story.`}
               </Typography>
             </Box>
 
@@ -1391,7 +1410,37 @@ export default function Home() {
                   lineHeight: { xs: "155%" },
                 }}
               >
-                {`Each attorney in our network is thoroughly vetted, ensuring that clients receive skilled and dependable representation. Greenway Lawyer combines modern technology with trusted expertise to create a direct pathway to the right attorney and a stronger outcome for every client.`}
+                {`Every lawyer in our network goes through a rigorous selection process. We
+                  make sure that every name behind Greenway Lawyer represents what we
+                  value most: trust, clarity, and real results.`}
+              </Typography>
+            </Box>
+            <Box
+              sx={{ display: "flex", alignItems: "flex-start", gap: "12px" }}
+            >
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: 1,
+                  marginTop: "2px",
+                }}
+              >
+                •
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: "15px", md: "17px" },
+                  fontWeight: "400",
+                  color: "#000000",
+                  lineHeight: { xs: "155%" },
+                }}
+              >
+                {`We combine modern technology with personalized attention to create a direct
+                  bridge between you and the legal help you truly need. Because to us, your
+                  case isn’t just paperwork — it’s part of your life, and it deserves to be heard,
+                  understood, and defended with empathy and purpose.`}
               </Typography>
             </Box>
           </Box>
