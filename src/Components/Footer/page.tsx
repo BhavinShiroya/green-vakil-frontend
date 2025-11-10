@@ -1392,7 +1392,7 @@ const Footer = () => {
                     color: "rgba(255, 255, 255, 0.7)",
                   }}
                 >
-                  Email: info@greenwaylawyer.com
+                  Email: support@greenwaylawyer.com
                 </Typography>
                 <Typography
                   sx={{
