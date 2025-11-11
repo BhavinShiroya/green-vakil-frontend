@@ -275,8 +275,7 @@ const Footer = () => {
                 marginBottom: { xs: "0px", md: "30px" },
               }}
             >
-              {` Whether you have questions or need legal help, we are here to connect
-            you with the right support quickly and confidentially.`}
+              {` Need legal help or have questions? Our team connects you with qualified attorneys for fast, confidential support.`}
             </Typography>
 
             {/* Newsletter Subscription - Desktop View (in left column) */}
@@ -295,7 +294,7 @@ const Footer = () => {
                   marginBottom: "12px",
                 }}
               >
-                Stay Updated
+                Stay Connected
               </Typography>
               <Typography
                 sx={{
@@ -306,8 +305,7 @@ const Footer = () => {
                   lineHeight: "160%",
                 }}
               >
-                Subscribe to our newsletter for legal insights, articles, and
-                news.
+                Get the latest legal articles delivered to your inbox.
               </Typography>
               <Box
                 component="form"
@@ -1118,7 +1116,7 @@ const Footer = () => {
                 marginBottom: "12px",
               }}
             >
-              Stay Updated
+              Stay Connected
             </Typography>
             <Typography
               sx={{
@@ -1129,8 +1127,7 @@ const Footer = () => {
                 lineHeight: "160%",
               }}
             >
-              Subscribe to our newsletter for legal insights, articles, and
-              news.
+              Get the latest legal articles delivered to your inbox.
             </Typography>
             <Box
               component="form"
@@ -1280,7 +1277,7 @@ const Footer = () => {
                   lineHeight: "160%",
                 }}
               >
-                Your trusted gateway to expert legal support. Connecting you
+                Your online platform for expert legal support. We connect you
                 with qualified attorneys across the United States.
               </Typography>
             </Box>
