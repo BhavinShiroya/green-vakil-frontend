@@ -1277,8 +1277,8 @@ const Footer = () => {
                   lineHeight: "160%",
                 }}
               >
-                Your online platform for expert legal support. We connect you
-                with qualified attorneys across the United States.
+                Greenway Lawyer — your online platform for expert legal support.
+                We connect you with attorneys across the United States
               </Typography>
             </Box>
 

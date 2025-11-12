@@ -333,13 +333,11 @@ export default function Home() {
           >
             {/* Mobile: Original text without breaks */}
             <Box component="span" sx={{ display: { xs: "block", md: "none" } }}>
-              Find Your Legal Ally With Greenway Lawyer
+              Find the Right Attorney with Greenway Lawyer
             </Box>
             {/* Desktop: Text with explicit breaks */}
             <Box component="span" sx={{ display: { xs: "none", md: "block" } }}>
-              Find Your Legal Ally With Greenway
-              <br />
-              Lawyer
+              Find the Right Attorney with Greenway Lawyer
             </Box>
           </Typography>
           <Typography
@@ -353,9 +351,8 @@ export default function Home() {
               letterSpacing: "0px",
             }}
           >
-            At Greenway Lawyer, we connect people with the right attorney,
-            simplifying every step so you can understand your options and move
-            forward with confidence.
+            We connect you with the right attorney, simplifying every step so
+            you can understand your options and move forward with confidence.
           </Typography>
           <Button
             onClick={() => {
@@ -432,14 +429,14 @@ export default function Home() {
           sx={{
             fontSize: { xs: "35px", md: "60px" },
             fontWeight: "800",
-            width: { xs: "353px", md: "717px" },
+            width: { xs: "353px", md: "680px" },
             textAlign: "start",
             fontFamily: "TTRamillas",
             marginLeft: { xs: "0px", xl: "230px" },
             lineHeight: "130%",
           }}
         >
-          Legal Services We Connect You With
+          Find the Legal Help You Need
         </Typography>
         <Box
           sx={{
@@ -532,8 +529,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Legal support for startups and companies. Protect contracts,
-                  ideas, and business growth with expert guidance.
+                  Business formation, contracts, compliance, partnerships, and
+                  other corporate legal matters.
                 </Typography>
               </Box>
             </Box>
@@ -612,8 +609,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Compassionate help for divorce, custody, and family
-                  matters—clear guidance for your peace of mind.
+                  Divorce, child custody, alimony, domestic issues, and other
+                  family-related legal matters
                 </Typography>
               </Box>
             </Box>
@@ -701,8 +698,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Secure your future with wills, trusts, and asset planning
-                  backed by reliable legal support.
+                  Wills, trusts, probate, and asset planning for managing and
+                  protecting your estate.
                 </Typography>
               </Box>
             </Box>
@@ -781,8 +778,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Experienced immigration lawyers for visas, green cards, and
-                  citizenship support at every step.
+                  Visas, green cards, citizenship, asylum, deportation defense,
+                  and other immigration-related legal matters.
                 </Typography>
               </Box>
             </Box>
@@ -870,8 +867,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Strong defense from trusted attorneys protecting your rights
-                  in any criminal case.
+                  Representation for misdemeanors, felonies, DUI, domestic
+                  violence, and other criminal defense cases.
                 </Typography>
               </Box>
             </Box>
@@ -950,8 +947,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Expert help for buying, leasing, or resolving property
-                  disputes with clear, reliable advice.
+                  Buying, selling, leasing, property disputes, zoning, and other
+                  real estate legal matters.
                 </Typography>
               </Box>
             </Box>
@@ -1039,9 +1036,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Get connected with lawyers who handle all types of injury
-                  cases—from accidents to medical negligence—and fight for your
-                  fair compensation.
+                  Accidents, medical negligence, workplace injuries, product
+                  liability, and other personal injury cases.”
                 </Typography>
               </Box>
             </Box>
@@ -1120,7 +1116,7 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  {`Protect your workplace rights with trusted legal help for employees and employers.`}
+                  {`Workplace rights, discrimination, wrongful termination, wage disputes, and employment contracts for employees and employers.`}
                 </Typography>
               </Box>
             </Box>
@@ -1225,9 +1221,9 @@ export default function Home() {
               letterSpacing: "0px",
             }}
           >
-            We are building a trusted network of legal professionals across the
-            U.S. If you are an attorney and want to be listed on our platform,
-            we would love to hear from you.
+            We are building a network of trusted legal professionals across the
+            U.S. If you are an attorney and would like to be listed on our
+            platform, we would love to hear from you.
           </Typography>
           <Button
             onClick={handleOpenModal}
@@ -1312,7 +1308,7 @@ export default function Home() {
                   lineHeight: { xs: "155%" },
                 }}
               >
-                {`Simplifying Legal Help: At Greenway Lawyer, we make it easy to find trusted attorneys for your specific legal needs — without confusion or stress.`}
+                {`Greenway Lawyer is an online platform operated by Greenway Lawyer LLC that connects clients with qualified attorneys across the United States. Our goal is to simplify the process of finding reliable legal help by matching clients with attorneys who fit their specific legal needs and location.`}
               </Typography>
             </Box>
 
@@ -1338,7 +1334,7 @@ export default function Home() {
                   lineHeight: { xs: "155%" },
                 }}
               >
-                {`Verified Legal Experts: We connect individuals and businesses with experienced, ethical lawyers carefully selected for quality and reliability.`}
+                {`For clients, Greenway Lawyer provides a transparent and straightforward way to connect with trusted legal professionals. For attorneys, the platform offers greater visibility and direct access to clients actively seeking representation in their practice areas.`}
               </Typography>
             </Box>
 
@@ -1364,11 +1360,11 @@ export default function Home() {
                   lineHeight: { xs: "155%" },
                 }}
               >
-                {`Client-Focused Mission: Our goal is to offer transparent, fast, and supportive legal connections that help you make confident decisions.`}
+                {`We are committed to building a trusted network that promotes clarity, efficiency, and confidence in connecting clients with the right attorneys.`}
               </Typography>
             </Box>
 
-            <Box
+            {/* <Box
               sx={{ display: "flex", alignItems: "flex-start", gap: "12px" }}
             >
               <Typography
@@ -1392,7 +1388,7 @@ export default function Home() {
               >
                 {`Personal Approach: We bridge the gap between people and the right legal support — ensuring your case is understood, handled with care, and guided toward real results.`}
               </Typography>
-            </Box>
+            </Box> */}
           </Box>
         </Box>
       </Box>
