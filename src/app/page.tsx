@@ -529,7 +529,7 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Business formation, contracts, compliance, partnerships, and
+                  Business formation, contracts, compliance, partnerships and
                   other corporate legal matters.
                 </Typography>
               </Box>
@@ -609,8 +609,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Divorce, child custody, alimony, domestic issues, and other
-                  family-related legal matters
+                  Divorce, child custody, alimony, domestic issues and other
+                  family related legal matters
                 </Typography>
               </Box>
             </Box>
@@ -778,8 +778,8 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Visas, green cards, citizenship, asylum, deportation defense,
-                  and other immigration-related legal matters.
+                  Visas, green cards, citizenship, asylum, deportation defense
+                  and other immigration related legal matters.
                 </Typography>
               </Box>
             </Box>
@@ -947,7 +947,7 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  Buying, selling, leasing, property disputes, zoning, and other
+                  Buying, selling, leasing, property disputes, zoning and other
                   real estate legal matters.
                 </Typography>
               </Box>
