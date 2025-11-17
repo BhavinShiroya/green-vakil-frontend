@@ -868,7 +868,7 @@ export default function Home() {
                   }}
                 >
                   Representation for misdemeanors, felonies, DUI, domestic
-                  violence, and other criminal defense cases.
+                  violence and other criminal defense cases.
                 </Typography>
               </Box>
             </Box>
@@ -1037,7 +1037,7 @@ export default function Home() {
                   }}
                 >
                   Accidents, medical negligence, workplace injuries, product
-                  liability, and other personal injury cases.”
+                  liability and other personal injury cases.
                 </Typography>
               </Box>
             </Box>
@@ -1116,7 +1116,7 @@ export default function Home() {
                     mt: "8px",
                   }}
                 >
-                  {`Workplace rights, discrimination, wrongful termination, wage disputes, and employment contracts for employees and employers.`}
+                  {`Workplace rights, discrimination, wrongful termination, wage disputes and employment contracts for employees and employers.`}
                 </Typography>
               </Box>
             </Box>
