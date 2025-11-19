@@ -69,10 +69,39 @@ const Footer = () => {
   const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
   const [newsletterError, setNewsletterError] = useState("");
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber?: string;
+    message?: string;
+    legalService: string;
+    state: string;
+    city: string;
+  }) => {
     setIsSubmitting(true);
 
     try {
+      // Convert phoneNumber from "XXX XXX XXXX" format to number
+      const phoneNumberAsNumber = data.phoneNumber
+        ? parseInt(data.phoneNumber.replace(/\s/g, ""), 10)
+        : 0;
+
+      // Prepare data for API call
+      const contactData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        legalService: data.legalService,
+        email: data.email,
+        phoneNumber: `${phoneNumberAsNumber}`,
+        state: data.state,
+        city: data.city,
+        message: data.message || "",
+      };
+
+      // Make API call
+      await apiService.submitContact(contactData);
+
       // Show success message
       toast.success("Message sent successfully! We will contact you soon.", {
         duration: 4000,
@@ -102,14 +131,21 @@ const Footer = () => {
     } catch (error) {
       console.error("Error submitting form:", error);
 
+      // Extract backend error message if available
+      const apiError = error as ApiError;
+      const backendError = apiError.response?.data as
+        | { message?: string; error?: string }
+        | undefined;
+      const errorMessage =
+        backendError?.message ||
+        backendError?.error ||
+        "❌ Failed to send message. Please check your connection and try again.";
+
       // Show error message
-      toast.error(
-        "❌ Failed to send message. Please check your connection and try again.",
-        {
-          duration: 4000,
-          position: "top-right",
-        }
-      );
+      toast.error(errorMessage, {
+        duration: 4000,
+        position: "top-right",
+      });
     } finally {
       setIsSubmitting(false);
     }

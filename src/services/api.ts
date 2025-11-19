@@ -47,6 +47,17 @@ export interface AttorneySubmission {
   legalService: string;
 }
 
+export interface ContactSubmission {
+  firstName: string;
+  lastName: string;
+  legalService: string;
+  email: string;
+  phoneNumber: string;
+  state: string;
+  city: string;
+  message: string;
+}
+
 export const apiService = {
   async getPublishedArticles(): Promise<Article[]> {
     try {
@@ -179,6 +190,35 @@ export const apiService = {
       return;
     } catch (error) {
       console.error('Error submitting attorney application:', error);
+      throw error;
+    }
+  },
+
+  // Submit contact form
+  async submitContact(data: ContactSubmission): Promise<void> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/contacts`, {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        const error: ApiError = new Error(`HTTP error! status: ${response.status}`);
+        error.response = {
+          status: response.status,
+          data: errorData,
+        };
+        throw error;
+      }
+
+      return;
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
       throw error;
     }
   },
