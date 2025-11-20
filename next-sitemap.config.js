@@ -1,7 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl:
-    process.env.SITE_URL || "https://green-vakil-frontend-rho.vercel.app/",
+  siteUrl: process.env.SITE_URL || "https://www.greenwaylawyer.com/",
   generateRobotsTxt: true, // (optional)
   generateIndexSitemap: false, // Set to true if you have many pages
   exclude: ["/admin/*", "/api/*"], // Exclude admin and API routes
